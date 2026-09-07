@@ -56,6 +56,8 @@ public/assets/img/*
 # directory instead.)
 !public/assets/img/careers-paths.webp
 !public/assets/img/story-tata-channel.webp
+!public/assets/img/about-vision.webp
+!public/assets/img/about-mission.webp
 
 # job applications — personal data (CVs, contact details), never commit
 applications/

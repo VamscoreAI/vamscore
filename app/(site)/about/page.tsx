@@ -112,19 +112,37 @@ export default function AboutPage() {
       </section>
 
       {/* -------------------------------------------------------------- Vision */}
-      <section
-        id="vision"
-        className="relative isolate overflow-clip bg-white py-20 lg:py-28"
-      >
-        <BandArt image={VISION.image} />
-        <div className="shell relative grid gap-10 lg:grid-cols-[240px_1fr] lg:gap-16">
-          <Reveal variant="left">
-            <Eyebrow variant="eyelid">{VISION.eyebrow}</Eyebrow>
-          </Reveal>
-          <Reveal variant="soft" delay={120}>
-            <p className="type-section max-w-[900px] text-carbon">
-              {VISION.statement}
-            </p>
+      {/* Copy left, picture right — and mirrored on Mission below, so the two
+          statements read as a pair rather than as two identical bands.
+
+          Both pictures were supplied with "OUR VISION" / "OUR MISSION" set into
+          their left third. That lettering is cropped off: the eyebrow beside
+          each one already says it, and a picture captioning itself next to a
+          live heading is the same word twice.
+
+          The order swap is CSS only (`lg:order-*`). In the DOM the copy comes
+          first in both, so the reading order is heading-then-image either way
+          and does not invert for a screen reader or for anyone tabbing. */}
+      <section id="vision" className="overflow-clip bg-white py-20 lg:py-28">
+        <div className="shell grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <Reveal variant="left">
+              <Eyebrow variant="eyelid">{VISION.eyebrow}</Eyebrow>
+            </Reveal>
+            <Reveal variant="soft" delay={120}>
+              <p className="type-section mt-8 text-carbon">{VISION.statement}</p>
+            </Reveal>
+          </div>
+
+          <Reveal variant="right" delay={200} className="lg:order-2">
+            <Image
+              src={VISION.image}
+              alt=""
+              width={1104}
+              height={941}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="h-auto w-full"
+            />
           </Reveal>
         </div>
       </section>
@@ -132,31 +150,31 @@ export default function AboutPage() {
       {/* ------------------------------------------------------------- Mission */}
       <section
         id="mission"
-        className="relative isolate overflow-clip bg-carbon text-white"
+        className="overflow-clip bg-carbon py-20 text-white lg:py-28"
       >
-        <div className="absolute inset-0">
-          <Image
-            src={MISSION.image}
-            alt=""
-            fill
-            sizes="100vw"
-            className="band-art object-cover opacity-60"
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-r from-carbon via-carbon/70 to-carbon/20"
-          />
-        </div>
-        <div className="shell relative grid gap-10 py-24 lg:grid-cols-[240px_1fr] lg:gap-16 lg:py-32">
-          <Reveal variant="left">
-            <Eyebrow variant="eyelid" className="text-white">
-              {MISSION.eyebrow}
-            </Eyebrow>
-          </Reveal>
-          <Reveal delay={120}>
-            <p className="type-band max-w-[46ch] text-white">
-              {MISSION.statement}
-            </p>
+        <div className="shell grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <Reveal variant="right">
+              <Eyebrow variant="eyelid" className="text-white">
+                {MISSION.eyebrow}
+              </Eyebrow>
+            </Reveal>
+            <Reveal variant="soft" delay={120}>
+              <p className="type-band mt-8 text-white">{MISSION.statement}</p>
+            </Reveal>
+          </div>
+
+          {/* `lg:order-first` puts the picture on the left here — the mirror of
+              Vision — while leaving it second in the DOM. */}
+          <Reveal variant="left" delay={200} className="lg:order-first">
+            <Image
+              src={MISSION.image}
+              alt=""
+              width={1070}
+              height={941}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="h-auto w-full"
+            />
           </Reveal>
         </div>
       </section>

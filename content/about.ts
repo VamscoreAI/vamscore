@@ -37,10 +37,13 @@ export const ABOUT_HERO = {
 
 export const VISION = {
   eyebrow: "VISION",
-  // Drop a file in public/assets/img and point this at it — it sits behind the
-  // copy under a scrim. Null renders no image at all, so there is no 404 and no
-  // empty frame; the band simply keeps its flat background.
-  image: `${IMG}/vision-ai-platform.webp`,
+  // Supplied by UV. A column of its own beside the statement now, not a scrim
+  // backdrop — so unlike the old band art this is not optional, and the type
+  // is `string` rather than `string | null`.
+  //
+  // Cropped before use: the file came with "OUR VISION" set into its left
+  // third, which the eyebrow two lines up already says.
+  image: `${IMG}/about-vision.webp`,
 
   statement:
     "To become a globally trusted AI and technology company that transforms businesses and education through intelligent automation, innovative digital solutions, and STEM-driven technology.",
@@ -50,7 +53,9 @@ export const MISSION = {
   eyebrow: "MISSION",
   statement:
     "Our mission is to combine artificial intelligence, technology, and human expertise to create practical, scalable, and affordable solutions that help organizations improve efficiency, enhance customer experiences, make smarter decisions, and accelerate growth.",
-  image: `${IMG}/mission-data-streams.webp`,
+  // Same treatment as VISION.image: UV's own, with the baked-in "OUR MISSION"
+  // lettering cropped away.
+  image: `${IMG}/about-mission.webp`,
 };
 
 export const OBJECTIVES: {
