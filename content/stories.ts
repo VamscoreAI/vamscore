@@ -255,8 +255,12 @@ export const STORIES: Story[] = [
       "Tata Docomo: an authorised channel across sales, distribution and service",
     standfirst:
       "Channel partners were the extended arm of Tata Teleservices — acquiring subscribers, moving stock, running local marketing and answering customers, all inside a licensing regime that left no room for improvisation.",
-    hero: `${IMG}/hero-people-readiness.webp`,
-    heroAlt: "A service desk handling customer requests",
+    // Same picture as the band slide on the home page, per the note in
+    // `CUSTOMER_STORIES`: clicking through should land you somewhere you
+    // recognise.
+    hero: `${IMG}/story-tata-channel.webp`,
+    heroAlt:
+      "Three sides of the channel: a phone retail counter, stock being unloaded at a distribution point, and a service agent on a headset",
     meta: [
       { term: "Client", detail: "Tata Teleservices Limited" },
       { term: "Brand", detail: "Tata Docomo" },

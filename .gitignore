@@ -49,9 +49,13 @@ next-env.d.ts
 public/assets/*
 !public/assets/img/
 public/assets/img/*
-# UV's own illustration, supplied by UV rather than downloaded. A fresh clone
-# needs it, and nothing can refetch it, so it is versioned.
+# Supplied by UV rather than downloaded. A fresh clone needs these and nothing
+# can refetch them, so they are versioned. Add a line here for every UV-supplied
+# image — miss one and it deploys from your machine but 404s for anyone who
+# clones. (If this list keeps growing, move them to their own un-ignored
+# directory instead.)
 !public/assets/img/careers-paths.webp
+!public/assets/img/story-tata-channel.webp
 
 # job applications — personal data (CVs, contact details), never commit
 applications/
