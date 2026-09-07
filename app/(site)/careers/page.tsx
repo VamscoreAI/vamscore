@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { CAREERS } from "@/content/careers";
 import { Arrow, Eyebrow } from "@/components/ui";
-import Reveal from "@/components/ui/Reveal";
 import ApplySection from "@/components/careers/ApplySection";
 
 export const metadata: Metadata = {
@@ -14,8 +13,31 @@ export const metadata: Metadata = {
 export default function CareersPage() {
   return (
     <>
-      <section className="bg-carbon py-20 text-white lg:py-28">
-        <div className="shell">
+      {/* The illustration sits behind the hero rather than in a band of its own.
+
+          It is a bright picture under white text, so it needs both dampeners
+          the site already uses for this: the image carried at 45% and a
+          left-weighted gradient over it. Measured on the left half, where the
+          copy sits, that leaves white text at roughly 14:1 even against the
+          picture's brightest pixel — while the right side stays light enough
+          that the roads still read.
+
+          `min-h` because the section had none: with only copy in it the band
+          was short enough to crop the illustration to a strip. */}
+      <section className="relative isolate min-h-[540px] overflow-clip bg-carbon py-20 text-white lg:min-h-[640px] lg:py-28">
+        <Image
+          src={CAREERS.image}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover opacity-45"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-gradient-to-r from-carbon via-carbon/80 to-carbon/30"
+        />
+        <div className="shell relative">
           <Eyebrow className="text-white">{CAREERS.eyebrow}</Eyebrow>
           <h1 className="type-hero mt-6 max-w-[16ch] text-white">{CAREERS.title}</h1>
           <p className="type-lede mt-6 max-w-xl text-white/80">{CAREERS.intro}</p>
@@ -26,32 +48,6 @@ export default function CareersPage() {
             See open roles
             <Arrow />
           </a>
-        </div>
-      </section>
-
-      {/* Sits between the carbon hero and the reasons, so it bridges dark to
-          light without pushing the three points further down the page.
-
-          `alt=""`: it illustrates "Room to move" — people who started on the
-          operations floor now leading automation work — which the copy below
-          already states. Describing it again would make a screen reader
-          announce the same idea twice.
-
-          The illustration's own background is a near-white gradient, so it is
-          deliberately not boxed or rounded: the edges dissolve into the band
-          instead of ending on a hard rectangle. */}
-      <section className="bg-white pt-16 lg:pt-24">
-        <div className="shell">
-          <Reveal variant="soft">
-            <Image
-              src={CAREERS.image}
-              alt=""
-              width={1600}
-              height={900}
-              sizes="(min-width: 1440px) 1376px, 100vw"
-              className="h-auto w-full"
-            />
-          </Reveal>
         </div>
       </section>
 
