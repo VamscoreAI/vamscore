@@ -136,27 +136,6 @@ export const STORIES: Story[] = [
           },
         ],
       },
-      {
-        kind: "stats",
-        stats: [
-          { value: "[n]", label: "Hours of curriculum content delivered" },
-          { value: "[n]", label: "Students supported across the engagement" },
-          { value: "[n]", label: "Years UV has run this work" },
-        ],
-      },
-      {
-        kind: "prose",
-        heading: "What UV brought to it",
-        paragraphs: [
-          "[UV to describe the work it took on for Greycells18 — the functions it ran, the scale it ran them at, and the point at which it took them over.]",
-          "[UV to describe the result: what changed for the client, measured however the client measured it.]",
-        ],
-      },
-      {
-        kind: "quote",
-        text: "[A line from someone at Greycells18, or from UV's engagement lead, on what the partnership delivered.]",
-        attribution: "[Name, role, Greycells18 Media Ltd]",
-      },
     ],
   },
 
@@ -221,27 +200,6 @@ export const STORIES: Story[] = [
           "Every one of those four mandates pulls against the others. Expanding the channel fast makes brand hygiene harder to hold. Pushing revenue targets down to feet-on-street makes retention harder. Chasing a market-share benchmark can quietly cost you the customer satisfaction index. A territory operation that optimises only one of the four will show it in the other three within a quarter.",
           "The other difficulty is distance. Corporate standards are written centrally and experienced locally — in a shop with its own footfall, its own competition and its own staffing reality. The partner's job is to make those standards survive contact with that, which is largely a people problem: recruiting, training and keeping a field force in a market where the alternative employer is usually across the road.",
         ],
-      },
-      {
-        kind: "stats",
-        stats: [
-          { value: "[n]", label: "Retail touchpoints activated" },
-          { value: "[n]", label: "Field staff trained and managed" },
-          { value: "[n]", label: "Districts covered" },
-        ],
-      },
-      {
-        kind: "prose",
-        heading: "What UV brought to it",
-        paragraphs: [
-          "[UV to describe its territory scope — which zones, which of the four mandates it held, and over what period.]",
-          "[UV to describe the result: growth in touchpoints, movement in the performance benchmarks, or whatever the client used to judge it.]",
-        ],
-      },
-      {
-        kind: "quote",
-        text: "[A line on what the territory partnership achieved, from the client or from UV's operations lead.]",
-        attribution: "[Name, role]",
       },
     ],
   },
@@ -352,27 +310,6 @@ export const STORIES: Story[] = [
           "The licensing position is easy to read past, and it is the thing that shaped the work most. A partner carried the operator's brand, handled the operator's subscribers and performed identity verification on the operator's behalf — while holding no licence of its own. Every process therefore had to be auditable back to the operator's standard, because the operator, not the partner, answered for it.",
           "KYC is the clearest example. It looks like a form. It is in fact a regulated control with a defined evidence trail, applied at the counter, at volume, by staff who need training and supervision to apply it consistently. Getting acquisition numbers up while keeping verification quality intact is the real test of a channel operation, and the two pull in opposite directions.",
         ],
-      },
-      {
-        kind: "stats",
-        stats: [
-          { value: "[n]", label: "Subscribers onboarded" },
-          { value: "[n]", label: "Retail outlets served" },
-          { value: "[n]", label: "Years as an authorised partner" },
-        ],
-      },
-      {
-        kind: "prose",
-        heading: "What UV brought to it",
-        paragraphs: [
-          "[UV to describe its channel scope — which partner format it operated as, which activities it ran, across which territory and over what period.]",
-          "[UV to describe the result, and how Tata Teleservices measured it.]",
-        ],
-      },
-      {
-        kind: "quote",
-        text: "[A line on the channel partnership, from the client or from UV.]",
-        attribution: "[Name, role]",
       },
     ],
   },
