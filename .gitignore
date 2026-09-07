@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# ...except the template. The pattern above is unanchored, so without this
+# negation .env.example is silently never committed and nobody discovers which
+# variables the app needs.
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +43,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+public/assets/
+
+# job applications — personal data (CVs, contact details), never commit
+applications/

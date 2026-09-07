@@ -1,26 +1,625 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------------------------------------------------------------------------
+   Design tokens measured from the live kyndryl.com/in/en DOM.
+   --------------------------------------------------------------------------- */
+@theme {
+  /* Brand palette */
+  --color-carbon: #161616;         /* header / nav bar                        */
+  --color-deep-forest: #042315;    /* text sitting on spring-green            */
+  --color-spring-green: #4cdd84;   /* primary CTA fill, links on dark         */
+  --color-dark-stone: #3d3c3c;     /* body copy, dark cards                   */
+  --color-cloud: #faf8f7;          /* light section background, ghost pills   */
+  /* Muted copy. Was #878d96, which measured 3.34:1 on white, 3.16 on cloud
+     and 2.96 on the stories band — below the 4.5:1 body-text floor at every
+     one of them, across 22 usages. #63697a clears 4.85:1 on all three.
+     (#6b7280, the more familiar choice, still failed on the stories band.) */
+  --color-stone: #63697a;
+  --color-line: #dde1e6;           /* hairline rules                          */
+  --color-teal: #29707a;           /* locale picker active row                */
+  --color-flame: #ff462d;          /* the logo red, used for eyebrow rules     */
+  --color-flame-2: #fb512f;        /* the coral used for big headings + numerals */
+
+  /* Type. TWK Everett is licensed, so Be Vietnam Pro stands in for it — it is
+     the closest free match by advance width and x-height. Drop a licensed
+     Everett into public/fonts and it takes over automatically. */
+  --font-display: "TWK Everett", var(--font-display-face), Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-roboto), Helvetica, Arial, sans-serif;
+
+  /* Breakpoints mirror the original's --bs-breakpoint-* values exactly */
+  --breakpoint-sm: 475px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-2xl: 1400px;
+
+  --radius-pill: 66px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* the sticky header + section-nav must not cover anchored sections */
+    scroll-padding-top: 170px;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background: #fff;
+    color: var(--color-dark-stone);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.005em;
+    line-height: 1.18;
+  }
+
+  ::selection {
+    background: var(--color-spring-green);
+    color: var(--color-deep-forest);
+  }
+
+  /* Flame is the only single colour that clears 3:1 against all four grounds
+     this site uses — white 3.41, cloud 3.22, stories-band 3.02, carbon 5.31.
+     Spring-green, which was here before, is 1.75:1 on white: a keyboard user
+     could not see where they were on most of the site. */
+  :focus-visible {
+    outline: 3px solid var(--color-flame);
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------------------------------------------------------------------------
+   Utilities
+   --------------------------------------------------------------------------- */
+@utility shell {
+  /* Kyndryl runs near-full-bleed: content sits ~48px from the edge at 1440.
+     
+     Capped at 1440 because that is the width every measurement in this file was
+     taken at — the type scale, the 570/855 Who-we-are split, the band paddings,
+     all of it. At 1920 the old 1920px cap was not holding anything back, so
+     sections stretched into a layout nobody designed: the stories band ran 124
+     characters to the line and Vision & mission 105, against a 45-75 comfortable
+     range, while any column that capped its own measure left a hole beside it.
+     Above 1440 the page is now the 1440 design centred, which is the one width
+     it is known to be right at. */
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 20px;
+
+  @media (width >= 768px) {
+    padding-inline: 32px;
+  }
+}
+
+/* Type scale transcribed from the original at 1440. Kyndryl gives each section
+   its own size rather than sharing one display ladder, so these are named for
+   the role they play. The clamp maxima are the exact measured px. */
+
+/* 48/56 w300 — hero h1, press band, "Connect with us" */
+@utility type-hero {
+  font-size: clamp(2.5rem, 1.875rem + 1.25vw, 3rem);
+  line-height: 1.167;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+/* 44/46.64 w400 — "Industry recognition. Client trust." */
+@utility type-statement {
+  font-size: clamp(2rem, 1.25rem + 2.1vw, 2.75rem);
+  line-height: 1.06;
+  font-weight: 400;
+}
+/* 40/48 w300 — "Progress, one client at a time" */
+@utility type-section {
+  font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
+  line-height: 1.2;
+  font-weight: 300;
+}
+/* 40/46 w300 — "Discover ideas that drive transformation" */
+@utility type-section-tight {
+  font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
+  line-height: 1.15;
+  font-weight: 300;
+}
+/* 34/40 w400 — AI-native band, partner strip */
+@utility type-band {
+  font-size: clamp(1.5rem, 0.785rem + 1.488vw, 2.125rem);
+  line-height: 1.176;
+  font-weight: 400;
+}
+/* 32/40 w300 — service cards, team headings */
+@utility type-card-lg {
+  font-size: clamp(1.5rem, 1.1rem + 1.1vw, 2rem);
+  line-height: 1.25;
+  font-weight: 300;
+}
+/* 32/33.92 w400 — recognition band titles */
+@utility type-card-tight {
+  font-size: clamp(1.5rem, 1.1rem + 1.1vw, 2rem);
+  line-height: 1.06;
+  font-weight: 400;
+}
+/* 24/30 w400 — promo cards, Who we are, insight cards */
+@utility type-card {
+  font-size: clamp(1.25rem, 1.05rem + 0.55vw, 1.5rem);
+  line-height: 1.25;
+  font-weight: 400;
+}
+/* 84/112 w200 — "Let's get there together" */
+@utility type-giant {
+  font-size: clamp(3rem, 1rem + 5.5vw, 5.25rem);
+  line-height: 1.333;
+  font-weight: 200;
+}
+/* 20/28 w300 — section intros */
+@utility type-lede {
+  font-size: clamp(1.125rem, 1rem + 0.35vw, 1.25rem);
+  line-height: 1.4;
+  font-weight: 300;
+  letter-spacing: 0.008em;
+}
+/* 16/24 w300 — card body copy */
+@utility type-body {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* The eyebrow is plain 12px/500 — the mixed casing you see ("WHO WE ARE" but
+   "how kyndryl helps") is literal text, so no text-transform here. */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* The giant outlined numerals on the service cards: transparent fill with a
+   1px coral stroke, exactly as measured on the original (128px/168px, 700). */
+@utility outline-numeral {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 0.5rem + 8.33vw, 8rem);
+  line-height: 1.31;
+  font-weight: 700;
+  letter-spacing: -0.00125em;
+  padding-block: 2rem;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-flame-2) 80%, transparent);
+  -webkit-text-fill-color: transparent;
+}
+
+/* Infinite partner-logo marquee */
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee-track {
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track { animation: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hide scrollbars on the horizontal rails without losing the scroll */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Customer-stories pagination: the active segment's coral fill sweeps left to
+   right over the dwell, matching the original's `transition: width 2.5s linear`. */
+@keyframes story-fill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* ---------------------------------------------------------------------------
+   Story pages: scroll-driven reveals
+   --------------------------------------------------------------------------- */
+
+/* Elements start displaced and transparent, and are released by
+   `components/ui/Reveal.tsx` adding `data-shown` when they cross into the
+   viewport. Doing it with a data attribute rather than a class keeps the
+   pre-reveal state in CSS, so nothing flashes in before hydration. */
+[data-reveal] {
+  opacity: 0;
+  /* Per-property delays rather than a blanket `transition-delay`: only the
+     reveal properties stagger. The colour properties are here because this rule
+     is UNLAYERED, so it outranks every Tailwind `transition-*` utility no matter
+     how specific — without them a `hover:bg-*` on a Reveal element snaps
+     instead of fading, which is what was happening on the story pages. */
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    color 0.5s ease,
+    background-color 0.5s ease,
+    border-color 0.5s ease;
+  will-change: opacity, transform;
+}
+[data-reveal="up"]    { transform: translate3d(0, 28px, 0); }
+[data-reveal="left"]  { transform: translate3d(-28px, 0, 0); }
+[data-reveal="right"] { transform: translate3d(28px, 0, 0); }
+[data-reveal="scale"] { transform: scale(1.06); }
+/* A trigger only: visible from the start, moves nothing. Children hang their
+   own staged transitions off its `data-shown`. */
+[data-reveal="none"] { opacity: 1; transform: none; }
+/* The image blocks wipe open from the bottom edge as well as fading */
+[data-reveal="wipe"] {
+  clip-path: inset(0 0 100% 0);
+  transform: scale(1.04);
+}
+[data-reveal][data-shown] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 0);
+  filter: blur(0);
+}
+
+/* Hero artwork drifts very slowly the whole time it is on screen — the only
+   motion on the page that isn't triggered by scrolling past something. */
+@keyframes story-hero-drift {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to   { transform: scale(1.14) translate3d(0, -1.5%, 0); }
+}
+.story-hero-art {
+  animation: story-hero-drift 18s ease-out both;
+}
+
+/* The hero's own text doesn't wait for a scroll — it plays on load, staggered. */
+@keyframes story-rise {
+  from { opacity: 0; transform: translate3d(0, 22px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+.story-rise {
+  animation: story-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+/* Reading progress: a coral hairline across the top, width set from scroll. */
+.story-progress {
+  transform-origin: 0 50%;
+  transform: scaleX(var(--progress, 0));
+  transition: transform 0.1s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Everything still has to be *visible* — reduced motion means no movement,
+     not hidden content. The global rule above only collapses durations. */
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+  .story-hero-art { animation: none; transform: scale(1.06); }
+  .story-rise { animation: none; opacity: 1; transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Band artwork: a slow parallax drift as a section crosses the viewport
+   --------------------------------------------------------------------------- */
+
+@keyframes band-parallax {
+  from { transform: scale(1.12) translate3d(0, -4%, 0); }
+  to   { transform: scale(1.12) translate3d(0,  4%, 0); }
+}
+
+/* The giant tone-on-tone section words slide a little as you pass them. Purely
+   decorative (the element is aria-hidden), and it reads as depth rather than as
+   an animation. */
+@keyframes watermark-drift {
+  from { transform: translate3d(-2.5%, 0, 0); }
+  to   { transform: translate3d(2.5%, 0, 0); }
+}
+
+/* Progressive enhancement, twice over: declared only where scroll-driven
+   timelines exist, and only for readers who have not asked for less motion.
+   Everywhere else the artwork simply sits still — the rule is never declared,
+   so there is nothing to undo afterwards. This matters because the blanket
+   `animation-duration: 0.01ms !important` above would otherwise land a
+   scroll-driven animation on its END state rather than its start, parking the
+   image at the far end of its travel. */
+/* NOTE for anyone touching the bands: the element that clips the artwork must
+   use `overflow-clip`, NOT `overflow-hidden`. `hidden` establishes a scroll
+   container, and `view()` resolves against the nearest scroll container — so the
+   art would be measured against its own band, sit permanently 100% visible, and
+   the timeline would never progress. It fails silently and looks exactly like
+   the parallax simply not working. `clip` clips identically, respects
+   border-radius, and is not a scroll container. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .band-art {
+      animation: band-parallax linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+      will-change: transform;
+    }
+    .watermark-drift {
+      animation: watermark-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+      will-change: transform;
+    }
+  }
+}
+
+/* The constant scale keeps the image edges outside the frame across the whole
+   ±4% of travel; the band still needs its own `overflow-clip` (see above).
+   Applied unconditionally so the framing is identical whether or not the drift
+   runs — which is also the resting state under reduced motion, where the
+   animation above is never declared in the first place. */
+.band-art {
+  transform: scale(1.12);
+}
+
+/* A blur that clears as the element settles — the calmest way to make a
+   heading feel considered. Deliberately its own variant rather than part of the
+   base `[data-reveal]` rule: /about renders 47 revealed elements, and blurring
+   every one of them would force 47 extra offscreen compositing surfaces for no
+   visible gain. Used on band headings only. */
+[data-reveal="soft"] {
+  transform: translate3d(0, 20px, 0);
+  filter: blur(6px);
+}
+/* A hairline that draws left-to-right as its card lands. Driven by the parent
+   Reveal's `data-shown`, and it inherits that parent's `--reveal-delay`, so a
+   staggered grid draws its rules in the same order the cards arrive. Slightly
+   slower than the card itself so the line is still travelling once the card has
+   settled — which is what makes each one read as its own event rather than the
+   whole grid appearing at once. */
+.reveal-rule {
+  transform: scaleX(0);
+  transform-origin: left center;
+  /* background-color is listed too, so a `group-hover:bg-*` on the rule still
+     fades — this shorthand would otherwise replace Tailwind's transition. */
+  transition:
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1)
+      calc(var(--reveal-delay, 0ms) + 120ms),
+    background-color 0.5s ease;
+}
+[data-reveal][data-shown] .reveal-rule {
+  transform: scaleX(1);
+}
+
+/* ---------------------------------------------------------------------------
+   Objective rows: a five-beat sequence rather than one fade
+
+   The frame wipes open, the picture inside settles out of an over-scale, the
+   numeral lands, the title rises, and the three points cascade. Each beat is on
+   a DIFFERENT element on purpose: the wipe owns `clip-path` on the frame, the
+   settle owns `transform` on a wrapper, and the scroll parallax owns
+   `transform` on the image itself. Put two of those on one element and the
+   later one silently wins.
+   --------------------------------------------------------------------------- */
+
+/* Beat 2 — the picture relaxes out of an over-scale, slower than the wipe that
+   revealed it, so it is still moving after the frame has finished opening. */
+.art-settle {
+  transform: scale(1.08);
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 80ms);
+  will-change: transform;
+}
+[data-reveal][data-shown] .art-settle {
+  transform: scale(1);
+}
+
+/* Beat 3 — the numeral lands on top: a short drop with the blur clearing. */
+.numeral-land {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0) scale(1.06);
+  filter: blur(5px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 260ms);
+}
+[data-reveal][data-shown] .numeral-land {
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* `.band-art` keeps its scale (that is framing, not motion). The reveal
+     variants must land un-blurred and in place, as the other variants do. */
+  [data-reveal="soft"] { transform: none; filter: none; }
+  .watermark-drift { animation: none; transform: none; }
+  /* These must still land in their finished state, just not travel there. */
+  .reveal-rule { transform: scaleX(1); }
+  .art-settle { transform: none; }
+  .numeral-land { opacity: 1; transform: none; filter: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Who we are: the panel artwork
+
+   Fourteen dot-columns — one per year of operation — start scattered and grey,
+   resolve into alignment as they move right, and hand off to four lanes that
+   converge through an aperture. UV's own, generated here, so nothing in this
+   panel needs licensing or replacing.
+
+   Every `animation` below is declared INSIDE `prefers-reduced-motion:
+   no-preference`, following `.band-art`. The blanket
+   `animation-duration: 0.01ms !important` earlier in this file would otherwise
+   force each one to complete instantly and park on its END keyframe — so the
+   fix is to never declare them for those readers, not to undo them afterwards.
+   Everything outside that guard is the static composition, which has to stand
+   on its own as a still.
+   --------------------------------------------------------------------------- */
+
+/* The field warms from grey operations to green intelligence as it resolves.
+   `--m` is set per dot, quantised to deciles. Tokens, never hex — a typo here
+   yields transparent rather than an error, so it is asserted in verification. */
+.uv-field circle {
+  fill: color-mix(
+    in oklab,
+    var(--color-stone),
+    var(--color-spring-green) var(--m, 0%)
+  );
+}
+
+/* `pathLength="100"` on every lane normalises them, so this one keyframe drives
+   all four regardless of their real geometry — nothing to re-derive if a curve
+   is nudged. The dash starts just off the head and ends past the tail. */
+.uv-pulse {
+  stroke-dasharray: 14 100;
+  /* Parked, not hidden: with no animation the dash would sit off the start and
+     the four brightest elements would vanish. Each lane parks at a different
+     point so the reduced-motion still is a composed frame. */
+  stroke-dashoffset: var(--park, -40);
+}
+
+/* Rings pivot about user-space (0,0) unless BOTH of these are set — the
+   symptom is the ring flying off across the panel. */
+.uv-orbit,
+.uv-halo {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+@keyframes uv-drift-a {
+  from { opacity: 0.72; transform: translate3d(0, -3px, 0); }
+  to   { opacity: 1;    transform: translate3d(0, 3px, 0); }
+}
+@keyframes uv-drift-b {
+  from { opacity: 0.82; transform: translate3d(0, 2px, 0); }
+  to   { opacity: 1;    transform: translate3d(0, -2px, 0); }
+}
+@keyframes uv-drift-c {
+  from { opacity: 0.78; transform: translate3d(-2px, 0, 0); }
+  to   { opacity: 1;    transform: translate3d(2px, 0, 0); }
+}
+@keyframes uv-pulse {
+  from { stroke-dashoffset: 14; }
+  to   { stroke-dashoffset: -100; }
+}
+@keyframes uv-orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes uv-halo {
+  from { opacity: 0.85; transform: scale(1); }
+  to   { opacity: 0.45; transform: scale(1.9); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Mutually prime-ish periods, so the field shimmers incoherently and never
+     visibly loops. */
+  .uv-field-a { animation: uv-drift-a 11s ease-in-out infinite alternate; }
+  .uv-field-b { animation: uv-drift-b 14s ease-in-out infinite alternate; }
+  .uv-field-c { animation: uv-drift-c 9s ease-in-out infinite alternate; }
+  /* Phase comes from an inline animation-delay per lane. */
+  .uv-pulse { animation: uv-pulse 5.6s cubic-bezier(0.55, 0.1, 0.35, 1) infinite; }
+  .uv-orbit { animation: uv-orbit 26s linear infinite; }
+  .uv-halo { animation: uv-halo 3.8s ease-in-out infinite alternate; }
+}
+
+/* ---------------------------------------------------------------------------
+   Hero slide three: fourteen years, as a ridgeline
+
+   Fourteen ridges, one per year of operation, each filled with carbon so the
+   nearer ones occlude the ones behind. The stroke warms from stone at the back
+   to spring-green at the front; `--m` is set per ridge, quantised to deciles.
+
+   As with the other two artworks, every `animation` sits inside the
+   `no-preference` guard. The blanket `animation-duration: 0.01ms !important`
+   earlier in this file would otherwise force each one to complete instantly and
+   park on its END keyframe — every ridge shoved to one side and every crest
+   pulse run off the end of its path. Everything outside the guard is the static
+   composition, which has to stand on its own as a still.
+   --------------------------------------------------------------------------- */
+
+.uv-ridge {
+  stroke: color-mix(
+    in oklab,
+    var(--color-stone),
+    var(--color-spring-green) var(--m, 0%)
+  );
+}
+
+/* Parallax: `--dx` grows toward the front of the stack, so nearer years travel
+   further than distant ones in the same time. That difference is the entire
+   effect — equal amplitudes would read as the whole image sliding. */
+@keyframes uv-ridge-drift {
+  from { transform: translate3d(calc(var(--dx, 6px) * -1), 0, 0); }
+  to   { transform: translate3d(var(--dx, 6px), 0, 0); }
+}
+
+/* Shorter dash than `.uv-pulse` carries: a hero ridge is nearly twice the span
+   of a Who-we-are lane, and 14% of it lit reads as a smear rather than a
+   signal. Parked off-centre per crest so the reduced-motion still is composed. */
+.uv-crest {
+  stroke-dasharray: 6 100;
+  stroke-dashoffset: var(--park, -18);
+}
+
+@keyframes uv-crest {
+  from { stroke-dashoffset: 6; }
+  to   { stroke-dashoffset: -100; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .uv-ridge-layer {
+    animation: uv-ridge-drift var(--dur, 24s) ease-in-out infinite alternate;
+  }
+  .uv-crest {
+    animation: uv-crest 9.5s cubic-bezier(0.5, 0.05, 0.4, 1) infinite;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Connect: the closing artwork
+
+   Rings expanding outward from a single point — a signal going out, which is
+   what the section is asking the reader to answer. Deliberately a DIFFERENT
+   motif from the Who-we-are panel (which resolves left to right into a flow);
+   the same idiom twice on one page would read as a tic.
+
+   On white, so the ink is line/stone with one coral core, rather than the
+   carbon-and-green of the other panel.
+
+   As with the other artwork, every `animation` sits inside the
+   `no-preference` guard — the blanket `animation-duration: 0.01ms !important`
+   earlier in this file would otherwise force each ring to complete instantly
+   and park fully expanded and invisible.
+   --------------------------------------------------------------------------- */
+
+.uv-ring {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  /* Resting state: mid-expansion and visible, so the still frame is a composed
+     set of concentric rings rather than four invisible ones. */
+  opacity: 0.28;
+  transform: scale(var(--rest, 1));
+}
+
+@keyframes uv-ping {
+  from { opacity: 0.5; transform: scale(0.28); }
+  70%  { opacity: 0.14; }
+  to   { opacity: 0; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .uv-ring { animation: uv-ping 6.4s cubic-bezier(0.22, 0.61, 0.36, 1) infinite; }
 }

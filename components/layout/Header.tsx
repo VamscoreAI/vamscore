@@ -1,0 +1,473 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import {
+  ACTIVE_LOCALE,
+  LOCALES,
+  LOCALE_SHORT,
+  NAV_ITEMS,
+  SEARCH_SUGGESTIONS,
+} from "@/content/nav";
+import { UserButton, useAuth } from "@clerk/nextjs";
+import { Arrow, Button, Wordmark, cx } from "@/components/ui";
+import { authUiEnabled } from "@/lib/auth";
+
+type Overlay = { kind: "menu"; index: number } | { kind: "search" } | { kind: "locale" } | null;
+
+export default function Header() {
+  const [overlay, setOverlay] = useState<Overlay>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileSection, setMobileSection] = useState<number | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+
+  const close = () => setOverlay(null);
+
+  // Escape closes whatever is open; a click outside the header closes the
+  // desktop panels the same way the original does.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        close();
+        setMobileOpen(false);
+      }
+    };
+    const onClick = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) close();
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
+  }, []);
+
+  // Lock the page behind the mobile drawer and the full-screen overlays.
+  useEffect(() => {
+    const locked = mobileOpen || overlay?.kind === "search" || overlay?.kind === "locale";
+    document.body.style.overflow = locked ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen, overlay]);
+
+  const openMenu = overlay?.kind === "menu" ? overlay.index : null;
+
+  return (
+    <header ref={headerRef} className="sticky top-0 z-50 bg-carbon text-white">
+      {/* `shell`, not its own padding. The bar used to run px-5/lg:px-8/2xl:px-12
+          against content capped at 1440, which put the logo 217px to the left of
+          everything under it at 1920. Sharing the utility keeps the header, the
+          page and the footer on one left edge at every width. */}
+      <div className="shell flex h-[60px] items-center gap-6 lg:h-[72px]">
+        {/* Logo */}
+        <Link href="/" className="shrink-0" aria-label="UV home">
+          <Wordmark className="text-white" />
+        </Link>
+
+        {/* Primary nav (desktop) */}
+        <nav className="hidden lg:block" aria-label="Main">
+          <ul className="flex items-center">
+            {NAV_ITEMS.map((item, i) => (
+              <li key={item.label}>
+                {item.groups ? (
+                  <button
+                    type="button"
+                    aria-expanded={openMenu === i}
+                    onClick={() =>
+                      setOverlay(openMenu === i ? null : { kind: "menu", index: i })
+                    }
+                    className={cx(
+                      "flex items-center gap-1.5 px-4 py-2 text-[14px] leading-5 transition-colors hover:text-spring-green",
+                      openMenu === i && "text-spring-green"
+                    )}
+                  >
+                    {item.label}
+                    <Chevron
+                      className={cx(
+                        "transition-transform duration-200",
+                        openMenu === i && "rotate-180"
+                      )}
+                    />
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="block px-4 py-2 text-[14px] leading-5 transition-colors hover:text-spring-green"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Right cluster */}
+        <div className="ml-auto flex items-center gap-3 lg:gap-4">
+          <button
+            type="button"
+            onClick={() =>
+              setOverlay(overlay?.kind === "locale" ? null : { kind: "locale" })
+            }
+            aria-expanded={overlay?.kind === "locale"}
+            className="hidden items-center gap-1.5 text-[13px] text-white/80 transition-colors hover:text-white lg:flex"
+          >
+            <GlobeIcon />
+            {LOCALE_SHORT}
+          </button>
+
+          {authUiEnabled && <AuthSlot />}
+
+          <span className="hidden sm:block">
+            <Button href="/contact" className="!px-5 !py-2.5 !text-[14px]">
+              Talk to us
+              <Arrow />
+            </Button>
+          </span>
+
+          <button
+            type="button"
+            aria-label="All UV sites"
+            className="hidden size-9 place-items-center rounded-full border border-white/25 transition-colors hover:border-white lg:grid"
+          >
+            <GridIcon />
+          </button>
+
+          <button
+            type="button"
+            aria-label="Search"
+            aria-expanded={overlay?.kind === "search"}
+            onClick={() =>
+              setOverlay(overlay?.kind === "search" ? null : { kind: "search" })
+            }
+            className="grid size-9 place-items-center rounded-full border border-white/25 transition-colors hover:border-white"
+          >
+            <SearchIcon />
+          </button>
+
+          <button
+            type="button"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+            className="grid size-9 place-items-center lg:hidden"
+          >
+            {mobileOpen ? <CloseIcon /> : <BurgerIcon />}
+          </button>
+        </div>
+      </div>
+
+      {/* ---------------- Desktop mega-menu ---------------- */}
+      {openMenu !== null && NAV_ITEMS[openMenu].groups && (
+        <div className="absolute inset-x-0 top-full hidden border-t border-white/10 bg-carbon lg:block">
+          {/* Same reason: the panel's columns line up with the nav item that
+              opened them, and with the page behind it. */}
+          <div className="shell grid grid-cols-2 gap-x-10 gap-y-10 py-12 xl:grid-cols-4">
+            {NAV_ITEMS[openMenu].groups.map((group) => (
+              <div key={group.heading}>
+                <h2 className="eyebrow mb-5 text-spring-green">{group.heading}</h2>
+                <ul className="space-y-3">
+                  {group.links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        onClick={close}
+                        className="inline-flex items-center gap-1.5 text-[15px] text-white/85 transition-colors hover:text-spring-green"
+                      >
+                        {link.label}
+                        {link.external && <ExternalIcon />}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ---------------- Search overlay ---------------- */}
+      {overlay?.kind === "search" && (
+        <div className="fixed inset-x-0 top-[60px] bottom-0 z-40 overflow-y-auto bg-carbon lg:top-[72px]">
+          <div className="shell py-16 lg:py-24">
+            <h2 className="type-card-lg max-w-2xl text-white">
+              Find answers, explore possibilities.
+            </h2>
+            <p className="mt-4 max-w-xl text-white/70">
+              Find the knowledge and capabilities that help you move from complexity to
+              clarity.
+            </p>
+            <form
+              className="mt-10 flex max-w-2xl items-center gap-3 border-b border-white/30 pb-3"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <SearchIcon />
+              <input
+                autoFocus
+                type="search"
+                placeholder="Search"
+                aria-label="Search UV"
+                className="w-full bg-transparent text-lg text-white outline-none placeholder:text-white/50"
+              />
+            </form>
+
+            <h3 className="mt-14 text-lg text-white">Suggested searches</h3>
+            <ul className="mt-5 flex flex-wrap gap-3">
+              {SEARCH_SUGGESTIONS.map((s) => (
+                <li key={s}>
+                  <button
+                    type="button"
+                    className="rounded-pill bg-cloud px-5 py-3 text-left text-[15px] text-dark-stone transition-colors hover:bg-white"
+                  >
+                    {s}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* ---------------- Locale overlay ---------------- */}
+      {overlay?.kind === "locale" && (
+        <div className="fixed inset-x-0 top-[60px] bottom-0 z-40 overflow-y-auto bg-carbon lg:top-[72px]">
+          <div className="shell py-16">
+            <h2 className="type-card-lg text-white">Select a country or region</h2>
+            <ul className="mt-10 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {LOCALES.map((locale) => (
+                <li key={locale}>
+                  {/* Not a link. `LOCALES` carries no URLs, and the one entry is
+                      already `ACTIVE_LOCALE`, so this was an `href="#"` that
+                      "navigated" to the locale you were already on. When real
+                      locales exist they will bring hrefs with them and this
+                      becomes a <Link> again. */}
+                  <span
+                    aria-current={locale === ACTIVE_LOCALE ? "true" : undefined}
+                    className={cx(
+                      "block rounded px-4 py-2.5 text-[15px]",
+                      locale === ACTIVE_LOCALE
+                        ? "bg-teal text-white"
+                        : "text-white/80"
+                    )}
+                  >
+                    {locale}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* ---------------- Mobile drawer ---------------- */}
+      {mobileOpen && (
+        <div className="fixed inset-x-0 top-[60px] bottom-0 z-40 overflow-y-auto bg-carbon lg:hidden">
+          <nav className="px-5 py-6" aria-label="Mobile">
+            <ul className="divide-y divide-white/10">
+              {NAV_ITEMS.map((item, i) => (
+                <li key={item.label}>
+                  {item.groups ? (
+                    <>
+                      <button
+                        type="button"
+                        aria-expanded={mobileSection === i}
+                        onClick={() => setMobileSection(mobileSection === i ? null : i)}
+                        className="flex w-full items-center justify-between py-4 text-left text-lg"
+                      >
+                        {item.label}
+                        <Chevron
+                          className={cx(
+                            "transition-transform duration-200",
+                            mobileSection === i && "rotate-180"
+                          )}
+                        />
+                      </button>
+                      {mobileSection === i && (
+                        <div className="space-y-6 pb-6">
+                          {item.groups.map((group) => (
+                            <div key={group.heading}>
+                              <h3 className="eyebrow mb-3 text-spring-green">
+                                {group.heading}
+                              </h3>
+                              <ul className="space-y-2.5">
+                                {group.links.map((link) => (
+                                  <li key={link.label}>
+                                    <Link
+                                      href={link.href}
+                                      onClick={() => setMobileOpen(false)}
+                                      className="text-[15px] text-white/85"
+                                    >
+                                      {link.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="block py-4 text-lg"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 space-y-4 border-t border-white/10 pt-8">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen(false);
+                  setOverlay({ kind: "locale" });
+                }}
+                className="flex items-center gap-1.5 text-[15px] text-white/80"
+              >
+                <GlobeIcon />
+                {LOCALE_SHORT}
+              </button>
+              {authUiEnabled && (
+                <DrawerAuthLink onNavigate={() => setMobileOpen(false)} />
+              )}
+
+              <Button href="/contact" className="w-full">
+                Talk to us
+                <Arrow />
+              </Button>
+            </div>
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}
+
+/* ------------------------------- icons ----------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* Employee auth                                                              */
+/*                                                                            */
+/* Clerk Core 3 (@clerk/nextjs v7) removed <SignedIn>/<SignedOut>; the         */
+/* replacement <Show> is a SERVER component, so it cannot be used in this      */
+/* client header. The hook is the client-side equivalent.                     */
+/*                                                                            */
+/* These live in their own components, rendered only when `authUiEnabled`, so  */
+/* `useAuth()` is never called outside a <ClerkProvider> — which is exactly    */
+/* what happens with no keys, since the provider is not mounted then.          */
+/* -------------------------------------------------------------------------- */
+
+function AuthSlot() {
+  const { isLoaded, isSignedIn } = useAuth();
+
+  return (
+    // min-h-9 reserves the row height so the bar does not jump when clerk-js
+    // resolves and the slot fills in.
+    <div className="flex min-h-9 items-center">
+      {!isLoaded ? (
+        <span aria-hidden className="size-9" />
+      ) : isSignedIn ? (
+        // Deliberately outside any responsive gate: a signed-in employee must
+        // be able to sign out at every width.
+        <UserButton />
+      ) : (
+        // Same weight and `lg:` gate as the locale picker beside it — below
+        // that the drawer carries it. Quiet on purpose: "Talk to us" targets
+        // customers and stays the one prominent action.
+        <Link
+          href="/sign-in"
+          className="hidden items-center text-[13px] text-white/80 transition-colors hover:text-white lg:flex"
+        >
+          Employee sign in
+        </Link>
+      )}
+    </div>
+  );
+}
+
+function DrawerAuthLink({ onNavigate }: { onNavigate: () => void }) {
+  const { isLoaded, isSignedIn } = useAuth();
+  if (!isLoaded) return null;
+
+  // Closes the drawer like every other entry — otherwise it stays mounted over
+  // the destination and the body scroll lock stays engaged. No <UserButton>
+  // here: its popover inside a `fixed overflow-y-auto` panel is a clipping
+  // trap, and the one in the bar stays reachable above the drawer anyway.
+  return (
+    <Link
+      href={isSignedIn ? "/portal" : "/sign-in"}
+      onClick={onNavigate}
+      className="flex items-center gap-1.5 text-[15px] text-white/80"
+    >
+      {isSignedIn ? "Employee portal" : "Employee sign in"}
+    </Link>
+  );
+}
+
+
+function Chevron({ className }: { className?: string }) {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden className={className}>
+      <path d="m2.5 4.5 3.5 3.5 3.5-3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ExternalIcon() {
+  return (
+    <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
+      <path d="M4.5 1.5H10.5V7.5M10.5 1.5 5 7M9 7.5v3H1.5V3h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function GlobeIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <circle cx="8" cy="8" r="6.3" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M1.7 8h12.6M8 1.7c1.7 1.7 2.5 3.9 2.5 6.3S9.7 12.6 8 14.3C6.3 12.6 5.5 10.4 5.5 8S6.3 3.4 8 1.7Z" stroke="currentColor" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+function GridIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor" aria-hidden>
+      {[1, 6, 11].map((y) =>
+        [1, 6, 11].map((x) => <rect key={`${x}-${y}`} x={x} y={y} width="2.6" height="2.6" rx="0.4" />)
+      )}
+    </svg>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 18 18" fill="none" aria-hidden>
+      <circle cx="7.8" cy="7.8" r="5.5" stroke="currentColor" strokeWidth="1.4" />
+      <path d="m11.9 11.9 4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function BurgerIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
+      <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden>
+      <path d="M5 5l12 12M17 5 5 17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
