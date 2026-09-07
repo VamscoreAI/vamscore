@@ -12,15 +12,35 @@ export const COMPANY = "UV";
 export const NAV_ITEMS: NavItem[] = [
   {
     label: "What we do",
-    href: "/#how-we-help",
+    // Unused: an item with `groups` renders as a menu button, not a link, in
+    // both the bar and the drawer. Kept pointing somewhere real anyway.
+    href: "/contact",
     groups: [
       {
+        // The four service lines used to be described in a "What we deliver"
+        // band on the home page, and every one of these pointed at it. That
+        // section is gone, and nothing else on the site describes them — so
+        // rather than scroll to a section that no longer exists, each opens the
+        // contact form with its matching topic already chosen. The strings must
+        // stay in step with the `topic` options in `content/contact.ts`.
         heading: "Services",
         links: [
-          { label: "Business process outsourcing", href: "/#how-we-help" },
-          { label: "Robotics and automation", href: "/#how-we-help" },
-          { label: "Education and government projects", href: "/#how-we-help" },
-          { label: "Tata channel partnership", href: "/#how-we-help" },
+          {
+            label: "Business process outsourcing",
+            href: "/contact?topic=Business+process+operations",
+          },
+          {
+            label: "Robotics and automation",
+            href: "/contact?topic=Robotics+and+automation",
+          },
+          {
+            label: "Education and government projects",
+            href: "/contact?topic=Education+or+government+projects",
+          },
+          {
+            label: "Tata channel partnership",
+            href: "/contact?topic=Channel+partnership",
+          },
         ],
       },
       {
@@ -36,7 +56,7 @@ export const NAV_ITEMS: NavItem[] = [
         heading: "How we work",
         links: [
           { label: "Our approach", href: "/#who-we-are" },
-          { label: "Delivery across India", href: "/#how-we-help" },
+          { label: "Delivery across India", href: "/#customer-stories" },
         ],
       },
     ],
@@ -51,7 +71,6 @@ export const NAV_ITEMS: NavItem[] = [
           { label: "About UV", href: "/about" },
           { label: "Vision and mission", href: "/about#vision" },
           { label: "Our values", href: "/about#values" },
-          { label: "Our people", href: "/#our-expertise" },
           { label: "Partners", href: "/#partners" },
           { label: "Contact us", href: "/contact" },
         ],
@@ -85,10 +104,16 @@ export const FOOTER_COLUMNS: NavGroup[] = [
   {
     heading: "Services",
     links: [
-      { label: "Business process outsourcing", href: "/#how-we-help" },
-      { label: "Robotics and automation", href: "/#how-we-help" },
-      { label: "Education and government projects", href: "/#how-we-help" },
-      { label: "Tata channel partnership", href: "/#how-we-help" },
+      {
+        label: "Business process outsourcing",
+        href: "/contact?topic=Business+process+operations",
+      },
+      { label: "Robotics and automation", href: "/contact?topic=Robotics+and+automation" },
+      {
+        label: "Education and government projects",
+        href: "/contact?topic=Education+or+government+projects",
+      },
+      { label: "Tata channel partnership", href: "/contact?topic=Channel+partnership" },
     ],
   },
   {
@@ -96,7 +121,6 @@ export const FOOTER_COLUMNS: NavGroup[] = [
     links: [
       { label: "About UV", href: "/about" },
       { label: "Our work", href: "/#customer-stories" },
-      { label: "Our people", href: "/#our-expertise" },
       { label: "Partners", href: "/#partners" },
       { label: "Careers", href: "/careers" },
       { label: "Contact us", href: "/contact" },

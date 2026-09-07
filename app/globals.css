@@ -587,39 +587,3 @@
     animation: uv-crest 9.5s cubic-bezier(0.5, 0.05, 0.4, 1) infinite;
   }
 }
-
-/* ---------------------------------------------------------------------------
-   Connect: the closing artwork
-
-   Rings expanding outward from a single point — a signal going out, which is
-   what the section is asking the reader to answer. Deliberately a DIFFERENT
-   motif from the Who-we-are panel (which resolves left to right into a flow);
-   the same idiom twice on one page would read as a tic.
-
-   On white, so the ink is line/stone with one coral core, rather than the
-   carbon-and-green of the other panel.
-
-   As with the other artwork, every `animation` sits inside the
-   `no-preference` guard — the blanket `animation-duration: 0.01ms !important`
-   earlier in this file would otherwise force each ring to complete instantly
-   and park fully expanded and invisible.
-   --------------------------------------------------------------------------- */
-
-.uv-ring {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  /* Resting state: mid-expansion and visible, so the still frame is a composed
-     set of concentric rings rather than four invisible ones. */
-  opacity: 0.28;
-  transform: scale(var(--rest, 1));
-}
-
-@keyframes uv-ping {
-  from { opacity: 0.5; transform: scale(0.28); }
-  70%  { opacity: 0.14; }
-  to   { opacity: 0; transform: scale(1); }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .uv-ring { animation: uv-ping 6.4s cubic-bezier(0.22, 0.61, 0.36, 1) infinite; }
-}

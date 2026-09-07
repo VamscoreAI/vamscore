@@ -1,20 +1,12 @@
-import {
-  CUSTOMER_STORIES,
-  EXPERTISE,
-  HOW_WE_HELP,
-  WHO_WE_ARE,
-} from "@/content/home";
+import { CUSTOMER_STORIES, WHO_WE_ARE } from "@/content/home";
 import { VISION_MISSION_BAND } from "@/content/about";
 import AiNativeBand from "@/components/sections/AiNativeBand";
 import Connect from "@/components/sections/Connect";
 import CustomerStories from "@/components/sections/CustomerStories";
-import Expertise from "@/components/sections/Expertise";
 import Faq from "@/components/sections/Faq";
 import GetThereTogether from "@/components/sections/GetThereTogether";
 import Hero from "@/components/sections/Hero";
-import HowWeHelp from "@/components/sections/HowWeHelp";
 import PartnerMarquee from "@/components/sections/PartnerMarquee";
-import PressBand from "@/components/sections/PressBand";
 import SectionNav from "@/components/sections/SectionNav";
 import SectionWatermark from "@/components/sections/SectionWatermark";
 import WhoWeAre from "@/components/sections/WhoWeAre";
@@ -31,12 +23,7 @@ export default function HomePage() {
       <VisionMission />
       <SectionWatermark>{CUSTOMER_STORIES.eyebrow}</SectionWatermark>
       <CustomerStories />
-      <SectionWatermark tone="onCloud">{HOW_WE_HELP.eyebrow}</SectionWatermark>
-      <HowWeHelp />
       <AiNativeBand />
-      <PressBand />
-      <SectionWatermark>{EXPERTISE.eyebrow}</SectionWatermark>
-      <Expertise />
       <PartnerMarquee />
       <GetThereTogether />
       <Faq />

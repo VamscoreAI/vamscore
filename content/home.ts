@@ -58,7 +58,7 @@ export const HERO_SLIDES: HeroSlide[] = [
 ];
 
 /* -------------------------------------------------------------------------- */
-/* 3. Sticky in-page section nav                                              */
+/* 2. Sticky in-page section nav                                              */
 /* -------------------------------------------------------------------------- */
 
 /**
@@ -79,13 +79,11 @@ export const SECTION_NAV = [
   { label: "Our story", id: "who-we-are" },
   { label: "Vision & mission", id: "vision-mission" },
   { label: "Our track record", id: "customer-stories" },
-  { label: "What we deliver", id: "how-we-help" },
-  { label: "Our people", id: "our-expertise" },
   { label: "FAQ", id: "faq" },
 ];
 
 /* -------------------------------------------------------------------------- */
-/* 4. Who we are                                                              */
+/* 3. Who we are                                                              */
 /* -------------------------------------------------------------------------- */
 
 export const WHO_WE_ARE = {
@@ -98,7 +96,7 @@ export const WHO_WE_ARE = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* 6. Client work — PLACEHOLDER                                               */
+/* 4. Client work — PLACEHOLDER                                               */
 /*                                                                            */
 /* Greycells 18 Media and Jio Communications are named because UV named them,  */
 /* but the scope and outcome of each engagement still need filling in.         */
@@ -142,60 +140,7 @@ export const CUSTOMER_STORIES = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* 7. What UV does — the four service lines                                   */
-/* -------------------------------------------------------------------------- */
-
-export type ServiceCard = {
-  title: string;
-  body: string;
-  cta: string;
-  href: string;
-  // Drop a file in public/assets/img and point this at it — it fades in over
-  // the outlined numeral on hover. Null leaves the numeral on its own.
-  image?: string | null;
-};
-
-export const HOW_WE_HELP: {
-  eyebrow: string;
-  titleLines: string[];
-  cards: ServiceCard[];
-} = {
-  eyebrow: "what we deliver",
-  titleLines: ["Operations, automation", "and delivery at scale"],
-  cards: [
-    {
-      title: "Business process outsourcing",
-      image: null,
-      body: "The service UV was built on in 2012. We run back-office and customer-facing processes for clients who need them handled reliably and at volume.",
-      cta: "Talk to us about BPO",
-      href: "#connect",
-    },
-    {
-      title: "Robotics and automation",
-      image: null,
-      body: "We moved into the robotics field to automate the work we already understood, applying automation where it removes effort rather than adding tooling.",
-      cta: "Talk to us about automation",
-      href: "#connect",
-    },
-    {
-      title: "Education and government projects",
-      image: null,
-      body: "UV is territory partner for a central government education project, delivering across pan India.",
-      cta: "Talk to us about delivery",
-      href: "#connect",
-    },
-    {
-      title: "Tata channel partnership",
-      image: null,
-      body: "As an authorised Tata channel partner, we take Tata solutions to market and support them for our clients.",
-      cta: "Talk to us about partnering",
-      href: "#connect",
-    },
-  ],
-};
-
-/* -------------------------------------------------------------------------- */
-/* 8. Automation band                                                         */
+/* 5. Automation band                                                         */
 /* -------------------------------------------------------------------------- */
 
 export const AI_NATIVE = {
@@ -206,56 +151,7 @@ export const AI_NATIVE = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* 10. Featured announcement — PLACEHOLDER                                    */
-/* -------------------------------------------------------------------------- */
-
-export const PRESS_BAND = {
-  title: "[Headline for a recent announcement]",
-  body: "[A sentence of detail — a new contract, certification, office or partnership.]",
-  cta: { label: "Read more", href: "#" },
-  image: `${IMG}/hero-cloud-uplift.webp`,
-};
-
-/* -------------------------------------------------------------------------- */
-/* 11. Our team — PLACEHOLDER                                                 */
-/*                                                                            */
-/* Real names, roles, photos and quotes only. Nothing invented here.           */
-/* -------------------------------------------------------------------------- */
-
-export const EXPERTISE = {
-  eyebrow: "the people behind it",
-  title: "The people behind the work",
-  body: "UV's capability sits with the people who have run these operations since 2012.",
-  people: [
-    {
-      title: "[Short headline for this person's focus]",
-      quote: "[A sentence in their own words about the work they lead.]",
-      name: "[Name]",
-      role: "[Role]",
-      org: "UV",
-      image: `${IMG}/expert-lingraju-sawkar.webp`,
-    },
-    {
-      title: "[Short headline for this person's focus]",
-      quote: "[A sentence in their own words about the work they lead.]",
-      name: "[Name]",
-      role: "[Role]",
-      org: "UV",
-      image: `${IMG}/expert-hitesh-shah.webp`,
-    },
-    {
-      title: "[Short headline for this person's focus]",
-      quote: "[A sentence in their own words about the work they lead.]",
-      name: "[Name]",
-      role: "[Role]",
-      org: "UV",
-      image: `${IMG}/expert-hussain-zaidi.webp`,
-    },
-  ],
-};
-
-/* -------------------------------------------------------------------------- */
-/* 12. Partners                                                               */
+/* 6. Partners                                                                */
 /*                                                                            */
 /* Rendered as plain wordmarks, not the partners' actual logos: reproducing    */
 /* their trademarks would imply an endorsement UV has not shown it has.        */
@@ -282,7 +178,7 @@ export const PARTNERS = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* 13. Let's get there together                                               */
+/* 7. Let's get there together                                                */
 /* -------------------------------------------------------------------------- */
 
 export const GET_THERE_TOGETHER = {
@@ -313,7 +209,7 @@ export const GET_THERE_TOGETHER = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* 14. FAQ                                                                    */
+/* 8. FAQ                                                                     */
 /* -------------------------------------------------------------------------- */
 
 export const FAQ = {
@@ -393,7 +289,7 @@ export const FAQ = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* 15. Connect — the closing invitation                                       */
+/* 9. Connect — the closing invitation                                        */
 /* -------------------------------------------------------------------------- */
 
 export const CONNECT = {
