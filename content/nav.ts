@@ -95,6 +95,22 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
+/**
+ * Opens Gmail's compose window in a new tab. `view=cm` is compose, `fs=1`
+ * full-screen.
+ *
+ * **No `to=` on purpose.** The only address this could carry is
+ * `CONTACT.email`, which is still the literal string "[email]" — and a compose
+ * window pre-addressed to "[email]" is exactly the broken link this project has
+ * already removed twice (see the note on `CONNECT.cta` in `content/home.ts`). A
+ * blank compose needs no address and cannot rot.
+ *
+ * **No `/u/0/` either.** That pins Gmail to the *first* signed-in Google
+ * account, so anyone with more than one would find themselves composing from
+ * the wrong identity. Leaving it out lets Google use the active account.
+ */
+export const GMAIL_COMPOSE_URL = "https://mail.google.com/mail/?view=cm&fs=1";
+
 export const SEARCH_SUGGESTIONS = [
   "What processes can UV run for us?",
   "How does UV's robotics and automation work?",

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
   ACTIVE_LOCALE,
+  GMAIL_COMPOSE_URL,
   LOCALES,
   LOCALE_SHORT,
   NAV_ITEMS,
@@ -119,6 +120,31 @@ export default function Header() {
           </button>
 
           {authUiEnabled && <AuthSlot />}
+
+          {/* Gated `lg:` to match the two things it sits between: the locale
+              button and "Employee sign in" are both `hidden … lg:flex`, so below
+              lg there is no sign-in link for this to be beside. The drawer
+              carries it instead.
+
+              Borderless: the circled recipe belongs to the grid and search
+              buttons at the far right, and a circle here would break the
+              cluster's text → pill → circles grouping. `size-9` still gives a
+              36px target around a 16px icon, over WCAG 2.2's 24×24 floor.
+
+              Not inside AuthSlot, and not behind `authUiEnabled`: that gate
+              exists because AuthSlot calls `useAuth()`, which throws with no
+              Clerk keys. This is a plain link and needs neither. */}
+          <Link
+            href={GMAIL_COMPOSE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            // The icon is decorative, so the name has to come from here or the
+            // link announces as just "link".
+            aria-label="Compose an email in Gmail"
+            className="hidden size-9 place-items-center text-white/80 transition-colors hover:text-white lg:grid"
+          >
+            <MailIcon />
+          </Link>
 
           <span className="hidden sm:block">
             <Button href="/contact" className="!px-5 !py-2.5 !text-[14px]">
@@ -338,6 +364,21 @@ export default function Header() {
                 <DrawerAuthLink onNavigate={() => setMobileOpen(false)} />
               )}
 
+              {/* The bar's copy of this is `lg:` only, so without this entry the
+                  button would not exist on mobile at all. Closes the drawer on
+                  activation like every other entry here — otherwise it stays
+                  mounted over the page with the scroll lock still engaged. */}
+              <Link
+                href={GMAIL_COMPOSE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-1.5 text-[15px] text-white/80"
+              >
+                <MailIcon />
+                Compose in Gmail
+              </Link>
+
               <Button href="/contact" className="w-full">
                 Talk to us
                 <Arrow />
@@ -433,6 +474,33 @@ function GlobeIcon() {
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
       <circle cx="8" cy="8" r="6.3" stroke="currentColor" strokeWidth="1.2" />
       <path d="M1.7 8h12.6M8 1.7c1.7 1.7 2.5 3.9 2.5 6.3S9.7 12.6 8 14.3C6.3 12.6 5.5 10.4 5.5 8S6.3 3.4 8 1.7Z" stroke="currentColor" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+/* Gmail's envelope-and-M silhouette, in currentColor. Not the full-colour
+   Google mark: every icon in this bar is monochrome, so a coloured logo would
+   be the only one and would fight the hover state. 16px at 1.2 matches
+   GlobeIcon, its nearest neighbour in the cluster. */
+function MailIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+      <rect
+        x="1"
+        y="3.1"
+        width="14"
+        height="9.8"
+        rx="1.6"
+        stroke="currentColor"
+        strokeWidth="1.2"
+      />
+      <path
+        d="M1.4 4 8 8.9 14.6 4"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
