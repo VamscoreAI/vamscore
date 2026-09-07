@@ -11,9 +11,29 @@ import Reveal from "@/components/ui/Reveal";
  * children so a section arrives in reading order rather than all at once.
  */
 
-/** The reading column: prose sits narrower than the full shell so lines stay
- *  at a comfortable measure, while images and stat bands run wide. */
-const COLUMN = "mx-auto w-full max-w-[860px]";
+/**
+ * The reading column: prose sits narrower than the shell so lines stay at a
+ * comfortable measure — 860px at `type-lede`'s 20px ceiling is about 72
+ * characters.
+ *
+ * **Left-aligned, not centred.** It used to be `mx-auto`, which put prose at
+ * x=282 while the hero above it, the stat band and the closing CTA all sat at
+ * the shell edge, x=32 — and wide images centred at a third edge, x=122. Four
+ * left edges down one page, so the eye had to re-find the start of every block.
+ * Everything now begins at the same edge and only the right-hand extent
+ * changes.
+ */
+const COLUMN = "w-full max-w-[860px]";
+
+/**
+ * Vertical rhythm, two values and no more. The blocks previously carried five
+ * between them — 56, 64, 80, 96 and 112 — with no rule for which got what.
+ *
+ * Bands take the larger value: they have a background, so their padding is the
+ * only thing keeping the colour off the type.
+ */
+const FLOW = "py-14 lg:py-20";
+const BAND = "py-16 lg:py-24";
 
 export default function StoryBody({ blocks }: { blocks: StoryBlock[] }) {
   // The "Highlights" button on the homepage carousel deep-links past the
@@ -35,7 +55,7 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
   switch (block.kind) {
     case "prose":
       return (
-        <section className="shell py-10 lg:py-14">
+        <section className={`shell ${FLOW}`}>
           <div className={COLUMN}>
             {block.heading && (
               <Reveal as="h2" className="type-card-lg mb-6 text-carbon">
@@ -58,7 +78,7 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
 
     case "facts":
       return (
-        <section id={id} className="bg-cloud py-14 lg:py-20">
+        <section id={id} className={`bg-cloud ${BAND}`}>
           <div className="shell">
             <div className={COLUMN}>
               <Reveal as="h2" className="type-card-lg text-carbon">
@@ -91,7 +111,7 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
 
     case "list":
       return (
-        <section id={id} className="py-12 lg:py-20">
+        <section id={id} className={FLOW}>
           <div className="shell">
             <div className={COLUMN}>
               <Reveal as="h2" className="type-card-lg text-carbon">
@@ -103,7 +123,7 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
                 </Reveal>
               )}
             </div>
-            <ol className="mx-auto mt-12 grid w-full max-w-[1180px] gap-x-10 gap-y-12 md:grid-cols-2">
+            <ol className="mt-12 grid w-full gap-x-10 gap-y-12 md:grid-cols-2">
               {block.items.map((item, i) => (
                 <Reveal
                   key={item.title}
@@ -128,7 +148,7 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
 
     case "stats":
       return (
-        <section className="bg-carbon py-16 text-white lg:py-24">
+        <section className={`bg-carbon text-white ${BAND}`}>
           <div className="shell">
             <div className="grid gap-12 md:grid-cols-3">
               {block.stats.map((stat, i) => (
@@ -148,19 +168,19 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
 
     case "image":
       return (
-        <section className="py-10 lg:py-16">
+        <section className={FLOW}>
           <figure className="shell">
             {/* `wipe` opens the frame from the bottom edge while the picture
                 settles out of a slight over-scale */}
             <Reveal
               variant="wipe"
-              className="relative mx-auto aspect-[16/9] w-full max-w-[1180px] overflow-hidden rounded-lg"
+              className="relative aspect-[16/9] w-full overflow-hidden rounded-lg"
             >
               <Image
                 src={block.src}
                 alt={block.alt}
                 fill
-                sizes="(min-width: 1200px) 1180px, 100vw"
+                sizes="(min-width: 1440px) 1376px, 100vw"
                 className="object-cover"
               />
             </Reveal>
@@ -168,7 +188,7 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
               <Reveal
                 as="figcaption"
                 delay={200}
-                className="type-body mx-auto mt-4 max-w-[1180px] text-stone"
+                className="type-body mt-4 text-stone"
               >
                 {block.caption}
               </Reveal>
@@ -179,7 +199,7 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
 
     case "quote":
       return (
-        <section className="py-14 lg:py-24">
+        <section className={FLOW}>
           <div className="shell">
             <Reveal className={COLUMN}>
               <blockquote>

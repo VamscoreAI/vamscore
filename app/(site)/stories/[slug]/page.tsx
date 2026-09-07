@@ -38,7 +38,11 @@ export default async function StoryPage({ params }: Params) {
       <ReadingProgress />
 
       {/* ---------------------------------------------------------------- Hero */}
-      <section className="relative isolate min-h-[560px] overflow-hidden bg-carbon text-white lg:min-h-[680px]">
+      {/* `overflow-clip`, not `overflow-hidden`. `hidden` establishes a scroll
+          container, so a `view()` timeline inside — `story-hero-art` is a
+          candidate — resolves against it and silently never advances. Same
+          trap as the band art. */}
+      <section className="relative isolate min-h-[560px] overflow-clip bg-carbon text-white lg:min-h-[680px]">
         <div className="absolute inset-0">
           {/* The artwork drifts slowly for as long as it is on screen; the
               scrim is what keeps the white type legible over a photograph we
