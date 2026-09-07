@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { CAREERS } from "@/content/careers";
 import { Arrow, Eyebrow } from "@/components/ui";
+import Reveal from "@/components/ui/Reveal";
 import ApplySection from "@/components/careers/ApplySection";
 
 export const metadata: Metadata = {
@@ -24,6 +26,32 @@ export default function CareersPage() {
             See open roles
             <Arrow />
           </a>
+        </div>
+      </section>
+
+      {/* Sits between the carbon hero and the reasons, so it bridges dark to
+          light without pushing the three points further down the page.
+
+          `alt=""`: it illustrates "Room to move" — people who started on the
+          operations floor now leading automation work — which the copy below
+          already states. Describing it again would make a screen reader
+          announce the same idea twice.
+
+          The illustration's own background is a near-white gradient, so it is
+          deliberately not boxed or rounded: the edges dissolve into the band
+          instead of ending on a hard rectangle. */}
+      <section className="bg-white pt-16 lg:pt-24">
+        <div className="shell">
+          <Reveal variant="soft">
+            <Image
+              src={CAREERS.image}
+              alt=""
+              width={1600}
+              height={900}
+              sizes="(min-width: 1440px) 1376px, 100vw"
+              className="h-auto w-full"
+            />
+          </Reveal>
         </div>
       </section>
 

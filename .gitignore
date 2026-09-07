@@ -43,7 +43,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-public/assets/
+# Downloaded/derived media — refetched with scripts/fetch-assets.mjs, not
+# versioned. Git will not descend into an excluded directory, so re-opening a
+# single file inside it takes the full ladder below rather than one negation.
+public/assets/*
+!public/assets/img/
+public/assets/img/*
+# UV's own illustration, supplied by UV rather than downloaded. A fresh clone
+# needs it, and nothing can refetch it, so it is versioned.
+!public/assets/img/careers-paths.webp
 
 # job applications — personal data (CVs, contact details), never commit
 applications/

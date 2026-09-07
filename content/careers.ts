@@ -14,8 +14,13 @@ export type Role = {
 
 export const GENERAL_ROLE_ID = "general";
 
+const IMG = "/assets/img";
+
 export const CAREERS = {
   eyebrow: "CAREERS",
+  // UV's own illustration, not a licensed stock photo — which is why it is the
+  // one file under public/assets that .gitignore lets through.
+  image: `${IMG}/careers-paths.webp`,
   title: "Build the operations other businesses depend on",
   intro:
     "UV has run business process operations since 2012 and now builds robotics and automation alongside them. If you like work that has to actually run — every day, at volume — talk to us.",
