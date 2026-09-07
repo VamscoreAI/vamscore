@@ -13,34 +13,27 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: "What we do",
     // Unused: an item with `groups` renders as a menu button, not a link, in
-    // both the bar and the drawer. Kept pointing somewhere real anyway.
-    href: "/contact",
+    // both the bar and the drawer. Points at the page it heads regardless.
+    href: "/services",
     groups: [
       {
-        // The four service lines used to be described in a "What we deliver"
-        // band on the home page, and every one of these pointed at it. That
-        // section is gone, and nothing else on the site describes them — so
-        // rather than scroll to a section that no longer exists, each opens the
-        // contact form with its matching topic already chosen. The strings must
-        // stay in step with the `topic` options in `content/contact.ts`.
+        // These pointed at the contact form for a while, after the "What we
+        // deliver" band that described the four lines was removed. That asked
+        // the reader to get in touch about something the site never explained.
+        // They now land on the paragraph about the line they clicked; the
+        // contact form is the step after, from a link on that page.
+        //
+        // The fragments are `Service.id` in `content/services.ts` — keep them
+        // in step.
         heading: "Services",
         links: [
-          {
-            label: "Business process outsourcing",
-            href: "/contact?topic=Business+process+operations",
-          },
-          {
-            label: "Robotics and automation",
-            href: "/contact?topic=Robotics+and+automation",
-          },
+          { label: "Business process outsourcing", href: "/services#bpo" },
+          { label: "Robotics and automation", href: "/services#robotics" },
           {
             label: "Education and government projects",
-            href: "/contact?topic=Education+or+government+projects",
+            href: "/services#education",
           },
-          {
-            label: "Tata channel partnership",
-            href: "/contact?topic=Channel+partnership",
-          },
+          { label: "Tata channel partnership", href: "/services#channel" },
         ],
       },
       {
@@ -119,16 +112,13 @@ export const FOOTER_COLUMNS: NavGroup[] = [
   {
     heading: "Services",
     links: [
-      {
-        label: "Business process outsourcing",
-        href: "/contact?topic=Business+process+operations",
-      },
-      { label: "Robotics and automation", href: "/contact?topic=Robotics+and+automation" },
+      { label: "Business process outsourcing", href: "/services#bpo" },
+      { label: "Robotics and automation", href: "/services#robotics" },
       {
         label: "Education and government projects",
-        href: "/contact?topic=Education+or+government+projects",
+        href: "/services#education",
       },
-      { label: "Tata channel partnership", href: "/contact?topic=Channel+partnership" },
+      { label: "Tata channel partnership", href: "/services#channel" },
     ],
   },
   {
