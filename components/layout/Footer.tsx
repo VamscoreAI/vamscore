@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Wordmark } from "@/components/ui";
+import type { SocialLink } from "@/content/nav";
 import {
   COPYRIGHT,
   FOOTER_COLUMNS,
@@ -48,25 +48,46 @@ export default function Footer() {
             <h2 className="mb-5 text-[clamp(1.5rem,1.3rem+0.55vw,1.75rem)] leading-[1.214] font-normal text-white">
               Follow us
             </h2>
+            {/* Each mark is a link once its real profile URL is in place, and a
+                plain span until then — visible, but not pretending to go
+                anywhere. An icon that looks clickable and either does nothing
+                or lands on a guessed handle is worse than one that is simply
+                not wired yet.
+
+                The span is `aria-hidden` on purpose: a screen reader announcing
+                "Instagram" with nothing to activate is a dead end. Sighted
+                readers still see the row.
+
+                Styling is identical in both states, so supplying the URLs
+                changes nothing but the markup underneath. */}
             <ul className="flex gap-4">
-              {FOOTER_SOCIAL.map((social) => (
-                <li key={social.label}>
-                  <Link
-                    href={social.href}
-                    aria-label={social.label}
-                    className="grid size-11 place-items-center rounded-full border border-white/25 transition-colors hover:border-spring-green"
-                  >
-                    {/* the DAM icons are drawn dark-on-transparent, so invert them */}
-                    <Image
-                      src={social.icon}
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="h-5 w-5 invert"
-                    />
-                  </Link>
-                </li>
-              ))}
+              {FOOTER_SOCIAL.map((social) => {
+                const live = social.href.startsWith("https://");
+                return (
+                  <li key={social.label}>
+                    {live ? (
+                      <Link
+                        href={social.href}
+                        // These leave the site, so they open in a new tab.
+                        // `noopener` is what stops the opened page reaching
+                        // back through `window.opener`.
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        // The icon is decorative, so the accessible name has to
+                        // come from here or the link announces as just "link".
+                        aria-label={`UV on ${social.label}`}
+                        className={`${SOCIAL_RING} transition-colors hover:border-spring-green hover:text-spring-green`}
+                      >
+                        <SocialIcon platform={social.platform} />
+                      </Link>
+                    ) : (
+                      <span aria-hidden className={SOCIAL_RING}>
+                        <SocialIcon platform={social.platform} />
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </nav>
@@ -83,5 +104,45 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* Social marks                                                               */
+/*                                                                            */
+/* Inline rather than image files: they inherit `currentColor`, so the hover   */
+/* state is one class on the link instead of a second asset, and there is no   */
+/* logo file to keep in sync. Each is on a 24 viewBox and drawn at 20px.       */
+/* -------------------------------------------------------------------------- */
+
+/** Shared by the linked and not-yet-linked states so they are pixel-identical. */
+const SOCIAL_RING =
+  "grid size-11 place-items-center rounded-full border border-white/25 text-white/85";
+
+function SocialIcon({ platform }: { platform: SocialLink["platform"] }) {
+  const common = { width: 20, height: 20, viewBox: "0 0 24 24", "aria-hidden": true } as const;
+
+  if (platform === "instagram") {
+    return (
+      <svg {...common} fill="none" stroke="currentColor" strokeWidth="1.7">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
+  if (platform === "x") {
+    return (
+      <svg {...common} fill="currentColor">
+        <path d="M17.53 3h2.98l-6.51 7.44L21.66 21h-5.99l-4.7-6.14L5.6 21H2.62l6.96-7.96L2.34 3h6.14l4.25 5.62L17.53 3Zm-1.05 16.2h1.65L7.6 4.71H5.83l10.65 14.49Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg {...common} fill="currentColor">
+      <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.19 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.45 2.91h-2.33v7.03c4.78-.75 8.44-4.92 8.44-9.94Z" />
+    </svg>
   );
 }

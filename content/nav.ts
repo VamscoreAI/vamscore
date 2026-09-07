@@ -134,9 +134,32 @@ export const FOOTER_COLUMNS: NavGroup[] = [
 ];
 
 
-// Empty until UV has a real profile URL — the icon linked to "#", which looks
-// like a social presence and delivers nothing. Add the entry back with a real
-// href and the row renders itself.
-export const FOOTER_SOCIAL: { label: string; href: string; icon: string }[] = [];
+/**
+ * The "Follow us" row.
+ *
+ * `platform` picks the mark; the icons are drawn inline in `Footer.tsx` rather
+ * than loaded as files, so they inherit `currentColor` and need no asset.
+ *
+ * **`href` must be UV's real profile URL.** Until it is an `https://` link the
+ * footer still draws the mark, but as a plain span rather than an anchor — so
+ * the row is visible while nothing claims to lead anywhere. Replace the
+ * bracketed values below and each becomes a real link, with no other change.
+ *
+ * Do not guess a handle to fill the gap: `instagram.com/uv` is a stranger's
+ * account, and sending UV's visitors there is hard to walk back. That is also
+ * why the old LinkedIn entry went — it pointed at "#", which looked like a
+ * social presence and delivered nothing.
+ */
+export type SocialLink = {
+  label: string;
+  href: string;
+  platform: "instagram" | "x" | "facebook";
+};
+
+export const FOOTER_SOCIAL: SocialLink[] = [
+  { label: "Instagram", href: "[UV Instagram URL]", platform: "instagram" },
+  { label: "X (formerly Twitter)", href: "[UV X URL]", platform: "x" },
+  { label: "Facebook", href: "[UV Facebook URL]", platform: "facebook" },
+];
 
 export const COPYRIGHT = `Copyright © ${new Date().getFullYear()} ${COMPANY}. All rights reserved`;
