@@ -260,7 +260,7 @@ export const STORIES: Story[] = [
     // recognise.
     hero: `${IMG}/story-tata-channel.webp`,
     heroAlt:
-      "Three sides of the channel: a phone retail counter, stock being unloaded at a distribution point, and a service agent on a headset",
+      "A city at dusk under a web of connecting lines spanning a world map",
     meta: [
       { term: "Client", detail: "Tata Teleservices Limited" },
       { term: "Brand", detail: "Tata Docomo" },

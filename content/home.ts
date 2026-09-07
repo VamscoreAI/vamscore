@@ -128,9 +128,10 @@ export const CUSTOMER_STORIES = {
       eyebrow: "CHANNEL PARTNERSHIP",
       title:
         "Tata Docomo — an authorised channel across sales, distribution and service",
-      // Supplied by UV. Cropped before use: the top quarter carried this
-      // slide's own headline as baked-in type, and the band renders that
-      // headline as live text on top — the sentence would have appeared twice.
+      // Supplied by UV. Dark and text-free, which is what this band needs: the
+      // slide's own headline is rendered as live text over the picture under a
+      // left-weighted scrim, so anything busy or already-lettered on the left
+      // fights it.
       image: `${IMG}/story-tata-channel.webp`,
       slug: "tata-docomo-channel-partner",
     },
