@@ -68,7 +68,10 @@ export default async function StoryPage({ params }: Params) {
         <div className="shell relative flex min-h-[560px] flex-col justify-end py-16 lg:min-h-[680px] lg:py-20">
           <Link
             href="/#customer-stories"
-            className="story-rise group inline-flex w-fit items-center gap-2 text-[14px] leading-5 text-white/70 transition-colors hover:text-white"
+            /* `-my-2` cancels the padding again in the layout, so the target
+               grows to 36px without opening a gap above the eyebrow. The link
+               measured 121x20 before, which is fiddly on a phone. */
+            className="story-rise group -my-2 inline-flex w-fit items-center gap-2 py-2 text-[14px] leading-5 text-white/70 transition-colors hover:text-white"
           >
             <span className="transition-transform duration-300 group-hover:-translate-x-1">
               ←
@@ -97,7 +100,12 @@ export default async function StoryPage({ params }: Params) {
           </p>
 
           <dl
-            className="story-rise mt-14 grid gap-x-8 gap-y-6 border-t border-white/20 pt-8 sm:grid-cols-2 lg:grid-cols-4"
+            /* Two up from the smallest width, not from `sm`. Stacked, these
+               four rows ran 305px inside a hero already taller than a phone
+               screen; paired, the hero fits in roughly one viewport again. The
+               longest value ("Telecommunications") still sets on one line at
+               this column width. */
+            className="story-rise mt-14 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-white/20 pt-8 lg:grid-cols-4"
             style={{ "--rise-delay": "460ms" } as React.CSSProperties}
           >
             {story.meta.map((item) => (

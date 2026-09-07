@@ -185,13 +185,21 @@
 
 /* The giant outlined numerals on the service cards: transparent fill with a
    1px coral stroke, exactly as measured on the original (128px/168px, 700). */
+/* The clamp floor and the block padding are both scaled down for phones.
+   At 375 the old rule resolved to 72px type in a 168px box — line-height 1.31
+   plus a flat 2rem top and bottom — for a numeral that is `aria-hidden`
+   decoration. Nine of them across /about and /services spent about 1,470px of
+   scrolling on ornament, and each one left its heading marooned below a gap.
+
+   The floor only bites below ~528px, so nothing above phone width changes: the
+   fluid middle and the 8rem ceiling are untouched. */
 @utility outline-numeral {
   font-family: var(--font-display);
-  font-size: clamp(4.5rem, 0.5rem + 8.33vw, 8rem);
+  font-size: clamp(3.25rem, 0.5rem + 8.33vw, 8rem);
   line-height: 1.31;
   font-weight: 700;
   letter-spacing: -0.00125em;
-  padding-block: 2rem;
+  padding-block: clamp(0.75rem, 1rem + 1.4vw, 2rem);
   -webkit-text-stroke: 1px color-mix(in srgb, var(--color-flame-2) 80%, transparent);
   -webkit-text-fill-color: transparent;
 }
