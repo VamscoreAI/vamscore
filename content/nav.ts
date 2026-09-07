@@ -44,20 +44,35 @@ export const NAV_ITEMS: NavItem[] = [
         ],
       },
       {
-        heading: "Sectors",
+        // Was "Sectors": Media / Telecom / Education / Government, all four
+        // pointing at `/#customer-stories` — four labels for one anchor, and
+        // "Government" promised a sector the track record has no story for.
+        //
+        // Each entry now opens the story page that evidences it. Those pages
+        // already existed and nothing in either menu linked to them.
+        //
+        // Not "Sectors" any more, because channel partnership is a business
+        // model rather than a sector and the heading would be lying about one
+        // of its own three entries.
+        heading: "Where we've worked",
         links: [
-          { label: "Media", href: "/#customer-stories" },
-          { label: "Telecom", href: "/#customer-stories" },
-          { label: "Education", href: "/#customer-stories" },
-          { label: "Government", href: "/#customer-stories" },
+          // Topper is the education story as well as the media one — a
+          // curriculum channel and a digital classroom. A separate "Education"
+          // entry would be a second label for this same page; the sector is
+          // still named under Services.
+          { label: "Media and edtech", href: "/stories/topper-greycells18" },
+          { label: "Telecom", href: "/stories/jio-territory-partner" },
+          {
+            label: "Channel partnership",
+            href: "/stories/tata-docomo-channel-partner",
+          },
         ],
       },
       {
         heading: "How we work",
-        links: [
-          { label: "Our approach", href: "/#who-we-are" },
-          { label: "Delivery across India", href: "/#customer-stories" },
-        ],
+        // "Delivery across India" was here and is gone: no page and no section
+        // describes it, so it was the sixth link landing on the track record.
+        links: [{ label: "Our approach", href: "/#who-we-are" }],
       },
     ],
   },
