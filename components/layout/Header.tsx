@@ -8,13 +8,12 @@ import {
   LOCALES,
   LOCALE_SHORT,
   NAV_ITEMS,
-  SEARCH_SUGGESTIONS,
 } from "@/content/nav";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { Arrow, Button, Wordmark, cx } from "@/components/ui";
 import { authUiEnabled } from "@/lib/auth";
 
-type Overlay = { kind: "menu"; index: number } | { kind: "search" } | { kind: "locale" } | null;
+type Overlay = { kind: "menu"; index: number } | { kind: "locale" } | null;
 
 export default function Header() {
   const [overlay, setOverlay] = useState<Overlay>(null);
@@ -46,7 +45,7 @@ export default function Header() {
 
   // Lock the page behind the mobile drawer and the full-screen overlays.
   useEffect(() => {
-    const locked = mobileOpen || overlay?.kind === "search" || overlay?.kind === "locale";
+    const locked = mobileOpen || overlay?.kind === "locale";
     document.body.style.overflow = locked ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
@@ -155,26 +154,6 @@ export default function Header() {
 
           <button
             type="button"
-            aria-label="All UV sites"
-            className="hidden size-9 place-items-center rounded-full border border-white/25 transition-colors hover:border-white lg:grid"
-          >
-            <GridIcon />
-          </button>
-
-          <button
-            type="button"
-            aria-label="Search"
-            aria-expanded={overlay?.kind === "search"}
-            onClick={() =>
-              setOverlay(overlay?.kind === "search" ? null : { kind: "search" })
-            }
-            className="grid size-9 place-items-center rounded-full border border-white/25 transition-colors hover:border-white"
-          >
-            <SearchIcon />
-          </button>
-
-          <button
-            type="button"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
@@ -215,46 +194,6 @@ export default function Header() {
       )}
 
       {/* ---------------- Search overlay ---------------- */}
-      {overlay?.kind === "search" && (
-        <div className="fixed inset-x-0 top-[60px] bottom-0 z-40 overflow-y-auto bg-carbon lg:top-[72px]">
-          <div className="shell py-16 lg:py-24">
-            <h2 className="type-card-lg max-w-2xl text-white">
-              Find answers, explore possibilities.
-            </h2>
-            <p className="mt-4 max-w-xl text-white/70">
-              Find the knowledge and capabilities that help you move from complexity to
-              clarity.
-            </p>
-            <form
-              className="mt-10 flex max-w-2xl items-center gap-3 border-b border-white/30 pb-3"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <SearchIcon />
-              <input
-                autoFocus
-                type="search"
-                placeholder="Search"
-                aria-label="Search UV"
-                className="w-full bg-transparent text-lg text-white outline-none placeholder:text-white/50"
-              />
-            </form>
-
-            <h3 className="mt-14 text-lg text-white">Suggested searches</h3>
-            <ul className="mt-5 flex flex-wrap gap-3">
-              {SEARCH_SUGGESTIONS.map((s) => (
-                <li key={s}>
-                  <button
-                    type="button"
-                    className="rounded-pill bg-cloud px-5 py-3 text-left text-[15px] text-dark-stone transition-colors hover:bg-white"
-                  >
-                    {s}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
 
       {/* ---------------- Locale overlay ---------------- */}
       {overlay?.kind === "locale" && (
@@ -505,24 +444,7 @@ function MailIcon() {
   );
 }
 
-function GridIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor" aria-hidden>
-      {[1, 6, 11].map((y) =>
-        [1, 6, 11].map((x) => <rect key={`${x}-${y}`} x={x} y={y} width="2.6" height="2.6" rx="0.4" />)
-      )}
-    </svg>
-  );
-}
 
-function SearchIcon() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 18 18" fill="none" aria-hidden>
-      <circle cx="7.8" cy="7.8" r="5.5" stroke="currentColor" strokeWidth="1.4" />
-      <path d="m11.9 11.9 4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 function BurgerIcon() {
   return (

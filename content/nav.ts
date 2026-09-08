@@ -111,12 +111,6 @@ export const NAV_ITEMS: NavItem[] = [
  */
 export const GMAIL_COMPOSE_URL = "https://mail.google.com/mail/?view=cm&fs=1";
 
-export const SEARCH_SUGGESTIONS = [
-  "What processes can UV run for us?",
-  "How does UV's robotics and automation work?",
-  "How do I become a partner?",
-];
-
 // UV operates pan India, so the locale picker is a single entry rather than
 // Kyndryl's 40-country list. Add more if UV opens other markets.
 export const LOCALES = ["India - English"] as const;
