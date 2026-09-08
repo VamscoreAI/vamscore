@@ -1,7 +1,7 @@
 /**
  * The contact page — where "Let's talk" and every Contact link now land.
  *
- * The details block below is still `[bracketed]`: UV has not supplied a public
+ * The details block below is still `[bracketed]`: Vamscore has not supplied a public
  * email, phone number or address. They are left visibly unfilled rather than
  * invented, which is the same convention as everywhere else in `content/` —
  * but on this page in particular, **do not publish while they are still
@@ -24,7 +24,7 @@ const IMG = "/assets/img";
 
 export const CONTACT = {
   // Sits behind the hero copy at 60% under a left-weighted scrim. Supplied by
-  // UV.
+  // Vamscore.
   heroImage: `${IMG}/contact-hero.webp`,
   eyebrow: "CONTACT",
   title: "Let's talk",
@@ -39,7 +39,7 @@ export const CONTACT = {
     success:
       "Thanks — your message is with us. We will get back to you within two working days.",
     // Shown when the send fails for any reason. Deliberately tells the reader
-    // how to reach UV another way rather than leaving them stuck.
+    // how to reach Vamscore another way rather than leaving them stuck.
     error:
       "Sorry — we could not send that. Please try again, or email us directly.",
     fields: [

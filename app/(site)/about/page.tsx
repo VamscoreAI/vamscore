@@ -16,7 +16,7 @@ import ReadingProgress from "@/components/stories/ReadingProgress";
 import SectionWatermark from "@/components/sections/SectionWatermark";
 
 export const metadata: Metadata = {
-  title: "About UV — vision, mission, objectives and values",
+  title: "About Vamscore — vision, mission, objectives and values",
   description: ABOUT_HERO.standfirst,
 };
 
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 /**
  * Optional artwork behind a light band. Renders nothing at all while `image` is
  * null — no <Image>, no empty frame, no 404 — so the band just keeps its flat
- * background until UV supplies a file.
+ * background until Vamscore supplies a file.
  *
  * The scrim is deliberately light-side (white, not carbon): these bands have
  * dark type on them, so the image has to sit well back rather than darken the

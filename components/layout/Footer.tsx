@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer className="bg-carbon text-white">
       <div className="shell py-16 lg:py-20">
-        <Link href="/" aria-label="UV home" className="inline-block">
+        <Link href="/" aria-label="Vamscore home" className="inline-block">
           <Wordmark className="text-[32px] text-white" />
         </Link>
 
@@ -75,7 +75,7 @@ export default function Footer() {
                         rel="noopener noreferrer"
                         // The icon is decorative, so the accessible name has to
                         // come from here or the link announces as just "link".
-                        aria-label={`UV on ${social.label}`}
+                        aria-label={`Vamscore on ${social.label}`}
                         className={`${SOCIAL_RING} transition-colors hover:border-spring-green hover:text-spring-green`}
                       >
                         <SocialIcon platform={social.platform} />

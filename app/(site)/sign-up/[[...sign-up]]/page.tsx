@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { isAuthConfigured } from "@/lib/auth";
 
 export const metadata: Metadata = {
-  title: "Accept your invitation — UV",
+  title: "Accept your invitation — Vamscore",
   robots: { index: false, follow: false },
 };
 

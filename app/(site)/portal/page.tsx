@@ -5,12 +5,12 @@ import { Eyebrow } from "@/components/ui";
 import { isAuthConfigured } from "@/lib/auth";
 
 export const metadata: Metadata = {
-  title: "Employee portal — UV",
+  title: "Employee portal — Vamscore",
   robots: { index: false, follow: false },
 };
 
 /**
- * The employee portal — a placeholder today, and the place UV's internal tools
+ * The employee portal — a placeholder today, and the place Vamscore's internal tools
  * will go.
  *
  * **This page is the authorisation check — not `proxy.ts`.** Clerk deprecated

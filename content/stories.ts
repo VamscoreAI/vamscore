@@ -3,11 +3,11 @@
  * stories band on the homepage.
  *
  * The factual material — dates, ownership, the shape of each partner role, the
- * regulatory framing — comes from the briefing documents UV supplied for
+ * regulatory framing — comes from the briefing documents Vamscore supplied for
  * Greycells18/Topper, Jio and Tata Docomo. Anything that would be a *claim
- * about UV's own results* (volumes, headcount, coverage, revenue, named people)
+ * about Vamscore's own results* (volumes, headcount, coverage, revenue, named people)
  * is left in [square brackets], exactly as elsewhere in `content/`. Those are
- * facts only UV can supply, and inventing them for a real business would be
+ * facts only Vamscore can supply, and inventing them for a real business would be
  * worse than leaving a gap. `grep -n '\[' content/stories.ts` lists them.
  */
 
@@ -75,7 +75,7 @@ export const STORIES: Story[] = [
       { term: "Client", detail: "Greycells18 Media Ltd" },
       { term: "Sector", detail: "Media and education technology" },
       { term: "Network", detail: "Network18 ecosystem" },
-      { term: "UV's role", detail: "[engagement scope UV wants stated here]" },
+      { term: "Vamscore's role", detail: "[engagement scope Vamscore wants stated here]" },
     ],
     blocks: [
       {
@@ -144,7 +144,7 @@ export const STORIES: Story[] = [
         kind: "list",
         heading: "What running this actually involves",
         intro:
-          "The workstreams behind a curriculum platform of this shape. UV should confirm which of these sat inside its scope.",
+          "The workstreams behind a curriculum platform of this shape. Vamscore should confirm which of these sat inside its scope.",
         items: [
           {
             title: "Curriculum mapping",
@@ -185,7 +185,7 @@ export const STORIES: Story[] = [
       { term: "Client", detail: "Jio" },
       { term: "Sector", detail: "Telecommunications" },
       { term: "Model", detail: "Territory partnership" },
-      { term: "Territory", detail: "[zones or districts UV covers]" },
+      { term: "Territory", detail: "[zones or districts Vamscore covers]" },
     ],
     blocks: [
       {
@@ -226,7 +226,7 @@ export const STORIES: Story[] = [
         kind: "image",
         // Was `hero-alpitour.webp` — a Kyndryl asset from their Alpitour work,
         // which is why a Jio territory story carried a photograph of two
-        // tourists pointing at Budapest. Supplied by UV and actually about the
+        // tourists pointing at Budapest. Supplied by Vamscore and actually about the
         // subject: network reach over a city at dusk.
         src: `${IMG}/story-jio-network.webp`,
         alt: "A telecom tower above a city at dusk, with data links fanning out across a globe",
@@ -327,7 +327,7 @@ export const STORIES: Story[] = [
       {
         kind: "image",
         // Was `anthem-thumb-03.webp` — a Kyndryl asset with "unlock new value",
-        // Kyndryl's line rather than UV's, set into the pixels beside a coral
+        // Kyndryl's line rather than Vamscore's, set into the pixels beside a coral
         // panel. The third of these found on the site; the hero carried
         // `anthem-thumb-04` with "unlock new possibilities" on it.
         src: `${IMG}/story-tata-network.webp`,
@@ -376,7 +376,7 @@ export const STORY_BY_SLUG = new Map(STORIES.map((s) => [s.slug, s]));
 /** Copy for the story-page chrome that isn't part of any one story. */
 export const STORY_UI = {
   nextLabel: "Next story",
-  ctaTitle: "Work with UV",
+  ctaTitle: "Work with Vamscore",
   ctaBody:
     "Tell us what you need run, and we will tell you honestly whether we are the right people to run it.",
   ctaLabel: "Start a conversation",

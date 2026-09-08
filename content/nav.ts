@@ -1,13 +1,13 @@
-// Header, mega-menu, locale picker and footer data for UV.
+// Header, mega-menu, locale picker and footer data for Vamscore.
 //
-// Anything in [square brackets] is a placeholder UV still needs to supply.
+// Anything in [square brackets] is a placeholder Vamscore still needs to supply.
 // Links point at on-page anchors until the inner pages exist.
 
 export type NavLink = { label: string; href: string; external?: boolean };
 export type NavGroup = { heading: string; links: NavLink[] };
 export type NavItem = { label: string; href: string; groups?: NavGroup[] };
 
-export const COMPANY = "UV";
+export const COMPANY = "Vamscore";
 
 export const NAV_ITEMS: NavItem[] = [
   {
@@ -76,7 +76,7 @@ export const NAV_ITEMS: NavItem[] = [
       {
         heading: "Our company",
         links: [
-          { label: "About UV", href: "/about" },
+          { label: "About Vamscore", href: "/about" },
           { label: "Vision and mission", href: "/about#vision" },
           { label: "Our values", href: "/about#values" },
           { label: "Partners", href: "/#partners" },
@@ -111,8 +111,8 @@ export const NAV_ITEMS: NavItem[] = [
  */
 export const GMAIL_COMPOSE_URL = "https://mail.google.com/mail/?view=cm&fs=1";
 
-// UV operates pan India, so the locale picker is a single entry rather than
-// Kyndryl's 40-country list. Add more if UV opens other markets.
+// Vamscore operates pan India, so the locale picker is a single entry rather than
+// Kyndryl's 40-country list. Add more if Vamscore opens other markets.
 export const LOCALES = ["India - English"] as const;
 
 export const ACTIVE_LOCALE = "India - English";
@@ -134,7 +134,7 @@ export const FOOTER_COLUMNS: NavGroup[] = [
   {
     heading: "Company",
     links: [
-      { label: "About UV", href: "/about" },
+      { label: "About Vamscore", href: "/about" },
       { label: "Our work", href: "/#customer-stories" },
       { label: "Partners", href: "/#partners" },
       { label: "Careers", href: "/careers" },
@@ -150,13 +150,13 @@ export const FOOTER_COLUMNS: NavGroup[] = [
  * `platform` picks the mark; the icons are drawn inline in `Footer.tsx` rather
  * than loaded as files, so they inherit `currentColor` and need no asset.
  *
- * **`href` must be UV's real profile URL.** Until it is an `https://` link the
+ * **`href` must be Vamscore's real profile URL.** Until it is an `https://` link the
  * footer still draws the mark, but as a plain span rather than an anchor — so
  * the row is visible while nothing claims to lead anywhere. Replace the
  * bracketed values below and each becomes a real link, with no other change.
  *
  * Do not guess a handle to fill the gap: `instagram.com/uv` is a stranger's
- * account, and sending UV's visitors there is hard to walk back. That is also
+ * account, and sending Vamscore's visitors there is hard to walk back. That is also
  * why the old LinkedIn entry went — it pointed at "#", which looked like a
  * social presence and delivered nothing.
  */
@@ -167,9 +167,9 @@ export type SocialLink = {
 };
 
 export const FOOTER_SOCIAL: SocialLink[] = [
-  { label: "Instagram", href: "[UV Instagram URL]", platform: "instagram" },
-  { label: "X (formerly Twitter)", href: "[UV X URL]", platform: "x" },
-  { label: "Facebook", href: "[UV Facebook URL]", platform: "facebook" },
+  { label: "Instagram", href: "[Vamscore Instagram URL]", platform: "instagram" },
+  { label: "X (formerly Twitter)", href: "[Vamscore X URL]", platform: "x" },
+  { label: "Facebook", href: "[Vamscore Facebook URL]", platform: "facebook" },
 ];
 
 export const COPYRIGHT = `Copyright © ${new Date().getFullYear()} ${COMPANY}. All rights reserved`;

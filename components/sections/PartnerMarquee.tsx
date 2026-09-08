@@ -20,9 +20,9 @@ export default function PartnerMarquee() {
       </div>
 
       <div className="marquee mt-12 overflow-hidden">
-        {/* These are the partners' own marks, supplied by UV. Displaying another
+        {/* These are the partners' own marks, supplied by Vamscore. Displaying another
             company's trademark states a relationship — make sure each of these
-            partnerships is current and that UV is comfortable claiming it. */}
+            partnerships is current and that Vamscore is comfortable claiming it. */}
         <ul className="marquee-track flex w-max items-center gap-16 px-8">
           {[...track, ...track].map((partner, i) => (
             <li

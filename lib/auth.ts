@@ -1,5 +1,5 @@
 /**
- * TEMPORARY SCAFFOLDING. Delete this file and its call sites once UV's Clerk
+ * TEMPORARY SCAFFOLDING. Delete this file and its call sites once Vamscore's Clerk
  * keys are in `.env.local` — see the "Employee login" section of the README.
  *
  * It exists so the marketing site keeps building and running before Clerk is

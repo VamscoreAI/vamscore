@@ -5,14 +5,14 @@ import Reveal from "@/components/ui/Reveal";
 
 /**
  * The condensed vision and mission, sitting between "Who we are" and the
- * company's record — the point on the homepage where UV says what it is now,
+ * company's record — the point on the homepage where Vamscore says what it is now,
  * before the page goes on to show what it has done.
  *
  * **Why this band is carbon.** As a light band it was one of a run of
  * near-identical white fields and nothing drew the eye to it. Carbon breaks
  * that run, the same alternation `/about` uses.
  *
- * `VISION_MISSION_BAND.image` is null until UV supplies artwork; nothing is
+ * `VISION_MISSION_BAND.image` is null until Vamscore supplies artwork; nothing is
  * rendered while it is, so there is no 404 and no empty frame — the band simply
  * stays flat carbon.
  *

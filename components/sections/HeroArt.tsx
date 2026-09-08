@@ -18,7 +18,7 @@
  *
  * **Why it exists.** It replaced `anthem-thumb-04.webp`: a Kyndryl photograph
  * with an identifiable person in it and the words "unlock new possibilities" —
- * Kyndryl's line, not UV's — baked into the pixels. Being generated, this needs
+ * Kyndryl's line, not Vamscore's — baked into the pixels. Being generated, this needs
  * no licence and never needs replacing.
  *
  * **No `Math.sin` anywhere**, and not only out of habit. `Hero` is a client

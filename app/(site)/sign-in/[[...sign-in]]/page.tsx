@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { isAuthConfigured } from "@/lib/auth";
 
 export const metadata: Metadata = {
-  title: "Employee sign in — UV",
+  title: "Employee sign in — Vamscore",
   // A staff door has no business in search results.
   robots: { index: false, follow: false },
 };

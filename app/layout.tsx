@@ -25,9 +25,9 @@ const display = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "UV",
+  title: "Vamscore",
   description:
-    "UV runs business process operations, builds robotics and automation, and delivers education and channel-partner projects across India.",
+    "Vamscore runs business process operations, builds robotics and automation, and delivers education and channel-partner projects across India.",
 };
 
 /**

@@ -19,7 +19,7 @@ import { ArrowLink, Section, cx } from "@/components/ui";
  *   right side while the index stays with you instead of scrolling away.
  *
  * The heading is static again. It used to append the active tab's label to
- * "Answers to questions about", which read "…about About UV" on the tab that
+ * "Answers to questions about", which read "…about About Vamscore" on the tab that
  * opens by default. The tab name now sits over the answers it belongs to.
  *
  * **Answers open by default.** No topic here holds more than three questions and
@@ -29,7 +29,7 @@ import { ArrowLink, Section, cx } from "@/components/ui";
  * getting at it.
  */
 export default function Faq() {
-  // Tab 0 is "About UV" — the only tab whose answers are real copy. This was
+  // Tab 0 is "About Vamscore" — the only tab whose answers are real copy. This was
   // 1 ("Services"), inherited from the original, whose two answers are both
   // still bracketed placeholders, so the FAQ opened on nothing useful.
   const [tab, setTab] = useState(0);

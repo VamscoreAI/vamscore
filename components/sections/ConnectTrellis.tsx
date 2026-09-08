@@ -5,8 +5,8 @@ import { cx } from "@/components/ui";
  *
  * **What it is.** Interlocking steep diagonals over full-height verticals — the
  * ornament the original runs in this band, where it is called a "trellis".
- * Generated here from the rule below rather than shipped as their file, in UV's
- * own `flame` token. That token is already the identical hex (#ff462d): UV's
+ * Generated here from the rule below rather than shipped as their file, in Vamscore's
+ * own `flame` token. That token is already the identical hex (#ff462d): Vamscore's
  * whole palette was transcribed from the same source.
  *
  * **The rule.** At each step of `PITCH`, one unit is drawn as a single path:

@@ -1,6 +1,6 @@
-// All homepage copy and asset paths for UV.
+// All homepage copy and asset paths for Vamscore.
 //
-// Anything wrapped in [square brackets] is a PLACEHOLDER — a fact UV has not
+// Anything wrapped in [square brackets] is a PLACEHOLDER — a fact Vamscore has not
 // supplied yet. Those are deliberately left visible rather than invented,
 // because awards, client names and staff quotes are claims a real business
 // cannot afford to have made up for it. Search this file for "[" to find them.
@@ -23,14 +23,14 @@ export type HeroSlide = {
   video?: string;
   /** Poster for `video`, or the still itself. Omitted when `art` is set. */
   image?: string;
-  /** Renders `HeroArt` instead of a photograph — UV's own, generated. */
+  /** Renders `HeroArt` instead of a photograph — Vamscore's own, generated. */
   art?: boolean;
   ctas: { label: string; href: string; variant: "primary" | "outline" }[];
 };
 
 export const HERO_SLIDES: HeroSlide[] = [
   {
-    eyebrow: "UV",
+    eyebrow: "Vamscore",
     title: "An AI and technology company",
     body: "We combine artificial intelligence, technology and human expertise to build practical, scalable and affordable solutions for business and education.",
     video: `${VIDEO}/hero-slide-2.mp4`,
@@ -38,7 +38,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     ctas: [{ label: "Our vision and mission", href: "/about", variant: "outline" }],
   },
   {
-    eyebrow: "UV",
+    eyebrow: "Vamscore",
     title: "Intelligent automation, not just outsourcing",
     body: "AI agents, workflow automation, analytics and human expertise, combined into operating models that move organisations from traditional outsourcing towards intelligent operations.",
     video: `${VIDEO}/hero-modernization.mp4`,
@@ -46,9 +46,9 @@ export const HERO_SLIDES: HeroSlide[] = [
     ctas: [{ label: "What we're working towards", href: "/about#objectives", variant: "outline" }],
   },
   {
-    eyebrow: "UV",
+    eyebrow: "Vamscore",
     title: "Fourteen years of operations behind it",
-    body: "UV has run business process operations since 2012 — for Greycells 18 Media and Jio Communications, as an authorised Tata channel partner, and as territory partner on a central government education project across pan India.",
+    body: "Vamscore has run business process operations since 2012 — for Greycells 18 Media and Jio Communications, as an authorised Tata channel partner, and as territory partner on a central government education project across pan India.",
     // Was `anthem-thumb-04.webp`: a Kyndryl photograph of an identifiable person
     // with "unlock new possibilities" — Kyndryl's line — set into the image
     // itself. `HeroArt` draws fourteen ridges instead, one per year.
@@ -92,13 +92,13 @@ export const WHO_WE_ARE = {
   // This one string drives the eyebrow, the watermark and the jump link.
   eyebrow: "OUR STORY",
   title: "An AI and technology company with fourteen years of operations behind it",
-  body: "UV started as a BPO business in 2012 and later stepped into the robotics field. We have worked for Greycells 18 Media and Jio Communications, become a channel partner for Tata, and serve as territory partner for a central government education project across pan India. Today we build artificial intelligence and automation on that experience — designed by people who have run the processes themselves.",
+  body: "Vamscore started as a BPO business in 2012 and later stepped into the robotics field. We have worked for Greycells 18 Media and Jio Communications, become a channel partner for Tata, and serve as territory partner for a central government education project across pan India. Today we build artificial intelligence and automation on that experience — designed by people who have run the processes themselves.",
 };
 
 /* -------------------------------------------------------------------------- */
 /* 4. Client work — PLACEHOLDER                                               */
 /*                                                                            */
-/* Greycells 18 Media and Jio Communications are named because UV named them,  */
+/* Greycells 18 Media and Jio Communications are named because Vamscore named them,  */
 /* but the scope and outcome of each engagement still need filling in.         */
 /* -------------------------------------------------------------------------- */
 
@@ -128,7 +128,7 @@ export const CUSTOMER_STORIES = {
       eyebrow: "CHANNEL PARTNERSHIP",
       title:
         "Tata Docomo — an authorised channel across sales, distribution and service",
-      // Supplied by UV. Dark and text-free, which is what this band needs: the
+      // Supplied by Vamscore. Dark and text-free, which is what this band needs: the
       // slide's own headline is rendered as live text over the picture under a
       // left-weighted scrim, so anything busy or already-lettered on the left
       // fights it.
@@ -158,7 +158,7 @@ export const AI_NATIVE = {
 /* 6. Partners                                                                */
 /*                                                                            */
 /* Rendered as plain wordmarks, not the partners' actual logos: reproducing    */
-/* their trademarks would imply an endorsement UV has not shown it has.        */
+/* their trademarks would imply an endorsement Vamscore has not shown it has.        */
 /* -------------------------------------------------------------------------- */
 
 export const PARTNERS = {
@@ -189,7 +189,7 @@ export const PARTNERS = {
 /* 7. Let's get there together                                                */
 /* -------------------------------------------------------------------------- */
 
-// Pictures supplied by UV. These were `people-02/07/10.webp` — Kyndryl
+// Pictures supplied by Vamscore. These were `people-02/07/10.webp` — Kyndryl
 // portraits, the last three of that set anywhere on the site. Each card now
 // shows what it is asking for rather than a stranger's face.
 export const GET_THERE_TOGETHER = {
@@ -226,9 +226,9 @@ export const GET_THERE_TOGETHER = {
 export const FAQ = {
   // Both lines are used again. The heading used to render line 0 followed by
   // the *active tab's* label, which on the first tab produced "Answers to
-  // questions about About UV" and left `titleLines[1]` dead in the file. The
+  // questions about About Vamscore" and left `titleLines[1]` dead in the file. The
   // tab name now sits over the answers, where it belongs.
-  titleLines: ["Answers to questions about", "UV"],
+  titleLines: ["Answers to questions about", "Vamscore"],
 
   // A way out for anyone whose question is not on the list. It also gives the
   // left column something to end on: with four topics and a two-line heading it
@@ -241,18 +241,18 @@ export const FAQ = {
 
   tabs: [
     {
-      label: "About UV",
+      label: "About Vamscore",
       items: [
         {
-          q: "What does UV do?",
-          a: "UV runs business process operations, builds robotics and automation, delivers a central government education project as territory partner across pan India, and operates as an authorised Tata channel partner.",
+          q: "What does Vamscore do?",
+          a: "Vamscore runs business process operations, builds robotics and automation, delivers a central government education project as territory partner across pan India, and operates as an authorised Tata channel partner.",
         },
         {
-          q: "How long has UV been operating?",
+          q: "How long has Vamscore been operating?",
           a: "Since 2012, when the company started as a BPO business. The robotics and partnership work came later.",
         },
         {
-          q: "Where does UV operate?",
+          q: "Where does Vamscore operate?",
           a: "Delivery for the central government education project covers pan India. [Add head office location and any other sites.]",
         },
       ],
@@ -261,12 +261,12 @@ export const FAQ = {
       label: "Services",
       items: [
         {
-          q: "What kind of processes does UV take on?",
-          a: "[List the specific back-office and customer-facing processes UV runs — this is the question prospects ask first.]",
+          q: "What kind of processes does Vamscore take on?",
+          a: "[List the specific back-office and customer-facing processes Vamscore runs — this is the question prospects ask first.]",
         },
         {
-          q: "What does UV's robotics work involve?",
-          a: "[Describe the robotics and automation UV builds, and the kind of problem it is applied to.]",
+          q: "What does Vamscore's robotics work involve?",
+          a: "[Describe the robotics and automation Vamscore builds, and the kind of problem it is applied to.]",
         },
       ],
     },
@@ -275,24 +275,24 @@ export const FAQ = {
       items: [
         {
           q: "What does being a Tata channel partner mean?",
-          a: "It means UV is authorised to take Tata solutions to market and support them for clients. [Add which Tata company and which product lines.]",
+          a: "It means Vamscore is authorised to take Tata solutions to market and support them for clients. [Add which Tata company and which product lines.]",
         },
         {
-          q: "Can UV act as a territory partner for our organisation?",
-          a: "UV already serves as territory partner on a central government education project covering pan India. Get in touch to discuss coverage and scope.",
+          q: "Can Vamscore act as a territory partner for our organisation?",
+          a: "Vamscore already serves as territory partner on a central government education project covering pan India. Get in touch to discuss coverage and scope.",
         },
       ],
     },
     {
-      label: "Working with UV",
+      label: "Working with Vamscore",
       items: [
         {
           q: "How do engagements usually start?",
           a: "[Describe the first step — a scoping call, a pilot, a site visit.]",
         },
         {
-          q: "How is UV's work priced?",
-          a: "[Outline the commercial models UV offers, e.g. per-seat, per-transaction, or fixed-scope.]",
+          q: "How is Vamscore's work priced?",
+          a: "[Outline the commercial models Vamscore offers, e.g. per-seat, per-transaction, or fixed-scope.]",
         },
       ],
     },
@@ -328,7 +328,7 @@ export const CONNECT = {
       href: "/contact?topic=Business+process+operations",
     },
     {
-      label: "Partner with UV",
+      label: "Partner with Vamscore",
       body: "Channel, territory and delivery partnerships.",
       href: "/contact?topic=Channel+partnership",
     },

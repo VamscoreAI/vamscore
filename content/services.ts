@@ -8,7 +8,7 @@
 // either — across that whole page "outsourcing" appears once and "robotics"
 // once, and the vision statement names none of the four.
 //
-// Anything in [square brackets] is a placeholder UV still needs to supply.
+// Anything in [square brackets] is a placeholder Vamscore still needs to supply.
 
 const IMG = "/assets/img";
 
@@ -17,7 +17,7 @@ export type Service = {
   id: string;
   title: string;
   body: string;
-  /** The two or three things UV actually does under this line. */
+  /** The two or three things Vamscore actually does under this line. */
   points: string[];
   /** Opens the contact form with the matching topic already chosen. The string
    *  must match an option in `content/contact.ts` exactly, or the form falls
@@ -29,7 +29,7 @@ export const SERVICES_HERO = {
   eyebrow: "WHAT WE DO",
   title: "Operations, automation and delivery at scale",
   standfirst:
-    "Four lines of work, built in the order UV learned them: run the process first, automate it second, and take it to market with partners who need reach.",
+    "Four lines of work, built in the order Vamscore learned them: run the process first, automate it second, and take it to market with partners who need reach.",
   image: `${IMG}/ai-native-leadspace.webp` as string | null,
 };
 
@@ -37,11 +37,11 @@ export const SERVICES: Service[] = [
   {
     id: "bpo",
     title: "Business process outsourcing",
-    body: "The service UV was built on in 2012. We run back-office and customer-facing processes for clients who need them handled reliably and at volume.",
+    body: "The service Vamscore was built on in 2012. We run back-office and customer-facing processes for clients who need them handled reliably and at volume.",
     points: [
       "Back-office processing",
       "Customer-facing operations",
-      "[Add the specific processes UV runs — this is the question prospects ask first.]",
+      "[Add the specific processes Vamscore runs — this is the question prospects ask first.]",
     ],
     topic: "Business process operations",
   },
@@ -59,7 +59,7 @@ export const SERVICES: Service[] = [
   {
     id: "education",
     title: "Education and government projects",
-    body: "UV is territory partner for a central government education project, delivering across pan India.",
+    body: "Vamscore is territory partner for a central government education project, delivering across pan India.",
     points: [
       "Territory partner on a central government education project",
       "Delivery across pan India",

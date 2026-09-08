@@ -17,7 +17,7 @@ type Status =
  * `aria-live` announcement — so the two behave identically for a reader.
  *
  * `?topic=` preselects "What is this about?", which is how the closing band's
- * "Start a project" and "Partner with UV" land somewhere different despite both
+ * "Start a project" and "Partner with Vamscore" land somewhere different despite both
  * pointing here. **The value is only honoured if it matches one of the field's
  * own options** — otherwise a crafted URL could write arbitrary text into a
  * field the reader believes they chose.

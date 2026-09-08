@@ -1,25 +1,25 @@
 # uv-website
 
-UV's marketing site, built with Next.js 16 (App Router), React 19 and Tailwind v4.
+Vamscore's marketing site, built with Next.js 16 (App Router), React 19 and Tailwind v4.
 
 The layout and design system are modelled closely on the
 [Kyndryl India homepage](https://www.kyndryl.com/in/en) — measurements taken from
-its live DOM. The copy is UV's.
+its live DOM. The copy is Vamscore's.
 
 ## Before this goes public
 
 Two things still need doing:
 
 1. **Fill in the placeholders.** Anything in `[square brackets]` in `content/` is
-   a fact UV hasn't supplied — awards, client outcomes, team names and quotes,
+   a fact Vamscore hasn't supplied — awards, client outcomes, team names and quotes,
    contact details. They were deliberately left visible rather than invented.
    `grep -rn '\[' content/` lists them.
 2. **Replace the imagery.** Most of `public/assets` was downloaded from
-   kyndryl.com as a placeholder set and is not UV's to publish. The `UV` wordmark
+   kyndryl.com as a placeholder set and is not Vamscore's to publish. The `Vamscore` wordmark
    in the header and footer is plain type (`Wordmark` in `components/ui`) — swap
    it for a real logo when one exists.
 
-   **These are UV's own and can stay** — supplied for the site, converted to
+   **These are Vamscore's own and can stay** — supplied for the site, converted to
    `.webp`, and absent from `scripts/fetch-assets.mjs`, so `npm run assets`
    will neither fetch nor overwrite them:
 
@@ -124,7 +124,7 @@ showing nothing. They are in `content/contact.ts`.
 
 ## Employee login (Clerk)
 
-`/portal` is a protected placeholder for UV's internal tools. The header shows a
+`/portal` is a protected placeholder for Vamscore's internal tools. The header shows a
 quiet "Employee sign in" link, which becomes the user's avatar once signed in.
 
 **Right now there are no keys, so none of it exists.** `/portal`, `/sign-in` and
@@ -201,18 +201,18 @@ means swapping this endpoint for object storage or an email service.
 
 ## About page — vision, mission, objectives, values
 
-`/about` is the canonical statement of what UV **is now**: an AI and technology
+`/about` is the canonical statement of what Vamscore **is now**: an AI and technology
 company. `content/about.ts` holds it — `VISION`, `MISSION`, `OBJECTIVES` (5,
 three points each), `VALUES` (9), plus `FOUNDATION` and the page chrome.
 
-**The vision, mission, fifteen objective points and nine value bodies are UV's
+**The vision, mission, fifteen objective points and nine value bodies are Vamscore's
 own wording, used verbatim** — including the unspaced em dash in "Impact" and
 the ampersand in "People & Learning". Don't tidy that punctuation, and don't
 pre-uppercase titles in the data; casing is CSS's job.
 
 One thing to hold on to when editing the connective copy: the objectives are
 written in the **future tense** — "Develop", "Build", "Establish". They are what
-UV is working towards, not a claim about what it already ships. Surrounding copy
+Vamscore is working towards, not a claim about what it already ships. Surrounding copy
 must not quietly turn an aim into an achievement.
 
 Two layout decisions that look arbitrary and are not:
@@ -235,7 +235,7 @@ a short band scrolls past without ever becoming current.
 
 ### History vs. present
 
-The BPO / Jio / Tata / Greycells material is UV's **history** — the record the
+The BPO / Jio / Tata / Greycells material is Vamscore's **history** — the record the
 technology is built on, not the current offer. The hero, `WHO_WE_ARE`,
 `AI_NATIVE` and the customer-stories eyebrow ("our track record") are framed
 that way deliberately. `FOUNDATION` on `/about` is where that history is stated
@@ -256,9 +256,9 @@ Both buttons on each customer-stories slide open that slide's page —
 "Read full story" at the top, "Highlights" at `#highlights`, which is placed on
 the first facts-or-list block of whichever story it is.
 
-The factual material came from UV's briefing documents. **Everything that would
-be a claim about UV's own results — volumes, coverage, headcount, quotes — is
-still in `[square brackets]`**, because those are facts only UV can supply and
+The factual material came from Vamscore's briefing documents. **Everything that would
+be a claim about Vamscore's own results — volumes, coverage, headcount, quotes — is
+still in `[square brackets]`**, because those are facts only Vamscore can supply and
 inventing them for a real business would be worse than leaving the gap.
 
 Adding a story is one entry in `STORIES` plus a `slug` on the matching slide in
@@ -506,7 +506,7 @@ force each one to complete instantly and park on its *end* keyframe. The pulses
 therefore carry a parked `--park` offset so the still frame is composed rather
 than empty.
 
-**If UV ever commissions a film**, this is a component rather than a content
+**If Vamscore ever commissions a film**, this is a component rather than a content
 slot — add a `<video>` here and drop the SVG. There is deliberately no
 `video: null` stub waiting: an unfilled media slot is what produced the dead
 "Watch" button in the first place.
@@ -532,9 +532,9 @@ Two deliberate departures:
 
 ## Ownership
 
-The copy is UV's. The **design** is closely modelled on kyndryl.com, and the
+The copy is Vamscore's. The **design** is closely modelled on kyndryl.com, and the
 **imagery** in `public/assets` is still Kyndryl's — replace it before publishing.
 
 Partner names (Tata, Jio Communications, Greycells 18 Media) render as plain
 type rather than those companies' logos, in `components/sections/PartnerMarquee.tsx`.
-Using their trademarks would imply an endorsement UV would need permission for.
+Using their trademarks would imply an endorsement Vamscore would need permission for.

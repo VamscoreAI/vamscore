@@ -5,9 +5,9 @@ import { Arrow, Eyebrow } from "@/components/ui";
 import ApplySection from "@/components/careers/ApplySection";
 
 export const metadata: Metadata = {
-  title: "Careers — UV",
+  title: "Careers — Vamscore",
   description:
-    "Open roles at UV across business process operations, robotics and automation, and education delivery.",
+    "Open roles at Vamscore across business process operations, robotics and automation, and education delivery.",
 };
 
 export default function CareersPage() {

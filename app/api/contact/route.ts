@@ -97,13 +97,13 @@ export async function POST(request: Request) {
   try {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
-      from: `UV website <${from}>`,
+      from: `Vamscore website <${from}>`,
       to: [to],
       // So a reply in the inbox goes to the enquirer, not to the site.
       replyTo: email,
       subject: `Website enquiry — ${topic || "General"} — ${name}`,
       html: [
-        `<h2>New enquiry from the UV website</h2>`,
+        `<h2>New enquiry from the Vamscore website</h2>`,
         `<table cellpadding="6" style="border-collapse:collapse">`,
         ...rows.map(
           ([k, v]) =>

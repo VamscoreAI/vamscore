@@ -62,7 +62,7 @@ export default function Header() {
           page and the footer on one left edge at every width. */}
       <div className="shell flex h-[60px] items-center gap-6 lg:h-[72px]">
         {/* Logo */}
-        <Link href="/" className="shrink-0" aria-label="UV home">
+        <Link href="/" className="shrink-0" aria-label="Vamscore home">
           <Wordmark className="text-white" />
         </Link>
 

@@ -1,15 +1,15 @@
 /**
- * UV's vision, mission, core objectives and values — the company as it is now.
+ * Vamscore's vision, mission, core objectives and values — the company as it is now.
  *
  * The vision statement, the mission statement, the five objectives with their
- * fifteen supporting points, and the nine values are **UV's own wording, used
+ * fifteen supporting points, and the nine values are **Vamscore's own wording, used
  * verbatim**. Punctuation is theirs too (the unspaced em dash in "Impact", the
  * ampersand in "People & Learning"); do not tidy it. Casing is done in CSS, so
  * nothing here is pre-uppercased.
  *
  * One thing to hold on to when editing the connective copy around them: the
  * objectives are written in the future tense — "Develop", "Build", "Establish".
- * They are what UV is working towards, not a claim about what it already ships.
+ * They are what Vamscore is working towards, not a claim about what it already ships.
  * Surrounding copy must not quietly convert an aim into an achievement.
  */
 
@@ -19,17 +19,17 @@ export type Objective = {
   title: string;
   points: string[];
   /** Artwork for this objective's row. Null renders the row without one, so
-   *  objectives can be illustrated as and when UV has a picture for them. */
+   *  objectives can be illustrated as and when Vamscore has a picture for them. */
   image?: string | null;
   imageAlt?: string;
 };
 export type ValueItem = { title: string; body: string };
 
 export const ABOUT_HERO = {
-  eyebrow: "ABOUT UV",
+  eyebrow: "ABOUT Vamscore",
   title: "An AI and technology company, built on fourteen years of operations",
   standfirst:
-    "UV runs business process operations, education delivery and a Tata channel partnership — and builds artificial intelligence and automation on top of that experience. This is what we are working towards.",
+    "Vamscore runs business process operations, education delivery and a Tata channel partnership — and builds artificial intelligence and automation on top of that experience. This is what we are working towards.",
   image: `${IMG}/about-hero-human-machine.webp`,
   imageAlt:
     "A man reading a document beside a robotic arm on a workbench",
@@ -37,7 +37,7 @@ export const ABOUT_HERO = {
 
 export const VISION = {
   eyebrow: "VISION",
-  // Supplied by UV. A column of its own beside the statement now, not a scrim
+  // Supplied by Vamscore. A column of its own beside the statement now, not a scrim
   // backdrop — so unlike the old band art this is not optional, and the type
   // is `string` rather than `string | null`.
   //
@@ -53,7 +53,7 @@ export const MISSION = {
   eyebrow: "MISSION",
   statement:
     "Our mission is to combine artificial intelligence, technology, and human expertise to create practical, scalable, and affordable solutions that help organizations improve efficiency, enhance customer experiences, make smarter decisions, and accelerate growth.",
-  // Same treatment as VISION.image: UV's own, with the baked-in "OUR MISSION"
+  // Same treatment as VISION.image: Vamscore's own, with the baked-in "OUR MISSION"
   // lettering cropped away.
   image: `${IMG}/about-mission.webp`,
 };
@@ -134,14 +134,14 @@ export const OBJECTIVES: {
 };
 
 /**
- * The history band. Everything here is drawn from what UV has already stated
+ * The history band. Everything here is drawn from what Vamscore has already stated
  * elsewhere on the site (`WHO_WE_ARE`, `CUSTOMER_STORIES`) — no new claims.
  */
 export const FOUNDATION = {
   eyebrow: "OUR FOUNDATION",
   title: "Fourteen years of running the work, not just advising on it",
   paragraphs: [
-    "UV started as a business process operation in 2012 and later stepped into robotics and automation. We have worked for Greycells 18 Media and Jio Communications, become an authorised channel partner for Tata, and served as territory partner on a central government education project across pan India.",
+    "Vamscore started as a business process operation in 2012 and later stepped into robotics and automation. We have worked for Greycells 18 Media and Jio Communications, become an authorised channel partner for Tata, and served as territory partner on a central government education project across pan India.",
     "That record is why the technology side of the company looks the way it does. We have run these processes at volume, under someone else's service standard, so we know where automation genuinely removes work and where it only adds moving parts.",
     "Education and telecom are where that experience is deepest, which is why they are named in the objectives as the foundation to expand from.",
   ],
@@ -205,7 +205,7 @@ export const VALUES: {
 };
 
 export const ABOUT_CTA = {
-  title: "Work with UV",
+  title: "Work with Vamscore",
   body: "Tell us what you need built or run, and we will tell you honestly whether we are the right people for it.",
   cta: { label: "Start a conversation", href: "/contact" },
 };

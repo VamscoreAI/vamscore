@@ -1,6 +1,6 @@
 // Copy for the /careers page.
 //
-// As elsewhere, anything in [square brackets] is a placeholder UV still needs to
+// As elsewhere, anything in [square brackets] is a placeholder Vamscore still needs to
 // fill in — here that is the open roles themselves.
 
 export type Role = {
@@ -18,15 +18,15 @@ const IMG = "/assets/img";
 
 export const CAREERS = {
   eyebrow: "CAREERS",
-  // UV's own illustration, not a licensed stock photo — which is why it is the
+  // Vamscore's own illustration, not a licensed stock photo — which is why it is the
   // one file under public/assets that .gitignore lets through.
   image: `${IMG}/careers-paths.webp`,
   title: "Build the operations other businesses depend on",
   intro:
-    "UV has run business process operations since 2012 and now builds robotics and automation alongside them. If you like work that has to actually run — every day, at volume — talk to us.",
+    "Vamscore has run business process operations since 2012 and now builds robotics and automation alongside them. If you like work that has to actually run — every day, at volume — talk to us.",
 
   why: {
-    title: "Why UV",
+    title: "Why Vamscore",
     points: [
       {
         title: "Work that runs",
@@ -47,7 +47,7 @@ export const CAREERS = {
   rolesNote:
     "Nothing here that fits? Send a general application and tell us what you do — we read every one.",
 
-  // PLACEHOLDER — replace with UV's real openings.
+  // PLACEHOLDER — replace with Vamscore's real openings.
   roles: [
     {
       id: "bpo-team-lead",

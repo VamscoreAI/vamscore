@@ -1,7 +1,7 @@
 import { cx } from "@/components/ui";
 
 /**
- * The media half of "Who we are" — UV's own artwork, not a photograph.
+ * The media half of "Who we are" — Vamscore's own artwork, not a photograph.
  *
  * **What it depicts.** Fourteen dot-columns, one per year of operation, start
  * scattered, dim and grey on the left. Moving right they snap into alignment,
@@ -15,7 +15,7 @@ import { cx } from "@/components/ui";
  * signal. Left to right is chronology. Deliberately no dot-to-dot connectors:
  * the connector mesh is the AI-graphic cliché and this is not it.
  *
- * **Why it exists.** This replaced six Kyndryl photographs UV had no right to
+ * **Why it exists.** This replaced six Kyndryl photographs Vamscore had no right to
  * publish, and a "Watch" button whose href was `"#"`. Being generated, it needs
  * no licence and never needs replacing — unlike everything else under
  * `public/assets`.

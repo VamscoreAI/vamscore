@@ -7,7 +7,7 @@ import Reveal from "@/components/ui/Reveal";
 import ContactForm from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact — UV",
+  title: "Contact — Vamscore",
   description: CONTACT.standfirst,
 };
 

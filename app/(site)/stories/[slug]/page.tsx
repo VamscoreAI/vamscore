@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const story = STORY_BY_SLUG.get(slug);
   if (!story) return {};
   return {
-    title: `${story.client} — UV`,
+    title: `${story.client} — Vamscore`,
     description: story.standfirst,
   };
 }

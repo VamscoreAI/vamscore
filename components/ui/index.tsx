@@ -168,11 +168,12 @@ export function Section({
 }
 
 /* -------------------------------------------------------------------------- */
-/* Wordmark — UV's placeholder logo                                           */
+/* Wordmark — Vamscore's placeholder logo                                           */
 /*                                                                            */
-/* Plain type rather than an image: UV has no logo file yet, and shipping      */
-/* someone else's mark in the header is not an option. Drop a real SVG into    */
-/* public/assets/logos and swap this out when one exists.                      */
+/* Plain type until the real mark is wired in. The company was renamed from UV */
+/* to Vamscore, and the supplied logo is a caps wordmark on a gradient — this  */
+/* stands in with the same weight and tracking so the header keeps its shape.  */
+/* Swap for the artwork in public/assets/logos once it is in the repo.         */
 /* -------------------------------------------------------------------------- */
 
 export function Wordmark({ className }: { className?: string }) {
@@ -183,7 +184,7 @@ export function Wordmark({ className }: { className?: string }) {
         className
       )}
     >
-      UV
+      Vamscore
     </span>
   );
 }
