@@ -98,9 +98,19 @@ export default function Footer() {
           leading nowhere — an "Accessibility" link that goes nowhere being the
           worst of the three. Put them back when the pages do. */}
       <div className="border-t border-white/15">
-        <div className="shell flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
+        {/* Three columns, not `justify-center`. With the locale still sitting on
+            the right, centring a two-item flex row would push the copyright off
+            the container's centre by half the locale's width — close enough to
+            look like a mistake rather than a choice. The empty first cell
+            balances the locale so the middle column is centred for real.
+
+            Below `sm` it collapses to one centred column and the spacer goes. */}
+        <div className="shell grid gap-4 py-8 text-center sm:grid-cols-3 sm:items-center">
+          <span aria-hidden className="hidden sm:block" />
           <p className="text-[14px] text-white/70">{COPYRIGHT}</p>
-          <span className="text-[14px] text-white/70">{LOCALE_SHORT}</span>
+          <span className="text-[14px] text-white/70 sm:text-right">
+            {LOCALE_SHORT}
+          </span>
         </div>
       </div>
     </footer>
