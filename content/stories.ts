@@ -82,6 +82,10 @@ export const STORIES: Story[] = [
           "Topper — spanning Topper TV on air and TopperLearning online — is an educational content and e-learning platform operated by Greycells18 Media Ltd. It sits inside the Network18 ecosystem as a specialised EdTech arm, and its whole reason for existing is a bridge: broadcast reach on one side, targeted digital curriculum delivery on the other.",
           "That bridge is the interesting part. A television channel and a learning portal look like the same product to a student and nothing like the same product to the people running them. One is a schedule that must be filled to the minute; the other is a library that must be complete, searchable and correct. Topper committed to both, against the same syllabus.",
         ],
+        aside: {
+          src: `${IMG}/story-topper-classroom.webp`,
+          alt: "Students and a teacher around a school library table, subject textbooks stacked beside an open laptop",
+        },
       },
       {
         kind: "facts",
@@ -114,13 +118,21 @@ export const STORIES: Story[] = [
           "It also compresses the calendar. Demand is not evenly spread across the year — it climbs steeply towards examinations and falls away afterwards. Everything behind the product, from content production to the desk that answers student questions, has to be staffed for a curve rather than a flat line.",
           "Physics, Chemistry and Mathematics raise a further problem: they are worked, not watched. A recorded explanation of a derivation is only half the delivery. The portal has to carry the other half — practice, solutions and revision a student can return to at eleven at night, which is exactly when a broadcast schedule is no help at all.",
         ],
+        aside: {
+          src: `${IMG}/story-topper-demand.webp`,
+          alt: "A rising line and bar chart, climbing steeply toward a peak",
+        },
       },
       {
         kind: "image",
-        src: `${IMG}/people-04.webp`,
-        alt: "A team working through content production at a desk",
+        // Was `people-04.webp` — a Kyndryl portrait, a head-and-shoulders of a
+        // man filling the frame on a story about curriculum delivery to Indian
+        // school students. This is the paragraph above it made literal: the
+        // half of the delivery a broadcast cannot carry.
+        src: `${IMG}/story-topper-practice.webp`,
+        alt: "A student's hands working through a printed science worksheet beside an open textbook",
         caption:
-          "Curriculum delivery is a production operation before it is a media one: sequencing, review and correction against a board syllabus.",
+          "Physics, Chemistry and Maths are worked, not watched — which is the half a schedule cannot deliver.",
       },
       {
         kind: "list",

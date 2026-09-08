@@ -61,6 +61,9 @@ public/assets/img/*
 !public/assets/img/story-jio-network.webp
 !public/assets/img/story-jio-partnership.webp
 !public/assets/img/story-jio-customer.webp
+!public/assets/img/story-topper-practice.webp
+!public/assets/img/story-topper-classroom.webp
+!public/assets/img/story-topper-demand.webp
 
 # job applications — personal data (CVs, contact details), never commit
 applications/
