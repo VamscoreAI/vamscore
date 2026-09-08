@@ -33,8 +33,13 @@ export const HERO_SLIDES: HeroSlide[] = [
     eyebrow: "Vamscore",
     title: "An AI and technology company",
     body: "We combine artificial intelligence, technology and human expertise to build practical, scalable and affordable solutions for business and education.",
-    video: `${VIDEO}/hero-slide-2.mp4`,
-    image: `${IMG}/hero-modernization-poster.webp`,
+    // Vamscore's own footage. The poster is this clip's own first frame, so the
+    // still and the video's opening are the same picture and there is no jump
+    // when playback takes over. It was a stock photograph of four identifiable
+    // people in an office — a bright interior in front of a dark abstract clip,
+    // which flashed on every slow load.
+    video: `${VIDEO}/hero-ai-company.mp4`,
+    image: `${IMG}/hero-ai-company-poster.webp`,
     ctas: [{ label: "Our vision and mission", href: "/about", variant: "outline" }],
   },
   {
