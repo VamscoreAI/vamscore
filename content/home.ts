@@ -46,8 +46,13 @@ export const HERO_SLIDES: HeroSlide[] = [
     eyebrow: "Vamscore",
     title: "Intelligent automation, not just outsourcing",
     body: "AI agents, workflow automation, analytics and human expertise, combined into operating models that move organisations from traditional outsourcing towards intelligent operations.",
-    video: `${VIDEO}/hero-modernization.mp4`,
-    image: `${IMG}/hero-people-readiness.webp`,
+    // Vamscore's own footage, and the only live action of the three slides.
+    // Poster is its own first frame, as on slide one — but taken there because
+    // that clip fades up from black, and here because it does not: mean
+    // luminance holds at 84-97 across the whole 15s, so the opening frame is
+    // representative rather than an artefact of a fade.
+    video: `${VIDEO}/hero-intelligent-automation.mp4`,
+    image: `${IMG}/hero-intelligent-automation-poster.webp`,
     ctas: [{ label: "What we're working towards", href: "/about#objectives", variant: "outline" }],
   },
   {
