@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Suspense } from "react";
 import { CONTACT } from "@/content/contact";
 import { ArrowLink, Eyebrow } from "@/components/ui";
@@ -20,8 +21,34 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="bg-carbon py-20 text-white lg:py-28">
-        <div className="shell">
+      {/* The picture is already dark where the copy sits — the left half means
+          rgb(44,47,51) — so unlike the careers hero this needs a light touch:
+          the image at 60% under a left-weighted gradient leaves white text at
+          about 10:1 even against the brightest pixel in that half, while the
+          right side stays legible as a photograph.
+
+          `min-h` because the section had none; with only copy in it the band
+          was short enough to crop the picture to a strip. */}
+      <section className="relative isolate min-h-[460px] overflow-clip bg-carbon py-20 text-white lg:min-h-[560px] lg:py-28">
+        <Image
+          src={CONTACT.heroImage}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover opacity-60"
+        />
+        <div
+          aria-hidden
+          // Two ramps. Below lg the copy runs to 95% of the width, where the
+          // desktop ramp had thinned to 34% and left white text at 4.82:1 —
+          // over the 4.5 floor, but with almost no margin. The small-screen
+          // ramp holds more carbon across the whole width (7.9:1 at the same
+          // point); the lg ramp opens back up so the photograph still reads
+          // beside the copy.
+          className="absolute inset-0 -z-10 bg-gradient-to-r from-carbon via-carbon/80 to-carbon/55 lg:via-carbon/70 lg:to-carbon/30"
+        />
+        <div className="shell relative">
           <Eyebrow variant="eyelid" className="text-white">
             {CONTACT.eyebrow}
           </Eyebrow>

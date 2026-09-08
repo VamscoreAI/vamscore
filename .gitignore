@@ -68,6 +68,7 @@ public/assets/img/*
 !public/assets/img/story-tata-network.webp
 !public/assets/img/story-tata-kyc.webp
 !public/assets/img/story-tata-reach.webp
+!public/assets/img/contact-hero.webp
 
 # job applications — personal data (CVs, contact details), never commit
 applications/

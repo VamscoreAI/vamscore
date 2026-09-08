@@ -20,7 +20,12 @@ export type ContactField = {
   wide?: boolean;
 };
 
+const IMG = "/assets/img";
+
 export const CONTACT = {
+  // Sits behind the hero copy at 60% under a left-weighted scrim. Supplied by
+  // UV.
+  heroImage: `${IMG}/contact-hero.webp`,
   eyebrow: "CONTACT",
   title: "Let's talk",
   standfirst:
