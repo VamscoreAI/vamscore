@@ -53,28 +53,61 @@ export default function StoryBody({ blocks }: { blocks: StoryBlock[] }) {
 
 function Block({ block, id }: { block: StoryBlock; id?: string }) {
   switch (block.kind) {
-    case "prose":
+    case "prose": {
+      const copy = (
+        <div className={COLUMN}>
+          {block.heading && (
+            <Reveal as="h2" className="type-card-lg mb-6 text-carbon">
+              {block.heading}
+            </Reveal>
+          )}
+          {block.paragraphs.map((p, i) => (
+            <Reveal
+              key={i}
+              as="p"
+              delay={i * 90}
+              className="type-lede mt-5 text-dark-stone first:mt-0"
+            >
+              {p}
+            </Reveal>
+          ))}
+        </div>
+      );
+
+      if (!block.aside) {
+        return <section className={`shell ${FLOW}`}>{copy}</section>;
+      }
+
       return (
-        <section className={`shell ${FLOW}`}>
-          <div className={COLUMN}>
-            {block.heading && (
-              <Reveal as="h2" className="type-card-lg mb-6 text-carbon">
-                {block.heading}
-              </Reveal>
-            )}
-            {block.paragraphs.map((p, i) => (
-              <Reveal
-                key={i}
-                as="p"
-                delay={i * 90}
-                className="type-lede mt-5 text-dark-stone first:mt-0"
-              >
-                {p}
-              </Reveal>
-            ))}
+        // `overflow-clip` because the aside reveals from `translate3d(28px,0,0)`.
+        // At phone width the picture is full-bleed within the gutter, so those
+        // 28px hung 8px past the viewport and gave the page a horizontal
+        // scrollbar until the reveal fired. `clip`, not `hidden`: hidden would
+        // make this a scroll container and break the `lg:sticky` below.
+        <section className={`shell overflow-clip ${FLOW}`}>
+          {/* `items-start` so a short picture sits with the top of the copy
+              rather than floating in the middle of it. The reading column keeps
+              its own 860px cap inside the first track, so the measure does not
+              change when an aside is present — the picture only occupies space
+              that was already empty. */}
+          <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,860px)_minmax(0,1fr)] lg:gap-12">
+            {copy}
+            {/* Enters from the right, which is the side it occupies — the same
+                rule the Vision and Mission bands follow. */}
+            <Reveal variant="right" delay={180} className="lg:sticky lg:top-28">
+              <Image
+                src={block.aside.src}
+                alt={block.aside.alt}
+                width={1000}
+                height={563}
+                sizes="(min-width: 1024px) 32vw, 100vw"
+                className="h-auto w-full rounded-lg"
+              />
+            </Reveal>
           </div>
         </section>
       );
+    }
 
     case "facts":
       return (

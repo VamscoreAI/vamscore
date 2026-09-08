@@ -14,7 +14,21 @@
 const IMG = "/assets/img";
 
 export type StoryBlock =
-  | { kind: "prose"; heading?: string; paragraphs: string[] }
+  /**
+   * `aside` puts a picture in the space to the right of the reading column.
+   * The column is capped at 860px for measure, so on a 1376px shell there is
+   * roughly 500px of empty page beside every prose block — this fills it
+   * without widening the text.
+   *
+   * Optional on purpose: a block with nothing worth showing stays one column
+   * rather than reaching for a decorative filler.
+   */
+  | {
+      kind: "prose";
+      heading?: string;
+      paragraphs: string[];
+      aside?: { src: string; alt: string };
+    }
   | {
       kind: "facts";
       heading: string;
@@ -162,6 +176,10 @@ export const STORIES: Story[] = [
           "A Jio territory partner oversees sales, distribution and retail expansion within a specific geographic zone or catchment area. The role sits deliberately between two altitudes: corporate sets the strategic objective, and the territory converts it into local market execution — the work that decides whether market leadership is sustained on the ground or only on a slide.",
           "It is an operations job wearing a sales title. Growth in a territory is not won by a campaign; it is won by how many outlets are live, how well stocked they are, how quickly a customer complaint is closed, and whether the field team turned up.",
         ],
+        aside: {
+          src: `${IMG}/story-jio-partnership.webp`,
+          alt: "Two people shaking hands across a meeting table while colleagues look on",
+        },
       },
       {
         kind: "list",
@@ -188,10 +206,14 @@ export const STORIES: Story[] = [
       },
       {
         kind: "image",
-        src: `${IMG}/hero-alpitour.webp`,
-        alt: "A field team reviewing performance figures together",
+        // Was `hero-alpitour.webp` — a Kyndryl asset from their Alpitour work,
+        // which is why a Jio territory story carried a photograph of two
+        // tourists pointing at Budapest. Supplied by UV and actually about the
+        // subject: network reach over a city at dusk.
+        src: `${IMG}/story-jio-network.webp`,
+        alt: "A telecom tower above a city at dusk, with data links fanning out across a globe",
         caption:
-          "Real-time performance tracking is what separates a territory that is managed from one that is merely reported on.",
+          "A territory is the ground layer of a national network: towers, outlets and the people who keep both running.",
       },
       {
         kind: "prose",
@@ -200,6 +222,10 @@ export const STORIES: Story[] = [
           "Every one of those four mandates pulls against the others. Expanding the channel fast makes brand hygiene harder to hold. Pushing revenue targets down to feet-on-street makes retention harder. Chasing a market-share benchmark can quietly cost you the customer satisfaction index. A territory operation that optimises only one of the four will show it in the other three within a quarter.",
           "The other difficulty is distance. Corporate standards are written centrally and experienced locally — in a shop with its own footfall, its own competition and its own staffing reality. The partner's job is to make those standards survive contact with that, which is largely a people problem: recruiting, training and keeping a field force in a market where the alternative employer is usually across the road.",
         ],
+        aside: {
+          src: `${IMG}/story-jio-customer.webp`,
+          alt: "A man on a phone call at home, laptop open beside him",
+        },
       },
     ],
   },

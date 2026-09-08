@@ -58,6 +58,9 @@ public/assets/img/*
 !public/assets/img/story-tata-channel.webp
 !public/assets/img/about-vision.webp
 !public/assets/img/about-mission.webp
+!public/assets/img/story-jio-network.webp
+!public/assets/img/story-jio-partnership.webp
+!public/assets/img/story-jio-customer.webp
 
 # job applications — personal data (CVs, contact details), never commit
 applications/
