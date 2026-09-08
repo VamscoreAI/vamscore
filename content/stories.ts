@@ -34,6 +34,8 @@ export type StoryBlock =
       heading: string;
       intro?: string;
       rows: { term: string; detail: string }[];
+      /** Same optional side picture as `prose` — see the note there. */
+      aside?: { src: string; alt: string };
     }
   | {
       kind: "list";
@@ -91,6 +93,10 @@ export const STORIES: Story[] = [
         kind: "facts",
         heading: "The brand at a glance",
         intro: "The fixed points the delivery model had to work around.",
+        aside: {
+          src: `${IMG}/story-topper-reach.webp`,
+          alt: "The earth at night from orbit, city lights spread across the continents",
+        },
         rows: [
           { term: "Launched", detail: "Founded and launched around 2007–2008." },
           {

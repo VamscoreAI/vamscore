@@ -51,6 +51,24 @@ export default function StoryBody({ blocks }: { blocks: StoryBlock[] }) {
   );
 }
 
+/** The picture that fills the column beside a reading block. Enters from the
+ *  right, the side it occupies — the same rule the Vision and Mission bands
+ *  follow — and rides along with the copy at lg. */
+function Aside({ src, alt }: { src: string; alt: string }) {
+  return (
+    <Reveal variant="right" delay={180} className="lg:sticky lg:top-28">
+      <Image
+        src={src}
+        alt={alt}
+        width={1000}
+        height={563}
+        sizes="(min-width: 1024px) 32vw, 100vw"
+        className="h-auto w-full rounded-lg"
+      />
+    </Reveal>
+  );
+}
+
 function Block({ block, id }: { block: StoryBlock; id?: string }) {
   switch (block.kind) {
     case "prose": {
@@ -92,18 +110,7 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
               that was already empty. */}
           <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,860px)_minmax(0,1fr)] lg:gap-12">
             {copy}
-            {/* Enters from the right, which is the side it occupies — the same
-                rule the Vision and Mission bands follow. */}
-            <Reveal variant="right" delay={180} className="lg:sticky lg:top-28">
-              <Image
-                src={block.aside.src}
-                alt={block.aside.alt}
-                width={1000}
-                height={563}
-                sizes="(min-width: 1024px) 32vw, 100vw"
-                className="h-auto w-full rounded-lg"
-              />
-            </Reveal>
+            <Aside {...block.aside} />
           </div>
         </section>
       );
@@ -111,8 +118,18 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
 
     case "facts":
       return (
-        <section id={id} className={`bg-cloud ${BAND}`}>
+        // overflow-clip for the same reason as the prose block: the aside
+        // reveals from translate3d(28px,0,0), which hangs past a phone viewport
+        // until it fires.
+        <section id={id} className={`bg-cloud overflow-clip ${BAND}`}>
           <div className="shell">
+            <div
+              className={
+                block.aside
+                  ? "grid items-start gap-8 lg:grid-cols-[minmax(0,860px)_minmax(0,1fr)] lg:gap-12"
+                  : ""
+              }
+            >
             <div className={COLUMN}>
               <Reveal as="h2" className="type-card-lg text-carbon">
                 {block.heading}
@@ -137,6 +154,8 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
                   </Reveal>
                 ))}
               </dl>
+            </div>
+            {block.aside && <Aside {...block.aside} />}
             </div>
           </div>
         </section>
