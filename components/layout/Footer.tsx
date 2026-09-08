@@ -13,7 +13,7 @@ export default function Footer() {
     <footer className="bg-carbon text-white">
       <div className="shell py-16 lg:py-20">
         <Link href="/" aria-label="Vamscore home" className="inline-block">
-          <Wordmark className="text-[32px] text-white" />
+          <Wordmark className="h-7 lg:h-8" />
         </Link>
 
         {/* A landmark: this is the site's secondary navigation and had none. */}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
@@ -168,23 +169,31 @@ export function Section({
 }
 
 /* -------------------------------------------------------------------------- */
-/* Wordmark — Vamscore's placeholder logo                                           */
+/* Wordmark — Vamscore's logo                                                 */
 /*                                                                            */
-/* Plain type until the real mark is wired in. The company was renamed from UV */
-/* to Vamscore, and the supplied logo is a caps wordmark on a gradient — this  */
-/* stands in with the same weight and tracking so the header keeps its shape.  */
-/* Swap for the artwork in public/assets/logos once it is in the repo.         */
+/* The supplied artwork was flattened on pure black with no alpha, and both    */
+/* the header and footer are carbon (#161616), so dropping it in unmodified    */
+/* would have shown a black rectangle. The background is keyed out and the     */
+/* colour un-premultiplied, otherwise every antialiased edge keeps a dark      */
+/* fringe against any ground that is not pure black.                           */
+/*                                                                            */
+/* Sized by HEIGHT, never width: the mark is 8.57:1, so a width class would    */
+/* set the bar's height by accident. Callers pass an `h-*`.                    */
+/*                                                                            */
+/* `alt=""` on purpose — both call sites wrap this in a link that already      */
+/* carries `aria-label="Vamscore home"`, so a filled alt would say the name    */
+/* twice.                                                                      */
 /* -------------------------------------------------------------------------- */
 
 export function Wordmark({ className }: { className?: string }) {
   return (
-    <span
-      className={cx(
-        "font-display text-[26px] leading-none font-semibold tracking-[-0.02em]",
-        className
-      )}
-    >
-      Vamscore
-    </span>
+    <Image
+      src="/assets/logos/vamscore.webp"
+      alt=""
+      width={720}
+      height={84}
+      priority
+      className={cx("h-6 w-auto lg:h-7", className)}
+    />
   );
 }

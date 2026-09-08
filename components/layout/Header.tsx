@@ -63,7 +63,7 @@ export default function Header() {
       <div className="shell flex h-[60px] items-center gap-6 lg:h-[72px]">
         {/* Logo */}
         <Link href="/" className="shrink-0" aria-label="Vamscore home">
-          <Wordmark className="text-white" />
+          <Wordmark />
         </Link>
 
         {/* Primary nav (desktop) */}

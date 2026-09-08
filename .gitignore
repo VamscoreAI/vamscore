@@ -72,6 +72,10 @@ public/assets/img/*
 !public/assets/img/card-work-with-us.webp
 !public/assets/img/card-careers.webp
 !public/assets/img/card-partner.webp
+# The logo. Under logos/ rather than img/, so it needs its own ladder.
+!public/assets/logos/
+public/assets/logos/*
+!public/assets/logos/vamscore.webp
 
 # job applications — personal data (CVs, contact details), never commit
 applications/
