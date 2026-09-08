@@ -30,7 +30,10 @@ export const SERVICES_HERO = {
   title: "Operations, automation and delivery at scale",
   standfirst:
     "Four lines of work, built in the order Vamscore learned them: run the process first, automate it second, and take it to market with partners who need reach.",
-  image: `${IMG}/ai-native-leadspace.webp` as string | null,
+  // Vamscore-supplied. Replaced a Kyndryl photograph of two identifiable women,
+  // which this page shared with the homepage automation band until that band
+  // was swapped. A silhouette, so there is no identifiable face in it either.
+  image: `${IMG}/services-hero.webp` as string | null,
 };
 
 export const SERVICES: Service[] = [

@@ -75,6 +75,7 @@ public/assets/img/*
 !public/assets/img/hero-ai-company-poster.webp
 !public/assets/img/hero-intelligent-automation-poster.webp
 !public/assets/img/ai-native-automation.webp
+!public/assets/img/services-hero.webp
 # Supplied video, plus the poster above that was captured from its first frame.
 # video/ needs its own ladder for the same reason logos/ does: git will not
 # descend into an excluded directory. The two Kyndryl clips beside it stay
