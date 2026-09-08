@@ -27,7 +27,7 @@ export default function PartnerMarquee() {
           {[...track, ...track].map((partner, i) => (
             <li
               key={`${partner.name}-${i}`}
-              className="flex shrink-0 items-center"
+              className="marquee-item flex shrink-0 items-center"
               aria-hidden={i >= half}
             >
               {partner.logo ? (

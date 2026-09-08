@@ -170,7 +170,11 @@ export const PARTNERS = {
   // make the browser apply a single aspect ratio to all of them, letterboxing
   // the square marks inside a wordmark-shaped box.
   logos: [
-    { name: "Tata", logo: `${LOGO}/partner-tata.webp`, w: 116, h: 96 },
+    // 102x101 after re-centring: the supplied file had the mark jammed into
+    // its top-left corner with 34px of dead blue on the right and 15px below,
+    // so at `h-10` normalisation it read visibly smaller than the marks beside
+    // it. Trimmed to content and re-padded evenly on the same Tata blue.
+    { name: "Tata", logo: `${LOGO}/partner-tata.webp`, w: 102, h: 101 },
     { name: "Jio Communications", logo: `${LOGO}/partner-jio.webp`, w: 96, h: 96 },
     {
       name: "Greycells 18 Media",

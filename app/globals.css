@@ -219,6 +219,45 @@
   animation-play-state: paused;
 }
 
+/* The rail used to end on a hard `overflow-hidden` cut, so a logo was sliced in
+   half at each edge. This dissolves it into the page instead — the strip reads
+   as continuous rather than as a window with two guillotines. */
+.marquee {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+
+/* Marks sit back at rest and come forward under the pointer. Paired with the
+   pause above, this turns the strip from something that scrolls past you into
+   something you can stop and look at: the track holds, and the mark you are
+   pointing at lifts out of the line.
+
+   Opacity and scale only — no filter. Desaturating a partner's mark at rest
+   would be showing their trademark in colours they did not choose. */
+.marquee-item {
+  opacity: 0.72;
+  transition:
+    opacity 400ms ease,
+    transform 400ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.marquee-item:hover,
+.marquee-item:focus-within {
+  opacity: 1;
+  transform: translateY(-6px) scale(1.06);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .marquee-track { animation: none; }
