@@ -276,6 +276,10 @@ export const STORIES: Story[] = [
           "Tata Docomo was a prominent Indian telecommunications brand operated by Tata Teleservices Limited. It launched in 2009 through a strategic joint venture between TTSL and Japan's NTT DOCOMO, and carried a wide spectrum of services across India — mobile, fixed-wireless, broadband and enterprise.",
           "A Tata Docomo channel partner was an authorised commercial entity: the party responsible for driving localised business growth, managing market distribution and maintaining customer relations. Partners extended the operational reach of Tata Teleservices into markets a national organisation cannot staff directly.",
         ],
+        aside: {
+          src: `${IMG}/story-tata-reach.webp`,
+          alt: "An abstract wireframe landscape of connected data points",
+        },
       },
       {
         kind: "list",
@@ -322,10 +326,14 @@ export const STORIES: Story[] = [
       },
       {
         kind: "image",
-        src: `${IMG}/anthem-thumb-03.webp`,
-        alt: "Stock and documentation being processed at a distribution point",
+        // Was `anthem-thumb-03.webp` — a Kyndryl asset with "unlock new value",
+        // Kyndryl's line rather than UV's, set into the pixels beside a coral
+        // panel. The third of these found on the site; the hero carried
+        // `anthem-thumb-04` with "unlock new possibilities" on it.
+        src: `${IMG}/story-tata-network.webp`,
+        alt: "A dark globe strung with glowing network links and signal nodes",
         caption:
-          "Distribution, acquisition and servicing sat with the same partner — which is what made compliance an operational discipline rather than a paperwork exercise.",
+          "A national footprint is reached through partners: the operator's brand, carried into markets it cannot staff directly.",
       },
       {
         kind: "list",
@@ -354,6 +362,10 @@ export const STORIES: Story[] = [
           "The licensing position is easy to read past, and it is the thing that shaped the work most. A partner carried the operator's brand, handled the operator's subscribers and performed identity verification on the operator's behalf — while holding no licence of its own. Every process therefore had to be auditable back to the operator's standard, because the operator, not the partner, answered for it.",
           "KYC is the clearest example. It looks like a form. It is in fact a regulated control with a defined evidence trail, applied at the counter, at volume, by staff who need training and supervision to apply it consistently. Getting acquisition numbers up while keeping verification quality intact is the real test of a channel operation, and the two pull in opposite directions.",
         ],
+        aside: {
+          src: `${IMG}/story-tata-kyc.webp`,
+          alt: "An identity record on screen behind a shield and padlock",
+        },
       },
     ],
   },

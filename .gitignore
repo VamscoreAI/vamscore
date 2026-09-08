@@ -65,6 +65,9 @@ public/assets/img/*
 !public/assets/img/story-topper-classroom.webp
 !public/assets/img/story-topper-demand.webp
 !public/assets/img/story-topper-reach.webp
+!public/assets/img/story-tata-network.webp
+!public/assets/img/story-tata-kyc.webp
+!public/assets/img/story-tata-reach.webp
 
 # job applications — personal data (CVs, contact details), never commit
 applications/
