@@ -161,7 +161,11 @@ export const AI_NATIVE = {
   title: "Intelligent operations, built on operational experience",
   body: "Having run these processes ourselves since 2012, we know where AI and automation genuinely help and where they just add moving parts.",
   cta: { label: "Start a conversation", href: "#connect" },
-  image: `${IMG}/ai-native-leadspace.webp`,
+  // Vamscore-supplied illustration. Replaced a Kyndryl photograph of two
+  // identifiable women, which this band showed at 60% behind the copy.
+  // Composition suits the band: the subject sits right of centre and the left
+  // third is near-empty, which is exactly where the heading and CTA land.
+  image: `${IMG}/ai-native-automation.webp`,
 };
 
 /* -------------------------------------------------------------------------- */
