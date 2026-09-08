@@ -69,6 +69,9 @@ public/assets/img/*
 !public/assets/img/story-tata-kyc.webp
 !public/assets/img/story-tata-reach.webp
 !public/assets/img/contact-hero.webp
+!public/assets/img/card-work-with-us.webp
+!public/assets/img/card-careers.webp
+!public/assets/img/card-partner.webp
 
 # job applications — personal data (CVs, contact details), never commit
 applications/

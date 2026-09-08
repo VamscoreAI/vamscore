@@ -189,6 +189,9 @@ export const PARTNERS = {
 /* 7. Let's get there together                                                */
 /* -------------------------------------------------------------------------- */
 
+// Pictures supplied by UV. These were `people-02/07/10.webp` — Kyndryl
+// portraits, the last three of that set anywhere on the site. Each card now
+// shows what it is asking for rather than a stranger's face.
 export const GET_THERE_TOGETHER = {
   title: "Let's get there together",
   cards: [
@@ -197,21 +200,21 @@ export const GET_THERE_TOGETHER = {
       body: "Tell us the process you need run, automated or supported, and we'll tell you honestly whether we're the right fit.",
       cta: "Start a conversation",
       href: "#connect",
-      image: `${IMG}/people-02.webp`,
+      image: `${IMG}/card-work-with-us.webp`,
     },
     {
       title: "Careers",
       body: "We hire people who like work that has to actually run. See what is open.",
       cta: "See open roles",
       href: "/careers",
-      image: `${IMG}/people-07.webp`,
+      image: `${IMG}/card-careers.webp`,
     },
     {
       title: "Partner with us",
       body: "We work as a channel and territory partner. If you're looking for delivery reach in India, let's talk.",
       cta: "Contact us",
       href: "#connect",
-      image: `${IMG}/people-10.webp`,
+      image: `${IMG}/card-partner.webp`,
     },
   ],
 };
