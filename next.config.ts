@@ -17,6 +17,34 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ?? "",
   },
+
+  /**
+   * One canonical hostname: `vamscore.com`, without the `www`.
+   *
+   * Both hostnames resolve to this deployment, so without this they are two
+   * sites serving identical content — which splits search ranking between them
+   * and makes analytics report the same visit under two origins.
+   *
+   * Matched on `host` rather than by rewriting every link, so it costs nothing
+   * on the 99% of requests that already arrive at the apex. The match is the
+   * exact production hostname: `localhost`, the `*.vercel.app` preview URLs and
+   * any future domain are all left alone, so this cannot loop or fire in dev.
+   *
+   * `permanent: true` emits 308, which is the correct signal for a canonical
+   * host and is what search engines need to fold the two together. Note that
+   * browsers cache 308 hard: reversing this later means the `www` redirect will
+   * persist in the caches of anyone who has already hit it.
+   */
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.vamscore.com" }],
+        destination: "https://vamscore.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
