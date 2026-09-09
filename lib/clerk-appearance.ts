@@ -52,8 +52,11 @@ export const clerkAppearance: Appearance = {
     fontFamily: "var(--font-roboto)",
   },
   elements: {
-    // No `bg-*` here: the surface comes from `colorBackground` above. A
-    // Tailwind background class would silently win over it and undo the lift.
+    // No `bg-*` here, so `colorBackground` above is the single source of truth
+    // for the card surface. (This used to carry `bg-carbon`, which agreed with
+    // the old `colorBackground` value, so which of the two actually won was
+    // never determined — and for social buttons a Tailwind class demonstrably
+    // did NOT win. Keeping one of them removes the question.)
     card: "border border-white/10 shadow-none",
     headerTitle: "font-display font-light",
     formButtonPrimary:
@@ -63,12 +66,16 @@ export const clerkAppearance: Appearance = {
     // passed through `elements` lose the cascade to Clerk's runtime-injected
     // `.cl-internal-*` rules, and the slash-opacity ones were never generated
     // at all. The comment there records the measurements.
-    // Sizes the avatar to the header's established 36px circular idiom — the
-    // same footprint as the search and apps-grid buttons beside it. Clerk's
-    // default is 28px and sits visibly small against them.
+    // Sizes the avatar to the header's 36px icon idiom — the same footprint as
+    // the Gmail button beside it (`size-9` in Header.tsx). Clerk's default is
+    // 28px and sits visibly small against it. The search and apps-grid buttons
+    // this used to be measured against were removed from the header.
     userButtonAvatarBox: "size-9",
     userButtonTrigger:
       "rounded-full border border-white/25 transition-colors hover:border-white focus:shadow-none",
+    // Deliberately carbon, not the card's #1e1e1e: this popover hangs over the
+    // carbon header rather than sitting on a page, so it is a different surface
+    // doing a different job.
     userButtonPopoverCard: "bg-carbon border border-white/10",
   },
 };
