@@ -150,26 +150,44 @@ export const FOOTER_COLUMNS: NavGroup[] = [
  * `platform` picks the mark; the icons are drawn inline in `Footer.tsx` rather
  * than loaded as files, so they inherit `currentColor` and need no asset.
  *
- * **`href` must be Vamscore's real profile URL.** Until it is an `https://` link the
- * footer still draws the mark, but as a plain span rather than an anchor — so
- * the row is visible while nothing claims to lead anywhere. Replace the
- * bracketed values below and each becomes a real link, with no other change.
+ * **`href` must be Vamscore's real profile URL.** The footer switches on it:
+ * an `https://` value renders an anchor, anything else renders the same mark as
+ * a plain span, so a missing URL shows the row without claiming to lead
+ * anywhere. All four were supplied by Vamscore on 2026-09-09 and are live.
  *
- * Do not guess a handle to fill the gap: `instagram.com/uv` is a stranger's
- * account, and sending Vamscore's visitors there is hard to walk back. That is also
- * why the old LinkedIn entry went — it pointed at "#", which looked like a
- * social presence and delivered nothing.
+ * Do not guess a handle to fill a future gap: `instagram.com/uv` is a
+ * stranger's account, and sending Vamscore's visitors there is hard to walk
+ * back. An earlier LinkedIn entry was removed for pointing at "#", which looked
+ * like a social presence and delivered nothing — this one points at a real
+ * profile.
  */
 export type SocialLink = {
   label: string;
   href: string;
-  platform: "instagram" | "x" | "facebook";
+  platform: Platform;
 };
 
+/** Exported so `SocialIcon` can be keyed exhaustively: adding a platform here
+ *  without drawing its mark is then a compile error rather than a silent
+ *  fallback to whichever icon happened to be last in the chain. */
+export type Platform = "instagram" | "x" | "facebook" | "linkedin";
+
 export const FOOTER_SOCIAL: SocialLink[] = [
-  { label: "Instagram", href: "[Vamscore Instagram URL]", platform: "instagram" },
-  { label: "X (formerly Twitter)", href: "[Vamscore X URL]", platform: "x" },
-  { label: "Facebook", href: "[Vamscore Facebook URL]", platform: "facebook" },
+  { label: "Instagram", href: "https://www.instagram.com/vamscore/", platform: "instagram" },
+  { label: "X (formerly Twitter)", href: "https://x.com/Vamscore", platform: "x" },
+  {
+    label: "Facebook",
+    // Numeric profile URL rather than a vanity one. It resolves, but a named
+    // URL would be tidier if Vamscore ever claims one in Facebook's settings.
+    href: "https://www.facebook.com/profile.php?id=61594112137099",
+    platform: "facebook",
+  },
+  {
+    label: "LinkedIn",
+    // An `/in/` URL — a personal profile, not a `/company/` page.
+    href: "https://www.linkedin.com/in/vamscore-ai-0a06a1435/",
+    platform: "linkedin",
+  },
 ];
 
 export const COPYRIGHT = `Copyright © ${new Date().getFullYear()} ${COMPANY}. All rights reserved`;
