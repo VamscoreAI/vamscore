@@ -29,12 +29,22 @@ export const clerkAppearance: Appearance = {
   variables: {
     colorPrimary: "#4cdd84", // spring-green
     colorPrimaryForeground: "#042315", // deep-forest
-    colorBackground: "#161616", // carbon
+    // NOT carbon. The page behind the card is already carbon, so a carbon card
+    // computed to rgb(22,22,22) against a section of rgb(22,22,22) — the same
+    // colour, measured — and the card simply had no surface. It read as one
+    // flat black area rather than as a panel. #1e1e1e is the smallest lift that
+    // separates the two without introducing a second grey to the palette.
+    colorBackground: "#1e1e1e",
     colorForeground: "#ffffff",
     colorMutedForeground: "rgba(255, 255, 255, 0.7)",
-    colorInput: "#1f1f1f",
+    // Lifted again, off the card rather than off the page, so the field still
+    // reads as inset now that the card itself moved.
+    colorInput: "#262626",
     colorInputForeground: "#ffffff",
-    colorBorder: "rgba(255, 255, 255, 0.15)",
+    // 0.34 is the point at which a hairline on the #1e1e1e card reaches the
+    // 3:1 WCAG 1.4.11 asks for on a control boundary; 0.15 measured 1.6:1. The
+    // fill cannot carry it at these values, so the border does.
+    colorBorder: "rgba(255, 255, 255, 0.34)",
     colorDanger: "#fb512f", // flame-2
     colorSuccess: "#4cdd84",
     // 4px matches the `outline` button variant in components/ui/index.tsx
@@ -42,11 +52,17 @@ export const clerkAppearance: Appearance = {
     fontFamily: "var(--font-roboto)",
   },
   elements: {
-    card: "bg-carbon border border-white/10 shadow-none",
+    // No `bg-*` here: the surface comes from `colorBackground` above. A
+    // Tailwind background class would silently win over it and undo the lift.
+    card: "border border-white/10 shadow-none",
     headerTitle: "font-display font-light",
     formButtonPrimary:
       "rounded-pill bg-spring-green text-deep-forest hover:bg-white normal-case font-medium text-[15px]",
     footerActionLink: "text-spring-green hover:text-white",
+    // Social buttons are styled in app/globals.css, not here. Tailwind classes
+    // passed through `elements` lose the cascade to Clerk's runtime-injected
+    // `.cl-internal-*` rules, and the slash-opacity ones were never generated
+    // at all. The comment there records the measurements.
     // Sizes the avatar to the header's established 36px circular idiom — the
     // same footprint as the search and apps-grid buttons beside it. Clerk's
     // default is 28px and sits visibly small against them.

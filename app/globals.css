@@ -634,3 +634,75 @@
     animation: uv-crest 9.5s cubic-bezier(0.5, 0.05, 0.4, 1) infinite;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* Clerk social buttons                                                       */
+/*                                                                            */
+/* The only Clerk styling that does NOT live in lib/clerk-appearance.ts, and   */
+/* it is here for a specific reason rather than by drift.                      */
+/*                                                                            */
+/* Clerk paints social buttons for a WHITE surface, because Google's brand     */
+/* guidance asks for dark text on white, and derives none of it from           */
+/* `colorForeground`. On the dark card the label and icon computed to          */
+/* `rgb(0 0 0 / 0.62)` against `rgb(22,22,22)`: a contrast ratio of 1.16, so   */
+/* "Continue with Google" was invisible rather than dim. The button also had   */
+/* `background-color: unset` and a white/1.6% border, leaving nothing to show  */
+/* it was a button.                                                           */
+/*                                                                            */
+/* Why not the appearance object: Tailwind classes passed through `elements`   */
+/* land on the element but lose the cascade. Clerk injects its own             */
+/* `.cl-internal-*` rules at runtime, so they come after Tailwind's stylesheet */
+/* at equal specificity — one class each — and win on order. Marking them      */
+/* important only half-worked: `text-white!` applied, but `bg-white/[0.06]!`   */
+/* and `border-white/15!` were never generated at all, because Tailwind's      */
+/* scanner does not reliably extract slash-opacity utilities carrying a `!`    */
+/* from inside a .ts string. Verified by matching every rule against the live  */
+/* element: only Clerk's own selector matched.                                 */
+/*                                                                            */
+/* Two classes beats Clerk's one on specificity, so this wins on the cascade's */
+/* own terms and needs no `!important` and no build-time extraction.           */
+
+.cl-socialButtonsBlockButton.cl-button {
+  background-color: #2b2b2b;
+  /* 0.34, not a rounder 0.2. Dark-on-dark cannot reach WCAG 1.4.11's 3:1 for a
+     control boundary through the fill — #2b2b2b against the #1e1e1e card is
+     1.18:1 and even #333 only reaches 1.32 — so the border has to carry it.
+     Solved rather than guessed: over this card, alpha 0.32 gives 2.90 and 0.34
+     gives 3.11. This is the first value that clears the bar. */
+  border: 1px solid rgb(255 255 255 / 0.34);
+  color: #fff;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.cl-socialButtonsBlockButton.cl-button:hover {
+  background-color: #343434;
+  border-color: rgb(255 255 255 / 0.5);
+}
+
+/* `color: inherit` on Clerk's own rule means the label follows the button —
+   but only once the button itself is no longer black, so both are set. */
+.cl-socialButtonsBlockButton .cl-socialButtonsBlockButtonText {
+  color: #fff;
+}
+
+/* The text field's visible edge is a `box-shadow` ring, not a border — Clerk
+   sets `border-width: 0` and draws `0 0 0 1px` at white 3.75%, which measured
+   1.01:1 against the card: no discernible edge at all. `colorBorder` in the
+   appearance object does not reach it, because the rule that draws it is
+   `.cl-internal-…[data-variant="default"]`.
+   
+   That selector is (0,2,0), and Clerk's stylesheet is injected after this one,
+   so a two-class selector would tie and lose. Prefixing with `.cl-card` makes
+   it (0,3,0) and settles it on specificity instead of order. */
+.cl-card .cl-formFieldInput.cl-input {
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.34);
+}
+
+/* Overriding box-shadow unconditionally would have taken the focus ring with
+   it — a worse regression than the faint edge being fixed — so focus is
+   restated here rather than left to Clerk. */
+.cl-card .cl-formFieldInput.cl-input:focus,
+.cl-card .cl-formFieldInput.cl-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-spring-green);
+  outline: none;
+}
