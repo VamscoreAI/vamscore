@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { authUiEnabled } from "@/lib/auth";
 import { clerkAppearance } from "@/lib/clerk-appearance";
 import { CLERK_LOCALIZATION } from "@/content/auth";
+import { SITE_DESCRIPTION } from "@/content/nav";
 import "./globals.css";
 
 // Body copy on the original is Roboto 400 — an exact match.
@@ -27,8 +28,7 @@ const display = Be_Vietnam_Pro({
 
 export const metadata: Metadata = {
   title: "Vamscore",
-  description:
-    "Vamscore runs business process operations, builds robotics and automation, and delivers education and channel-partner projects across India.",
+  description: SITE_DESCRIPTION,
 };
 
 /**

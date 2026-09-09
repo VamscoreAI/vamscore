@@ -190,4 +190,15 @@ export const FOOTER_SOCIAL: SocialLink[] = [
   },
 ];
 
+/**
+ * The site's one-sentence description of itself.
+ *
+ * Used twice: as the document `description` meta tag in `app/layout.tsx` and as
+ * the footer's brand blurb. It lives here so those two cannot drift — the
+ * footer previously had no blurb and the sentence existed only inside the
+ * metadata object, where nothing else could reach it.
+ */
+export const SITE_DESCRIPTION =
+  "Vamscore runs business process operations, builds robotics and automation, and delivers education and channel-partner projects across India.";
+
 export const COPYRIGHT = `Copyright © ${new Date().getFullYear()} ${COMPANY}. All rights reserved`;

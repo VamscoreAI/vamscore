@@ -6,46 +6,77 @@ import {
   FOOTER_COLUMNS,
   FOOTER_SOCIAL,
   LOCALE_SHORT,
+  SITE_DESCRIPTION,
 } from "@/content/nav";
 
 export default function Footer() {
   return (
     <footer className="bg-carbon text-white">
       <div className="shell py-16 lg:py-20">
-        <Link href="/" aria-label="Vamscore home" className="inline-block">
-          <Wordmark className="h-7 lg:h-8" />
-        </Link>
+        {/*
+          One grid, brand included, rather than a wordmark floating on its own
+          row above a separate nav.
 
-        {/* A landmark: this is the site's secondary navigation and had none. */}
-        <nav
-          aria-label="Footer"
-          className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          {FOOTER_COLUMNS.map((column) => (
-            <div key={column.heading}>
-              <h2 className="mb-5 text-[clamp(1.5rem,1.3rem+0.55vw,1.75rem)] leading-[1.214] font-normal text-white">
-                {column.heading}
-              </h2>
-              <ul className="space-y-1">
-                {column.links.map((link) => (
-                  <li key={link.label}>
-                    {/* `block py-1.5` lifts each row from 19px to ~31px. Inline
-                        text links are exempt from the target-size rule, but a
-                        stacked column of 19px taps is genuinely fiddly. */}
-                    <Link
-                      href={link.href}
-                      className="block py-1.5 text-base leading-6 text-white/85 transition-colors hover:text-spring-green"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          What was wrong: the nav was `lg:grid-cols-4` with Services and Company
+          taking one column each and "Follow us" spanning two. Four social icons
+          need 224px; they were given 661px. Measured at 1440, the footer's last
+          content sat at x=957 inside a container ending at x=1393 — 436px of
+          dead space, 32% of the width, which is what read as the spacing being
+          off. Moving the brand into the grid fills the first column and drops
+          "Follow us" to a single column at the end, so the row spans the
+          container instead of trailing away.
 
-          <div className="lg:col-span-2">
-            <h2 className="mb-5 text-[clamp(1.5rem,1.3rem+0.55vw,1.75rem)] leading-[1.214] font-normal text-white">
+          `items-start` because the columns have genuinely different heights and
+          stretching them would only move the ragged edge somewhere less
+          obvious.
+        */}
+        <div className="grid items-start gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Brand. The blurb is the site's own meta description, shared from
+              content/nav.ts so the two cannot drift — without it this column
+              was a logo above nothing. */}
+          <div>
+            <Link href="/" aria-label="Vamscore home" className="inline-block">
+              <Wordmark className="h-7 lg:h-8" />
+            </Link>
+            <p className="mt-6 max-w-[38ch] text-[14px] leading-6 text-white/70">
+              {SITE_DESCRIPTION}
+            </p>
+          </div>
+
+          {/* A landmark: this is the site's secondary navigation and had none.
+              It wraps only the link columns — the brand and the social row are
+              not navigation, and sweeping them in made the landmark describe
+              more than it should. `display: contents` keeps the two columns as
+              direct children of the grid above, so the nav adds semantics
+              without adding a layout box. */}
+          <nav aria-label="Footer" className="contents">
+            {FOOTER_COLUMNS.map((column) => (
+              <div key={column.heading}>
+                <h2 className="mb-5 text-[clamp(1.25rem,1.1rem+0.4vw,1.5rem)] leading-[1.25] font-normal text-white">
+                  {column.heading}
+                </h2>
+                <ul className="space-y-1">
+                  {column.links.map((link) => (
+                    <li key={link.label}>
+                      {/* `block py-1.5` lifts each row from 19px to ~31px.
+                          Inline text links are exempt from the target-size
+                          rule, but a stacked column of 19px taps is genuinely
+                          fiddly. */}
+                      <Link
+                        href={link.href}
+                        className="block py-1.5 text-base leading-6 text-white/85 transition-colors hover:text-spring-green"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+
+          <div>
+            <h2 className="mb-5 text-[clamp(1.25rem,1.1rem+0.4vw,1.5rem)] leading-[1.25] font-normal text-white">
               Follow us
             </h2>
             {/* Each mark is a link once its real profile URL is in place, and a
@@ -60,7 +91,7 @@ export default function Footer() {
 
                 Styling is identical in both states, so supplying the URLs
                 changes nothing but the markup underneath. */}
-            <ul className="flex gap-4">
+            <ul className="flex flex-wrap gap-3">
               {FOOTER_SOCIAL.map((social) => {
                 const live = social.href.startsWith("https://");
                 return (
@@ -90,7 +121,7 @@ export default function Footer() {
               })}
             </ul>
           </div>
-        </nav>
+        </div>
       </div>
 
       {/* Privacy / Terms / Accessibility used to sit here, all three pointing at
