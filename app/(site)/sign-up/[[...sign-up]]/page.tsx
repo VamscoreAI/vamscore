@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { SignUp } from "@clerk/nextjs";
 import { notFound } from "next/navigation";
 import { isAuthConfigured } from "@/lib/auth";
+import AuthLayout from "@/components/layout/AuthLayout";
+import { SIGN_UP } from "@/content/auth";
 
 export const metadata: Metadata = {
   title: "Accept your invitation — Vamscore",
@@ -25,8 +27,8 @@ export default async function SignUpPage() {
   if (!isAuthConfigured()) notFound();
 
   return (
-    <div className="grid min-h-[70vh] place-items-center bg-carbon px-5 py-20">
+    <AuthLayout copy={SIGN_UP}>
       <SignUp />
-    </div>
+    </AuthLayout>
   );
 }

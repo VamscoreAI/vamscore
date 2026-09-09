@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { SignIn } from "@clerk/nextjs";
 import { notFound } from "next/navigation";
 import { isAuthConfigured } from "@/lib/auth";
+import AuthLayout from "@/components/layout/AuthLayout";
+import { SIGN_IN } from "@/content/auth";
 
 export const metadata: Metadata = {
   title: "Employee sign in — Vamscore",
@@ -16,13 +18,14 @@ export const metadata: Metadata = {
  * partway through signing in.
  *
  * Appearance is inherited from `<ClerkProvider>` — don't set it again here.
+ * The surrounding panel lives in `AuthLayout`, shared with `/sign-up`.
  */
 export default async function SignInPage() {
   if (!isAuthConfigured()) notFound();
 
   return (
-    <div className="grid min-h-[70vh] place-items-center bg-carbon px-5 py-20">
+    <AuthLayout copy={SIGN_IN}>
       <SignIn />
-    </div>
+    </AuthLayout>
   );
 }

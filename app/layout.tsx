@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro, Roboto } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { authUiEnabled } from "@/lib/auth";
 import { clerkAppearance } from "@/lib/clerk-appearance";
+import { CLERK_LOCALIZATION } from "@/content/auth";
 import "./globals.css";
 
 // Body copy on the original is Roboto 400 — an exact match.
@@ -43,7 +44,11 @@ export const metadata: Metadata = {
 function AuthProvider({ children }: { children: React.ReactNode }) {
   if (!authUiEnabled) return <>{children}</>;
   return (
-    <ClerkProvider appearance={clerkAppearance} afterSignOutUrl="/">
+    <ClerkProvider
+      appearance={clerkAppearance}
+      localization={CLERK_LOCALIZATION}
+      afterSignOutUrl="/"
+    >
       {children}
     </ClerkProvider>
   );
