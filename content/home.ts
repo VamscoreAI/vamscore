@@ -353,8 +353,11 @@ export const CONNECT = {
     },
   ],
 
-  // PLACEHOLDER — fill these in and they flow through to the footer too.
+  // NOT RENDERED ANYWHERE. An earlier comment here said these "flow through to
+  // the footer too"; nothing reads them. The contact page takes its details
+  // from `content/contact.ts`, which is the copy that matters — update that one.
+  // Kept in step so this cannot mislead, but it is a candidate for deletion.
   email: "[email]",
-  phone: "[phone]",
+  phone: "+91 94907 29484",
   address: "[city, state]",
 };

@@ -1,12 +1,12 @@
 /**
  * The contact page — where "Let's talk" and every Contact link now land.
  *
- * The details block below is still `[bracketed]`: Vamscore has not supplied a public
- * email, phone number or address. They are left visibly unfilled rather than
- * invented, which is the same convention as everywhere else in `content/` —
- * but on this page in particular, **do not publish while they are still
- * brackets**. A contact page showing `[email]` is worse than one showing
- * nothing.
+ * The phone number is real (supplied 2026-09-10). Email and office are still
+ * `[bracketed]`: Vamscore has not supplied them. They are left visibly
+ * unfilled rather than invented, which is the same convention as everywhere
+ * else in `content/` — but on this page in particular, **do not publish while
+ * they are still brackets**. A contact page showing `[email]` is worse than one
+ * showing nothing.
  */
 
 export type ContactField = {
@@ -77,7 +77,11 @@ export const CONTACT = {
     title: "Other ways to reach us",
     items: [
       { label: "Email", value: "[email]" },
-      { label: "Phone", value: "[phone]" },
+      // Supplied as 9490729484. Shown with +91 and 5-5 grouping, the standard
+      // way an Indian mobile is written; `href` carries the same number in
+      // E.164 so the link dials correctly from outside India too — without the
+      // country code a tel: link only works for callers already in India.
+      { label: "Phone", value: "+91 94907 29484", href: "tel:+919490729484" },
       { label: "Office", value: "[city, state]" },
     ],
     careersNote: {

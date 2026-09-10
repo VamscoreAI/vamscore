@@ -93,7 +93,22 @@ export default function ContactPage() {
                   className="border-t border-line py-5"
                 >
                   <dt className="eyebrow text-stone uppercase">{item.label}</dt>
-                  <dd className="type-body mt-2 text-carbon">{item.value}</dd>
+                  <dd className="type-body mt-2 text-carbon">
+                    {/* A plain <a>, not next/link: tel: is not a route. Only
+                        items with a real `href` become links, so the
+                        still-bracketed ones cannot turn into live links to
+                        nowhere. */}
+                    {"href" in item && item.href ? (
+                      <a
+                        href={item.href}
+                        className="underline-offset-4 transition-colors hover:text-flame hover:underline"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      item.value
+                    )}
+                  </dd>
                 </Reveal>
               ))}
             </dl>
