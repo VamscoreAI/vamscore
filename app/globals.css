@@ -844,6 +844,44 @@
   to   { background-position: -200% 0; }
 }
 
+/* Coral balls drifting diagonally through the gap between the heading and the
+   number. The layer is a size container, so each fall is measured in `cqh`
+   against the section's own height rather than a guessed pixel distance. The
+   mask keeps them to the middle band, clear of the heading and the digits.
+
+   Hidden unless the screen is wide enough to have that gap (lg, 64rem) AND the
+   reader has not asked for less motion: a still scatter of dots would just be
+   noise. */
+.vc-balls {
+  display: none;
+  container-type: size;
+  -webkit-mask-image: linear-gradient(to right, transparent 22%, #000 36%, #000 64%, transparent 80%);
+  mask-image: linear-gradient(to right, transparent 22%, #000 36%, #000 64%, transparent 80%);
+}
+.vc-ball {
+  position: absolute;
+  top: 0;
+  left: var(--x);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 9999px;
+  background: var(--c);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+@keyframes vc-fall {
+  0%   { transform: translate3d(0, -24px, 0); opacity: 0; }
+  10%  { opacity: var(--o); }
+  88%  { opacity: var(--o); }
+  100% { transform: translate3d(38cqh, calc(100cqh + 24px), 0); opacity: 0; }
+}
+@media (prefers-reduced-motion: no-preference) and (min-width: 64rem) {
+  .vc-balls { display: block; }
+  /* Negative delays start every ball mid-flight, so the band is already
+     populated on arrival instead of filling from the top. */
+  .vc-ball { animation: vc-fall var(--t) linear var(--delay) infinite; }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .vc-live-dot::after { animation: vc-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
   .vc-pop { animation: vc-pop 1.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
