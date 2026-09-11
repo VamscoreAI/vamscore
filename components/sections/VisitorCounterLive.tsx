@@ -10,8 +10,6 @@ export type VisitorCopy = {
   totalLabel: string;
   totalLabelOne: string;
   todayLabel: string;
-  sinceLabel: string;
-  note: string;
 };
 
 type Counts = {
@@ -81,11 +79,10 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
   const [inView, setInView] = useState(false);
   const [rolled, setRolled] = useState(false);
   const [pops, setPops] = useState<{ id: number; n: number }[]>([]);
-  const [bump, setBump] = useState(0);
 
   /** Merge a fresh reading. A cached read can lag a fresh write by up to the
    *  cache window, so the total never runs backwards; "today" only drops when
-   *  the day itself changes. A genuine increase fires the +N and the glow. */
+   *  the day itself changes. A genuine increase floats a +N over the number. */
   const apply = useCallback((next: Counts) => {
     const prev = latest.current;
     const merged: Counts = !prev
@@ -98,7 +95,6 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
     if (prev && merged.total > prev.total) {
       const id = ++popSeq.current;
       setPops((p) => [...p.slice(-2), { id, n: merged.total - prev.total }]);
-      setBump((b) => b + 1);
       window.setTimeout(() => setPops((p) => p.filter((x) => x.id !== id)), 1800);
     }
     latest.current = merged;
@@ -212,110 +208,81 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
   const totalText = counts ? formatCount(counts.total) : "";
   // Digits and separators have different widths, so the fit rule in
   // globals.css needs them counted apart. Defaults size the skeleton.
-  const digitCount = totalText.replace(/\D/g, "").length || 5;
-  const sepCount = totalText ? totalText.length - digitCount : 1;
+  const digitCount = totalText.replace(/\D/g, "").length || 3;
+  const sepCount = totalText ? totalText.length - digitCount : 0;
+  // On the first day every visit is also today's, so "6 today" under "6"
+  // would say the same thing twice. It appears once the two differ.
+  const showToday = counts !== null && counts.today > 0 && counts.today < counts.total;
 
   return (
     <section
       ref={rootRef}
       aria-labelledby="visitors-title"
-      className="relative isolate overflow-clip bg-carbon py-20 text-white md:py-24 xl:py-28"
+      data-rolled={rolled}
+      className="bg-white py-16 text-dark-stone md:py-24 xl:py-28"
     >
-      {/* Moving light. Radial gradients rather than blur filters: a blurred
-          layer is re-rasterised as it moves; a gradient is just composited. */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <span className="vc-blob vc-blob-a" />
-        <span className="vc-blob vc-blob-b" />
-        <span className="vc-blob vc-blob-c" />
-        <span className="vc-grid" />
-      </div>
+      {/* Heading left, number right at desktop, both sitting on one baseline;
+          stacked below that. */}
+      <div className="shell grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:items-end lg:gap-16">
+        <Reveal variant="soft">
+          <p className="eyebrow flex items-center gap-2.5 tracking-[0.05em] text-carbon uppercase">
+            <span className="vc-live-dot" aria-hidden />
+            {copy.eyebrow}
+            {demo && (
+              <span className="rounded-full border border-line px-2.5 py-0.5 text-[12px] tracking-normal text-stone normal-case">
+                Demo data — local preview only
+              </span>
+            )}
+          </p>
+          <h2 id="visitors-title" className="type-band mt-5 max-w-[16ch] text-carbon">
+            {copy.title}
+          </h2>
+        </Reveal>
 
-      <div className="shell">
-        {/* Number left, supporting figures right at desktop; stacked below. The
-            columns align on their bottom edge, so the cards sit level with the
-            foot of the number rather than floating at the top. */}
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
-          <div className="vc-fit min-w-0">
-            <Reveal variant="soft">
-              <p className="flex flex-wrap items-center gap-3 text-[13px] font-medium tracking-[0.08em] text-spring-green uppercase">
-                <span className="vc-live-dot" aria-hidden />
-                {copy.eyebrow}
-                {demo && (
-                  <span className="rounded-full border border-white/30 px-2.5 py-0.5 text-[12px] tracking-normal text-white/80 normal-case">
-                    Demo data — local preview only
-                  </span>
-                )}
-              </p>
-              <h2 id="visitors-title" className="type-band mt-6 max-w-[22ch] text-white">
-                {copy.title}
-              </h2>
-            </Reveal>
-
-            <Reveal variant="wipe" delay={120} className="mt-10 lg:mt-12">
-              <div className="relative inline-block max-w-full">
-                {bump > 0 && <span key={bump} aria-hidden className="vc-glow" />}
-                <p
-                  className="vc-number relative overflow-clip pr-1 font-display leading-none font-light text-white"
-                  style={{ "--digits": digitCount, "--seps": sepCount } as React.CSSProperties}
-                >
-                  {counts ? (
-                    <>
-                      <span className="sr-only">
-                        {totalText} {counts.total === 1 ? "visitor" : "visitors"}
-                      </span>
-                      <Odometer value={counts.total} rolled={rolled} />
-                    </>
-                  ) : failed ? (
-                    <span aria-label="Visitor count unavailable">—</span>
-                  ) : (
-                    <span className="vc-skeleton" aria-label="Loading visitor count" />
-                  )}
-                  <span aria-hidden className="vc-sheen" />
-                </p>
-                <span aria-hidden className="pointer-events-none absolute -top-3 right-0">
-                  {pops.map((p) => (
-                    <span key={p.id} className="vc-pop">
-                      +{formatCount(p.n)}
-                    </span>
-                  ))}
+        <Reveal variant="wipe" delay={120} className="vc-fit min-w-0 lg:text-right">
+          <div className="relative inline-block max-w-full">
+            <p
+              className="vc-number overflow-clip pr-1 font-display leading-none font-light text-flame-2"
+              style={{ "--digits": digitCount, "--seps": sepCount } as React.CSSProperties}
+            >
+              {counts ? (
+                <>
+                  <span className="sr-only">{totalText}</span>
+                  <Odometer value={counts.total} rolled={rolled} />
+                </>
+              ) : failed ? (
+                <span aria-label="Visitor count unavailable">—</span>
+              ) : (
+                <span className="vc-skeleton" aria-label="Loading visitor count" />
+              )}
+            </p>
+            <span aria-hidden className="pointer-events-none absolute -top-2 right-0">
+              {pops.map((p) => (
+                <span key={p.id} className="vc-pop">
+                  +{formatCount(p.n)}
                 </span>
-              </div>
-              <p className="type-lede mt-4 text-white/70">
-                {counts?.total === 1 ? copy.totalLabelOne : copy.totalLabel}
-              </p>
-            </Reveal>
+              ))}
+            </span>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-            <Reveal variant="up" delay={220} threshold={0.85}>
-              <div className="vc-card h-full rounded-lg border border-white/15 bg-white/[0.04] p-6">
-                <p className="eyebrow text-white/65 uppercase">{copy.todayLabel}</p>
-                <p className="mt-3 font-display text-[clamp(2rem,1.6rem+1.6vw,2.75rem)] leading-none font-light text-white">
-                  {counts ? (
-                    <>
-                      <span className="sr-only">
-                        {formatCount(counts.today)} {counts.today === 1 ? "visitor" : "visitors"} today
-                      </span>
-                      <Odometer value={counts.today} rolled={rolled} />
-                    </>
-                  ) : (
-                    "—"
-                  )}
-                </p>
-              </div>
-            </Reveal>
-            <Reveal variant="up" delay={340} threshold={0.85}>
-              <div className="vc-card h-full rounded-lg border border-white/15 bg-white/[0.04] p-6">
-                <p className="eyebrow text-white/65 uppercase">{copy.sinceLabel}</p>
-                <p className="mt-3 font-display text-[clamp(2rem,1.6rem+1.6vw,2.75rem)] leading-none font-light text-white">
-                  {since ? formatSince(since) : "—"}
-                </p>
-              </div>
-            </Reveal>
-          </div>
-        </div>
+          <span aria-hidden className="vc-rule mt-5 block h-[2px] w-full bg-flame-2" />
 
-        <p className="mt-10 text-[14px] text-white/60">{copy.note}</p>
+          {/* Reserves its line while loading, so nothing below jumps. */}
+          <p className="mt-5 flex min-h-8 flex-wrap items-center gap-x-4 gap-y-2 text-[clamp(1.125rem,0.95rem+0.5vw,1.5rem)] leading-[1.333] font-light lg:justify-end">
+            {counts && since && (
+              <span>
+                {counts.total === 1 ? copy.totalLabelOne : copy.totalLabel}{" "}
+                <span className="font-normal text-carbon">{formatSince(since)}</span>
+              </span>
+            )}
+            {showToday && (
+              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-cloud px-3 py-1 text-[14px] leading-5 font-normal text-carbon">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-spring-green" />
+                {formatCount(counts.today)} {copy.todayLabel}
+              </span>
+            )}
+          </p>
+        </Reveal>
       </div>
     </section>
   );

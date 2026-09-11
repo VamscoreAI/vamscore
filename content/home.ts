@@ -367,15 +367,17 @@ export const CONNECT = {
 /* -------------------------------------------------------------------------- */
 
 // Every number shown is real: the count starts at zero on the day Upstash is
-// connected and never seeds from an invented baseline. "Counting since" shows
-// that first day, so an early small number reads as new rather than quiet.
+// connected and never seeds from an invented baseline. The label names that
+// first day ("visitors since 11 Sep 2026"), so an early small number reads as
+// new rather than quiet.
 export const VISITORS = {
   eyebrow: "Live",
   title: "People who have visited vamscore.com",
-  totalLabel: "visitors so far",
+  // Followed by the first day counted.
+  totalLabel: "visitors since",
   // The count starts at zero, so "1" is a real state the page will show.
-  totalLabelOne: "visitor so far",
-  todayLabel: "Visitors today",
-  sinceLabel: "Counting since",
-  note: "One visit per browser per day. The count updates on its own while you watch.",
+  totalLabelOne: "visitor since",
+  // Shown as "12 today" — only once it differs from the total, so the same
+  // number never appears twice.
+  todayLabel: "today",
 };

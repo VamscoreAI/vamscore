@@ -710,8 +710,9 @@
 /* ---------------------------------------------------------------------------
    Visitor counter
 
-   A rolling odometer on a carbon band of slow moving light. Everything that
-   moves uses transform or opacity only, so it stays on the compositor.
+   One coral number on a white band: a rolling odometer, a rule that draws in
+   under it, and a live dot. Everything that moves uses transform or opacity
+   only, so it stays on the compositor.
 
    Same rule as the artwork above: every looping or one-shot `animation` is
    declared INSIDE `prefers-reduced-motion: no-preference`, so readers who asked
@@ -751,85 +752,47 @@
 }
 .vc-sep {
   display: inline-block;
-  color: var(--color-spring-green);
+  color: var(--color-stone);
 }
 
 /* The big number always fits its column. Its size is the smaller of the design
    size and what the column can hold, measured against the column itself via
-   container query units. Without this, an Indian-grouped number like
-   1,23,45,678 at the design size overflows the narrower left column at desktop
-   and gets clipped.
+   container query units, so an Indian-grouped number like 1,23,45,678 never
+   overflows and gets clipped.
 
    Digits and separators are counted apart because they are not the same width.
    Measured in the rendered counter (Be Vietnam Pro 300, the stand-in display
-   face), at both 375 and 1280: a digit column is 1ch = 0.682em and the comma
-   0.294em. Measure them there, not on loose text — the same glyphs in an
-   isolated span came out 0.656 / 0.283, and a formula built on those left
-   3.9px of room for 1,23,45,678. The factors below sit about 5% over the
-   measured widths, which leaves ~20px in the narrowest column, so a browser
-   that sets the face a pixel wider still fits. 0.5rem is held back for the
-   right padding. **If the display face changes, re-measure both.** */
+   face): a digit column is 1ch = 0.682em and the comma 0.294em. The factors
+   below sit about 5% over those, which leaves ~20px in the narrowest column.
+   0.5rem is held back for the right padding. **If the display face changes,
+   re-measure both.** */
 .vc-fit {
   container-type: inline-size;
 }
 .vc-number {
   font-size: min(
-    clamp(3.75rem, 1.5rem + 9vw, 9.5rem),
+    clamp(4.5rem, 2rem + 10vw, 11rem),
     calc((100cqi - 0.5rem) / (var(--digits, 5) * 0.72 + var(--seps, 1) * 0.31))
   );
 }
 
-.vc-blob {
-  position: absolute;
-  border-radius: 9999px;
-  will-change: transform;
+/* A coral rule under the number that draws across once the digits have rolled.
+   A transition, so under reduced motion the global rule makes it simply appear. */
+.vc-rule {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
 }
-.vc-blob-a {
-  width: 46rem;
-  height: 46rem;
-  left: -16rem;
-  top: -22rem;
-  background: radial-gradient(closest-side, color-mix(in oklab, var(--color-spring-green) 30%, transparent), transparent);
+[data-rolled="true"] .vc-rule {
+  transform: scaleX(1);
 }
-.vc-blob-b {
-  width: 40rem;
-  height: 40rem;
-  right: -14rem;
-  bottom: -24rem;
-  background: radial-gradient(closest-side, color-mix(in oklab, var(--color-teal) 55%, transparent), transparent);
-}
-.vc-blob-c {
-  width: 26rem;
-  height: 26rem;
-  right: 18%;
-  top: 6%;
-  background: radial-gradient(closest-side, color-mix(in oklab, var(--color-flame-2) 16%, transparent), transparent);
-}
-/* One grid cell of overhang on every side, so the pan can travel a full cell
-   and loop without ever showing an edge. */
-.vc-grid {
-  position: absolute;
-  inset: -56px;
-  background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 28% 45%, #000 15%, transparent 75%);
-  mask-image: radial-gradient(ellipse 60% 70% at 28% 45%, #000 15%, transparent 75%);
-}
-.vc-sheen {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(100deg, transparent 35%, rgb(255 255 255 / 0.16) 50%, transparent 65%);
-  transform: translate3d(-100%, 0, 0);
-  opacity: 0;
-}
+
 .vc-live-dot {
   position: relative;
   display: inline-block;
   width: 0.5rem;
   height: 0.5rem;
+  flex: none;
   border-radius: 9999px;
   background: var(--color-spring-green);
 }
@@ -841,8 +804,8 @@
   background: inherit;
   opacity: 0;
 }
-/* Hidden at rest, so under reduced motion the +N and the glow never appear —
-   the number itself still updates. */
+/* Hidden at rest, so under reduced motion the +N never appears — the number
+   itself still updates. */
 .vc-pop {
   position: absolute;
   left: 0;
@@ -851,60 +814,18 @@
   font-family: var(--font-display);
   font-size: clamp(1rem, 0.8rem + 0.8vw, 1.5rem);
   font-weight: 500;
-  color: var(--color-spring-green);
-  opacity: 0;
-}
-.vc-glow {
-  position: absolute;
-  inset: -14% -8%;
-  border-radius: 2rem;
-  pointer-events: none;
-  background: radial-gradient(closest-side, rgb(76 221 132 / 0.28), transparent);
+  color: var(--color-flame-2);
   opacity: 0;
 }
 .vc-skeleton {
   display: inline-block;
-  width: 4.5ch;
+  width: 3ch;
   height: 0.9em;
   border-radius: 0.15em;
-  background: linear-gradient(90deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.06));
+  background: linear-gradient(90deg, var(--color-cloud), var(--color-line), var(--color-cloud));
   background-size: 200% 100%;
 }
-/* On an inner div, never on the Reveal wrapper: this transition would replace
-   the reveal's own and the card would pop in without fading. */
-.vc-card {
-  transition:
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.4s ease,
-    background-color 0.4s ease;
-}
-.vc-card:hover {
-  transform: translate3d(0, -4px, 0);
-  border-color: rgb(76 221 132 / 0.45);
-  background-color: rgb(255 255 255 / 0.07);
-}
 
-@keyframes vc-drift-a {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(8%, 6%, 0) scale(1.12); }
-}
-@keyframes vc-drift-b {
-  from { transform: translate3d(0, 0, 0) scale(1.05); }
-  to   { transform: translate3d(-10%, -4%, 0) scale(0.92); }
-}
-@keyframes vc-drift-c {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-18%, 22%, 0); }
-}
-@keyframes vc-pan {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(56px, 56px, 0); }
-}
-@keyframes vc-sheen {
-  0%, 62% { transform: translate3d(-100%, 0, 0); opacity: 0; }
-  70%     { opacity: 1; }
-  100%    { transform: translate3d(100%, 0, 0); opacity: 0; }
-}
 @keyframes vc-ping {
   from { transform: scale(1); opacity: 0.7; }
   to   { transform: scale(3.2); opacity: 0; }
@@ -913,10 +834,6 @@
   0%   { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.8); }
   18%  { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
   100% { opacity: 0; transform: translate3d(0, -40px, 0); }
-}
-@keyframes vc-glow {
-  from { opacity: 1; transform: scale(0.94); }
-  to   { opacity: 0; transform: scale(1.18); }
 }
 @keyframes vc-col-in {
   from { opacity: 0; transform: translate3d(0, 0.35em, 0); }
@@ -928,16 +845,8 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Mutually prime-ish periods, like the Who-we-are field: the light never
-     visibly repeats. */
-  .vc-blob-a { animation: vc-drift-a 19s ease-in-out infinite alternate; }
-  .vc-blob-b { animation: vc-drift-b 23s ease-in-out infinite alternate; }
-  .vc-blob-c { animation: vc-drift-c 29s ease-in-out infinite alternate; }
-  .vc-grid { animation: vc-pan 16s linear infinite; }
-  .vc-sheen { animation: vc-sheen 7.5s ease-in-out 1.5s infinite; }
   .vc-live-dot::after { animation: vc-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite; }
   .vc-pop { animation: vc-pop 1.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-  .vc-glow { animation: vc-glow 1.3s ease-out forwards; }
   .vc-col-enter { animation: vc-col-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
   .vc-skeleton { animation: vc-shimmer 1.6s linear infinite; }
 }
