@@ -16,10 +16,6 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ?? "",
-    // Same reason as above: the public WhatsApp link renders only when this is
-    // set, so an unpinned value would render it on the server and drop it in
-    // the browser. See lib/whatsapp/links.ts.
-    NEXT_PUBLIC_WHATSAPP_NUMBER: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
   },
 
   /**

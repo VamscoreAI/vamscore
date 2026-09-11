@@ -23,6 +23,21 @@ export type ContactField = {
 const IMG = "/assets/img";
 
 export const CONTACT = {
+  /**
+   * WhatsApp, supplied 2026-09-12: the same number as the phone line, on the
+   * WhatsApp Business app. Digits only, country code first. The floating
+   * button and the contact-page row both read this; set it to "" to remove
+   * every WhatsApp link from the site at once.
+   *
+   * The auto-reply customers receive is the app's own Greeting message, set up
+   * on the phone — nothing here sends it.
+   */
+  whatsapp: {
+    number: "919490729484",
+    // Pre-typed in the visitor's WhatsApp so they only have to press send.
+    prefill: "Hi Vamscore, I'd like to talk about working with you.",
+  },
+
   // Sits behind the hero copy at 60% under a left-weighted scrim. Supplied by
   // Vamscore.
   heroImage: `${IMG}/contact-hero.webp`,
