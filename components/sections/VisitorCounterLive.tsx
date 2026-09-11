@@ -30,27 +30,25 @@ const OBSERVER_GRACE_MS = 1_000;
 const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 /**
- * The falling balls: [start x %, size px, seconds per fall, delay s, opacity,
- * colour]. Fixed rather than random so server and client render the same
- * markup. Fourteen, at 7–12s each, keeps a handful in view at any moment —
- * enough to fill the gap, too few to read as a pattern.
+ * The falling balls, spread across the whole section.
+ *
+ * Placed by a golden-ratio sequence rather than `Math.random()`: it is
+ * deterministic, so server and client render identical markup, and it spaces
+ * the balls evenly instead of clumping them the way random draws do. x starts
+ * a little off the left edge because every ball drifts right as it falls.
+ *
+ * 28 at 7–12s per fall keeps the density even — below lg, CSS shows every
+ * other one, since a phone has a third of the width to fill.
  */
-const BALLS: [number, number, number, number, number, "flame" | "flame-2"][] = [
-  [30, 10, 7.5, -1.0, 0.85, "flame-2"],
-  [36, 6, 9.0, -5.2, 0.5, "flame"],
-  [42, 14, 8.2, -3.1, 0.7, "flame-2"],
-  [48, 8, 10.5, -7.8, 0.6, "flame"],
-  [52, 12, 7.0, -2.4, 0.9, "flame-2"],
-  [57, 6, 8.8, -6.3, 0.45, "flame-2"],
-  [61, 10, 9.6, -0.6, 0.75, "flame"],
-  [33, 8, 11.0, -8.9, 0.55, "flame-2"],
-  [45, 6, 7.8, -4.4, 0.8, "flame"],
-  [55, 16, 12.0, -9.5, 0.35, "flame-2"],
-  [39, 12, 10.0, -2.0, 0.65, "flame"],
-  [64, 8, 8.4, -5.9, 0.7, "flame-2"],
-  [26, 6, 9.2, -3.7, 0.6, "flame-2"],
-  [50, 10, 11.5, -10.2, 0.5, "flame"],
-];
+const fract = (n: number) => n - Math.floor(n);
+const BALLS = Array.from({ length: 28 }, (_, i) => ({
+  x: (-12 + fract(i * 0.618034) * 106).toFixed(1),
+  s: 6 + Math.round(fract(i * 0.754878 + 0.3) * 10),
+  t: (7 + fract(i * 0.569840 + 0.1) * 5).toFixed(2),
+  delay: (-fract(i * 0.430160 + 0.7) * 12).toFixed(2),
+  o: (0.35 + fract(i * 0.891207 + 0.5) * 0.55).toFixed(2),
+  c: i % 3 === 0 ? "flame" : "flame-2",
+}));
 
 /**
  * A rolling odometer. Each digit is a column holding a 0–9 strip, shifted by
@@ -245,18 +243,18 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
       className="relative isolate overflow-clip bg-white py-16 text-dark-stone md:py-24 xl:py-28"
     >
       <div aria-hidden className="vc-balls pointer-events-none absolute inset-0 -z-10">
-        {BALLS.map(([x, s, t, delay, o, c], i) => (
+        {BALLS.map((b, i) => (
           <span
             key={i}
             className="vc-ball"
             style={
               {
-                "--x": `${x}%`,
-                "--s": `${s}px`,
-                "--t": `${t}s`,
-                "--delay": `${delay}s`,
-                "--o": o,
-                "--c": `var(--color-${c})`,
+                "--x": `${b.x}%`,
+                "--s": `${b.s}px`,
+                "--t": `${b.t}s`,
+                "--delay": `${b.delay}s`,
+                "--o": b.o,
+                "--c": `var(--color-${b.c})`,
               } as React.CSSProperties
             }
           />
