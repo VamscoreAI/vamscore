@@ -361,3 +361,19 @@ export const CONNECT = {
   phone: "+91 94907 29484",
   address: "[city, state]",
 };
+
+/* -------------------------------------------------------------------------- */
+/* Visitor counter — between "Who we work with" and "Let's get there together" */
+/* -------------------------------------------------------------------------- */
+
+// Every number shown is real: the count starts at zero on the day Upstash is
+// connected and never seeds from an invented baseline. "Counting since" shows
+// that first day, so an early small number reads as new rather than quiet.
+export const VISITORS = {
+  eyebrow: "Live",
+  title: "People who have visited vamscore.com",
+  totalLabel: "visitors so far",
+  todayLabel: "Visitors today",
+  sinceLabel: "Counting since",
+  note: "One visit per browser per day. The count updates on its own while you watch.",
+};

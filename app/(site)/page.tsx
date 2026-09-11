@@ -11,6 +11,7 @@ import SectionNav from "@/components/sections/SectionNav";
 import SectionWatermark from "@/components/sections/SectionWatermark";
 import WhoWeAre from "@/components/sections/WhoWeAre";
 import VisionMission from "@/components/sections/VisionMission";
+import VisitorCounter from "@/components/sections/VisitorCounter";
 
 export default function HomePage() {
   return (
@@ -25,6 +26,7 @@ export default function HomePage() {
       <CustomerStories />
       <AiNativeBand />
       <PartnerMarquee />
+      <VisitorCounter />
       <GetThereTogether />
       <Faq />
       <Connect />

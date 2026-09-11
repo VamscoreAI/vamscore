@@ -24,7 +24,7 @@ const IMG = "/assets/img";
 
 export const CONTACT = {
   /**
-   * WhatsApp, supplied 2026-09-12: the same number as the phone line, on the
+   * WhatsApp, supplied 2026-09-11: the same number as the phone line, on the
    * WhatsApp Business app. Digits only, country code first. The floating
    * button and the contact-page row both read this; set it to "" to remove
    * every WhatsApp link from the site at once.

@@ -5,7 +5,7 @@ import { CONTACT } from "@/content/contact";
  *
  * The number lives in `content/contact.ts` beside the phone number, not in an
  * environment variable: it is a public fact about the business, decided on
- * 2026-09-12, and belongs where the rest of the contact details are edited.
+ * 2026-09-11, and belongs where the rest of the contact details are edited.
  * An empty or malformed value makes every helper return nothing, so no link
  * renders anywhere rather than one that opens the wrong chat.
  *
