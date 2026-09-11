@@ -9,8 +9,9 @@ import { CONTACT } from "@/content/contact";
  * An empty or malformed value makes every helper return nothing, so no link
  * renders anywhere rather than one that opens the wrong chat.
  *
- * These are plain wa.me links and depend on nothing else in `lib/whatsapp/` —
- * the Cloud API integration there is separate, and switched off.
+ * These are plain wa.me links. The reply a customer gets is the WhatsApp
+ * Business app's own Greeting message, set up on the phone — nothing on this
+ * site sends or receives WhatsApp messages.
  */
 
 const DIGITS = /^\d{8,15}$/;

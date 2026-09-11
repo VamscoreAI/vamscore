@@ -59,16 +59,5 @@ export default function proxy(req: NextRequest, event: NextFetchEvent) {
  * `<UserButton>` are client-side and reach Clerk's Frontend API directly.
  */
 export const config = {
-  matcher: [
-    "/portal/:path*",
-    "/sign-in/:path*",
-    "/sign-up/:path*",
-    // Staff WhatsApp APIs call `auth()`, so they must be listed. The WhatsApp
-    // *webhook* is deliberately not: Meta has no Clerk session, and it is
-    // authenticated by the provider's signature instead — same reasoning that
-    // keeps `/api/apply` out.
-    "/api/whatsapp/conversations/:path*",
-    "/api/whatsapp/messages",
-    "/api/whatsapp/leads",
-  ],
+  matcher: ["/portal/:path*", "/sign-in/:path*", "/sign-up/:path*"],
 };
