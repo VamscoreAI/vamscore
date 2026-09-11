@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { formatNumber, whatsappChatUrl, whatsappContactRow } from "@/lib/whatsapp/links";
+import { GMAIL_COMPOSE_URL } from "@/content/nav";
 
 // The WhatsApp button and the contact page's WhatsApp row both depend on these.
 
@@ -29,5 +30,18 @@ describe("public WhatsApp links", () => {
         href: "https://wa.me/919490729484?text=Hi%20Vamscore%2C%20I'd%20like%20to%20talk%20about%20working%20with%20you.",
       },
     ]);
+  });
+});
+
+describe("Gmail compose button", () => {
+  it("opens a compose window addressed to info@vamscore.com", () => {
+    const url = new URL(GMAIL_COMPOSE_URL);
+    expect(url.origin).toBe("https://mail.google.com");
+    expect(url.searchParams.get("view")).toBe("cm");
+    expect(url.searchParams.get("to")).toBe("info@vamscore.com");
+  });
+
+  it("does not pin the first Google account", () => {
+    expect(new URL(GMAIL_COMPOSE_URL).pathname).not.toMatch(/\/u\/\d/);
   });
 });

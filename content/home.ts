@@ -357,7 +357,7 @@ export const CONNECT = {
   // the footer too"; nothing reads them. The contact page takes its details
   // from `content/contact.ts`, which is the copy that matters — update that one.
   // Kept in step so this cannot mislead, but it is a candidate for deletion.
-  email: "[email]",
+  email: "info@vamscore.com",
   phone: "+91 94907 29484",
   address: "[city, state]",
 };

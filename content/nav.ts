@@ -95,21 +95,10 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-/**
- * Opens Gmail's compose window in a new tab. `view=cm` is compose, `fs=1`
- * full-screen.
- *
- * **No `to=` on purpose.** The only address this could carry is
- * `CONTACT.email`, which is still the literal string "[email]" — and a compose
- * window pre-addressed to "[email]" is exactly the broken link this project has
- * already removed twice (see the note on `CONNECT.cta` in `content/home.ts`). A
- * blank compose needs no address and cannot rot.
- *
- * **No `/u/0/` either.** That pins Gmail to the *first* signed-in Google
- * account, so anyone with more than one would find themselves composing from
- * the wrong identity. Leaving it out lets Google use the active account.
- */
-export const GMAIL_COMPOSE_URL = "https://mail.google.com/mail/?view=cm&fs=1";
+// The header's Gmail button, addressed to Vamscore. Built in content/contact.ts
+// from the email address, so the address lives in exactly one place;
+// re-exported here because the header reads all of its links from this file.
+export { GMAIL_COMPOSE_URL } from "@/content/contact";
 
 // Vamscore operates pan India, so the locale picker is a single entry rather than
 // Kyndryl's 40-country list. Add more if Vamscore opens other markets.

@@ -139,7 +139,7 @@ export default function Header() {
             rel="noopener noreferrer"
             // The icon is decorative, so the name has to come from here or the
             // link announces as just "link".
-            aria-label="Compose an email in Gmail"
+            aria-label="Email Vamscore in Gmail"
             className="hidden size-9 place-items-center text-white/80 transition-colors hover:text-white lg:grid"
           >
             <MailIcon />
@@ -315,7 +315,7 @@ export default function Header() {
                 className="flex items-center gap-1.5 text-[15px] text-white/80"
               >
                 <MailIcon />
-                Compose in Gmail
+                Email us in Gmail
               </Link>
 
               <Button href="/contact" className="w-full">

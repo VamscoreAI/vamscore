@@ -1,12 +1,12 @@
 /**
  * The contact page — where "Let's talk" and every Contact link now land.
  *
- * The phone number is real (supplied 2026-09-10). Email and office are still
- * `[bracketed]`: Vamscore has not supplied them. They are left visibly
+ * Phone (supplied 2026-09-10) and email (2026-09-11) are real. The office is
+ * still `[bracketed]`: Vamscore has not supplied it. It is left visibly
  * unfilled rather than invented, which is the same convention as everywhere
  * else in `content/` — but on this page in particular, **do not publish while
- * they are still brackets**. A contact page showing `[email]` is worse than one
- * showing nothing.
+ * it is still bracketed**. A contact page showing `[city, state]` is worse than
+ * one showing nothing.
  */
 
 export type ContactField = {
@@ -21,6 +21,32 @@ export type ContactField = {
 };
 
 const IMG = "/assets/img";
+
+/**
+ * Vamscore's email, supplied 2026-09-11. `primary` is on the company's own
+ * domain — vamscore.com has GoDaddy MX records (smtp.secureserver.net,
+ * checked 2026-09-11), so it receives mail. `alternate` is the Gmail inbox.
+ * The contact page lists both; the header's Gmail button addresses `primary`.
+ */
+export const EMAIL = {
+  primary: "info@vamscore.com",
+  alternate: "vamscore@gmail.com",
+};
+
+/**
+ * The header's Gmail button: Gmail's compose window, addressed to Vamscore.
+ * `view=cm` is compose, `fs=1` full-screen, `to` the primary address.
+ *
+ * **No `/u/0/`.** That pins Gmail to the *first* signed-in Google account, so
+ * anyone with more than one would compose from the wrong identity. Leaving it
+ * out lets Google use the active account.
+ *
+ * Until 2026-09-11 this deliberately had no `to=`: the only address it could
+ * have carried was the placeholder "[email]", and a compose window
+ * pre-addressed to a literal "[email]" is the broken link this project removed
+ * twice.
+ */
+export const GMAIL_COMPOSE_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL.primary)}`;
 
 export const CONTACT = {
   /**
@@ -91,7 +117,8 @@ export const CONTACT = {
   details: {
     title: "Other ways to reach us",
     items: [
-      { label: "Email", value: "[email]" },
+      { label: "Email", value: EMAIL.primary, href: `mailto:${EMAIL.primary}` },
+      { label: "Alternate email", value: EMAIL.alternate, href: `mailto:${EMAIL.alternate}` },
       // Supplied as 9490729484. Shown with +91 and 5-5 grouping, the standard
       // way an Indian mobile is written; `href` carries the same number in
       // E.164 so the link dials correctly from outside India too — without the
