@@ -10,6 +10,7 @@ import ContactForm from "@/components/contact/ContactForm";
 export const metadata: Metadata = {
   title: "Contact — Vamscore",
   description: CONTACT.standfirst,
+  alternates: { canonical: "/contact" },
 };
 
 /**

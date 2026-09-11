@@ -12,10 +12,61 @@ import SectionWatermark from "@/components/sections/SectionWatermark";
 import WhoWeAre from "@/components/sections/WhoWeAre";
 import VisionMission from "@/components/sections/VisionMission";
 import VisitorCounter from "@/components/sections/VisitorCounter";
+import type { Metadata } from "next";
+import { EMAIL } from "@/content/contact";
+import { COMPANY, FOOTER_SOCIAL, SITE_DESCRIPTION } from "@/content/nav";
+import { SITE_URL } from "@/lib/site";
+
+// The title comes from the root layout.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
+
+/**
+ * Tells search engines who Vamscore is: the WebSite entry is what Google uses
+ * for the site name shown above the result, and `sameAs` ties the four social
+ * profiles to this domain as one organisation.
+ *
+ * No `logo`: Google wants one at least 112×112, and the only mark on file is
+ * the 720×84 wordmark. Add a square logo here when Vamscore supplies one.
+ */
+const STRUCTURED_DATA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: COMPANY,
+      url: SITE_URL,
+      description: SITE_DESCRIPTION,
+      email: EMAIL.primary,
+      // The same line as the contact page's Phone row, in E.164.
+      telephone: "+919490729484",
+      areaServed: "IN",
+      sameAs: FOOTER_SOCIAL.map((s) => s.href),
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: COMPANY,
+      url: SITE_URL,
+      inLanguage: "en-IN",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ],
+};
 
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // Escaped per the Next.js JSON-LD guide, so no string in the data can
+        // close the script tag.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(STRUCTURED_DATA).replace(/</g, "\\u003c"),
+        }}
+      />
       <Hero />
       <SectionNav />
       <SectionWatermark>{WHO_WE_ARE.eyebrow}</SectionWatermark>

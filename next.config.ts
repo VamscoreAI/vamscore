@@ -43,6 +43,16 @@ const nextConfig: NextConfig = {
         destination: "https://vamscore.com/:path*",
         permanent: true,
       },
+      // The project's own vercel.app aliases serve production too, so they are
+      // full duplicate copies of the site that Google could index instead of
+      // vamscore.com. Only these exact hosts: per-deployment preview URLs
+      // (vamscore-<hash>-….vercel.app) stay reachable for testing.
+      ...["vamscore.vercel.app", "uv-website-fawn.vercel.app"].map((host) => ({
+        source: "/:path*",
+        has: [{ type: "host" as const, value: host }],
+        destination: "https://vamscore.com/:path*",
+        permanent: true,
+      })),
     ];
   },
 };

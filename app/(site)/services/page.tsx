@@ -7,6 +7,7 @@ import Reveal from "@/components/ui/Reveal";
 export const metadata: Metadata = {
   title: "What we do — Vamscore",
   description: SERVICES_HERO.standfirst,
+  alternates: { canonical: "/services" },
 };
 
 /**

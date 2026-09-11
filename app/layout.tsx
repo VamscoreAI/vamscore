@@ -5,6 +5,7 @@ import { authUiEnabled } from "@/lib/auth";
 import { clerkAppearance } from "@/lib/clerk-appearance";
 import { CLERK_LOCALIZATION } from "@/content/auth";
 import { SITE_DESCRIPTION } from "@/content/nav";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 // Body copy on the original is Roboto 400 — an exact match.
@@ -27,8 +28,17 @@ const display = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "Vamscore",
+  // Resolves every relative canonical and Open Graph URL to vamscore.com,
+  // whichever host the request arrived on.
+  metadataBase: new URL(SITE_URL),
+  // The home page's title, and the fallback for any page without its own. Leads
+  // with the brand so a search for "Vamscore" matches it word for word.
+  title: "Vamscore — Business process, robotics and automation across India",
   description: SITE_DESCRIPTION,
+  applicationName: "Vamscore",
+  // No `url` here: pages without their own openGraph would all inherit it and
+  // claim to be the home page.
+  openGraph: { siteName: "Vamscore", type: "website", locale: "en_IN" },
 };
 
 /**

@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: `${story.client} — Vamscore`,
     description: story.standfirst,
+    alternates: { canonical: `/stories/${story.slug}` },
   };
 }
 

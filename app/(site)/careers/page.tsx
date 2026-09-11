@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Careers — Vamscore",
   description:
     "Open roles at Vamscore across business process operations, robotics and automation, and education delivery.",
+  alternates: { canonical: "/careers" },
 };
 
 export default function CareersPage() {

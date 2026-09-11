@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * The site had no robots.txt at all, which meant the staff routes were
@@ -14,5 +15,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/portal", "/sign-in", "/sign-up"],
     },
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

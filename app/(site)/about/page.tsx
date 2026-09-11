@@ -18,6 +18,7 @@ import SectionWatermark from "@/components/sections/SectionWatermark";
 export const metadata: Metadata = {
   title: "About Vamscore — vision, mission, objectives and values",
   description: ABOUT_HERO.standfirst,
+  alternates: { canonical: "/about" },
 };
 
 /**
