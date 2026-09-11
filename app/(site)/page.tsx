@@ -27,8 +27,8 @@ export const metadata: Metadata = {
  * for the site name shown above the result, and `sameAs` ties the four social
  * profiles to this domain as one organisation.
  *
- * No `logo`: Google wants one at least 112×112, and the only mark on file is
- * the 720×84 wordmark. Add a square logo here when Vamscore supplies one.
+ * `logo` is the square V mark (512×512; Google wants at least 112×112), cut
+ * from the wordmark's first letter — the same art as the browser-tab icon.
  */
 const STRUCTURED_DATA = {
   "@context": "https://schema.org",
@@ -38,6 +38,7 @@ const STRUCTURED_DATA = {
       "@id": `${SITE_URL}/#organization`,
       name: COMPANY,
       url: SITE_URL,
+      logo: `${SITE_URL}/assets/logos/vamscore-mark.png`,
       description: SITE_DESCRIPTION,
       email: EMAIL.primary,
       // The same line as the contact page's Phone row, in E.164.
