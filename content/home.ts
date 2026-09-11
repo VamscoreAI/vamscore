@@ -373,6 +373,8 @@ export const VISITORS = {
   eyebrow: "Live",
   title: "People who have visited vamscore.com",
   totalLabel: "visitors so far",
+  // The count starts at zero, so "1" is a real state the page will show.
+  totalLabelOne: "visitor so far",
   todayLabel: "Visitors today",
   sinceLabel: "Counting since",
   note: "One visit per browser per day. The count updates on its own while you watch.",

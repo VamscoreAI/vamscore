@@ -8,6 +8,7 @@ export type VisitorCopy = {
   eyebrow: string;
   title: string;
   totalLabel: string;
+  totalLabelOne: string;
   todayLabel: string;
   sinceLabel: string;
   note: string;
@@ -259,7 +260,9 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
                 >
                   {counts ? (
                     <>
-                      <span className="sr-only">{totalText} visitors</span>
+                      <span className="sr-only">
+                        {totalText} {counts.total === 1 ? "visitor" : "visitors"}
+                      </span>
                       <Odometer value={counts.total} rolled={rolled} />
                     </>
                   ) : failed ? (
@@ -277,7 +280,9 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
                   ))}
                 </span>
               </div>
-              <p className="type-lede mt-4 text-white/70">{copy.totalLabel}</p>
+              <p className="type-lede mt-4 text-white/70">
+                {counts?.total === 1 ? copy.totalLabelOne : copy.totalLabel}
+              </p>
             </Reveal>
           </div>
 
@@ -288,7 +293,9 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
                 <p className="mt-3 font-display text-[clamp(2rem,1.6rem+1.6vw,2.75rem)] leading-none font-light text-white">
                   {counts ? (
                     <>
-                      <span className="sr-only">{formatCount(counts.today)} visitors today</span>
+                      <span className="sr-only">
+                        {formatCount(counts.today)} {counts.today === 1 ? "visitor" : "visitors"} today
+                      </span>
                       <Odometer value={counts.today} rolled={rolled} />
                     </>
                   ) : (
