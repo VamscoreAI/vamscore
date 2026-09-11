@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Suspense } from "react";
 import { CONTACT } from "@/content/contact";
+import { whatsappContactRow } from "@/lib/whatsapp/links";
 import { ArrowLink, Eyebrow } from "@/components/ui";
 import Reveal from "@/components/ui/Reveal";
 import ContactForm from "@/components/contact/ContactForm";
@@ -85,7 +86,9 @@ export default function ContactPage() {
               {CONTACT.details.title}
             </Reveal>
             <dl className="mt-8">
-              {CONTACT.details.items.map((item, i) => (
+              {/* The WhatsApp row appears only once NEXT_PUBLIC_WHATSAPP_NUMBER
+                  is set — see lib/whatsapp/links.ts. */}
+              {[...CONTACT.details.items, ...whatsappContactRow()].map((item, i) => (
                 <Reveal
                   key={item.label}
                   variant="left"
@@ -101,6 +104,10 @@ export default function ContactPage() {
                     {"href" in item && item.href ? (
                       <a
                         href={item.href}
+                        // wa.me leaves the site, so a new tab; tel: stays put.
+                        {...(item.href.startsWith("https://")
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
                         className="underline-offset-4 transition-colors hover:text-flame hover:underline"
                       >
                         {item.value}
