@@ -7,10 +7,10 @@ export const runtime = "nodejs";
 /**
  * Contact form endpoint.
  *
- * Sends the enquiry as an email rather than writing it to disk. That is a
- * deliberate difference from `app/api/apply/route.ts`: a CV can sit in a folder
- * until someone runs a hiring round, but a sales enquiry nobody notices is a
- * lost customer, and nothing in this project reads those folders back.
+ * Sends the enquiry as an email rather than storing it: nothing in this
+ * project reads stored submissions back, and a sales enquiry nobody notices is
+ * a lost customer. Job applications (`app/api/apply/route.ts`) go the same way,
+ * to the same inbox.
  *
  * Public and unauthenticated by design — it is a contact form. It is not in
  * `proxy.ts`'s matcher, so Clerk never touches it.

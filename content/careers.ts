@@ -1,7 +1,10 @@
 // Copy for the /careers page.
 //
-// As elsewhere, anything in [square brackets] is a placeholder Vamscore still needs to
-// fill in — here that is the open roles themselves.
+// `roles` is empty until Vamscore has a real opening. With no roles the page
+// shows `noRoles` — an honest "not hiring for a specific role" message with a
+// general-application button — instead of cards. To advertise a role, add an
+// entry to `roles`; the cards, the "Role" dropdown and the hero button's
+// wording all switch back on their own.
 
 export type Role = {
   id: string;
@@ -43,40 +46,26 @@ export const CAREERS = {
     ],
   },
 
+  // The hero button: points at the roles when there are some, at the form when
+  // there are none.
+  heroCtaRoles: "See open roles",
+  heroCtaNoRoles: "Send us your CV",
+
   rolesTitle: "Open roles",
+  // Shown under the title only when there are roles to list.
   rolesNote:
     "Nothing here that fits? Send a general application and tell us what you do — we read every one.",
 
-  // PLACEHOLDER — replace with Vamscore's real openings.
-  roles: [
-    {
-      id: "bpo-team-lead",
-      title: "[Role title — e.g. BPO Team Lead]",
-      team: "Business process outsourcing",
-      location: "[City]",
-      type: "Full time",
-      summary:
-        "[Two lines on what this person will run day to day, and what experience matters.]",
-    },
-    {
-      id: "automation-engineer",
-      title: "[Role title — e.g. Automation Engineer]",
-      team: "Robotics and automation",
-      location: "[City]",
-      type: "Full time",
-      summary:
-        "[Two lines on the automation work, the tools involved, and the level you are hiring at.]",
-    },
-    {
-      id: "delivery-coordinator",
-      title: "[Role title — e.g. Delivery Coordinator]",
-      team: "Education and government projects",
-      location: "[City / travel expected]",
-      type: "Full time",
-      summary:
-        "[Two lines on coordinating delivery across districts, and what you need from this person.]",
-    },
-  ] as Role[],
+  // Shown instead of role cards while `roles` is empty.
+  noRoles: {
+    title: "No open roles right now",
+    body: "We aren't hiring for a specific position at the moment. If you'd like to work with us when something opens up, send us your CV — we read every application and will be in touch if there's a fit.",
+    cta: "Send a general application",
+  },
+
+  // Vamscore's real openings. Empty until there is one — see the note at the
+  // top of this file. Shape: { id, title, team, location, type, summary }.
+  roles: [] as Role[],
 
   form: {
     title: "Apply",
@@ -84,14 +73,17 @@ export const CAREERS = {
       "Attach your CV and we will come back to you. Fields marked with an asterisk are required.",
     generalRoleLabel: "General application",
     accept: ".pdf,.doc,.docx",
-    maxMb: 5,
+    // 4, not 5: Vercel refuses request bodies over 4.5 MB before the route
+    // runs, and the upload also carries the other fields. The route reads this
+    // same number.
+    maxMb: 4,
     dropHint: "Drag your CV here, or click to browse",
-    dropMeta: "PDF, DOC or DOCX · up to 5 MB",
+    dropMeta: "PDF, DOC or DOCX · up to 4 MB",
     submitLabel: "Send application",
     submittingLabel: "Sending…",
     successTitle: "Application received",
     successBody:
-      "Thanks — we have your CV. If there is a fit we will be in touch by email.",
+      "Thanks — your application is with us. If there's a fit, we'll be in touch by email.",
     errorGeneric:
       "Something went wrong sending your application. Please try again, or email us instead.",
   },

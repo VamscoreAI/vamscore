@@ -128,7 +128,7 @@ export const CONTACT = {
     ],
     careersNote: {
       text: "Looking for a job rather than a supplier?",
-      linkLabel: "See open roles",
+      linkLabel: "Careers at Vamscore",
       href: "/careers",
     },
   },

@@ -7,7 +7,7 @@ import ApplySection from "@/components/careers/ApplySection";
 export const metadata: Metadata = {
   title: "Careers — Vamscore",
   description:
-    "Open roles at Vamscore across business process operations, robotics and automation, and education delivery.",
+    "Work at Vamscore — business process operations, robotics and automation, and education delivery across India. Send us your CV.",
   alternates: { canonical: "/careers" },
 };
 
@@ -42,11 +42,13 @@ export default function CareersPage() {
           <Eyebrow className="text-white">{CAREERS.eyebrow}</Eyebrow>
           <h1 className="type-hero mt-6 max-w-[16ch] text-white">{CAREERS.title}</h1>
           <p className="type-lede mt-6 max-w-xl text-white/80">{CAREERS.intro}</p>
+          {/* With no openings, "See open roles" would lead to a page saying
+              there are none — so the button goes straight to the form. */}
           <a
-            href="#roles"
+            href={CAREERS.roles.length ? "#roles" : "#apply"}
             className="mt-10 inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-white"
           >
-            See open roles
+            {CAREERS.roles.length ? CAREERS.heroCtaRoles : CAREERS.heroCtaNoRoles}
             <Arrow />
           </a>
         </div>

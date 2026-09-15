@@ -1,24 +1,33 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+import { CAREERS, GENERAL_ROLE_ID } from "@/content/careers";
 
-// Uses the filesystem, so it can't run on the edge runtime.
+// Resend's SDK and Buffer both want Node, not the edge runtime.
 export const runtime = "nodejs";
 
 /**
- * Receives a job application and stores it on the server.
+ * Receives a job application and emails it to Vamscore with the CV attached.
  *
- * Applications are personal data: CVs land in `applications/` at the project
- * root, deliberately NOT under `public/`, which Next serves to anyone who asks.
- * The folder is gitignored so real people's CVs are never committed.
+ * **Why email, not disk.** This route used to write each CV to `applications/`
+ * on the server. Vercel's functions have a read-only filesystem, so on the live
+ * site every application failed with "We couldn't save your application" and
+ * none ever reached Vamscore. Email works on any host and lands where someone
+ * reads it: the same inbox (`CONTACT_TO_EMAIL`) and Resend setup as the contact
+ * form in `app/api/contact/route.ts`. CVs are personal data; nothing is kept on
+ * the server.
  *
- * Note this writes to local disk, so it works when the site runs on your own
- * machine or an ordinary VPS. Serverless hosts (Vercel, Netlify) give you a
- * read-only filesystem — moving there means swapping this for object storage or
- * an email service.
+ * **Size.** Vercel rejects request bodies over 4.5 MB before this code runs, so
+ * the CV limit is `CAREERS.form.maxMb` (4 MB) — the form enforces the same
+ * number — leaving room for the other fields.
+ *
+ * **Not configured is a visible failure**, as with the contact form: without a
+ * key the applicant gets a clear 503 telling them to email instead, never a
+ * success message for an application that went nowhere.
  */
 
-const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
+const MAX_BYTES = CAREERS.form.maxMb * 1024 * 1024;
+const MAX_FIELD = 200;
+const MAX_NOTE = 5000;
 
 // Extension -> the MIME types a browser plausibly reports for it.
 const ALLOWED: Record<string, string[]> = {
@@ -30,10 +39,8 @@ const ALLOWED: Record<string, string[]> = {
 };
 
 /**
- * Reduces arbitrary text to a safe path segment. The uploaded filename and the
- * applicant's name are attacker-controlled, so neither is ever used in a path
- * as given — this strips everything outside [a-z0-9-], which makes traversal
- * (`../`), absolute paths and reserved characters impossible by construction.
+ * Reduces arbitrary text to a safe filename segment. The applicant's name is
+ * attacker-controlled, so it is never used in the attachment name as given.
  */
 function slug(input: string, fallback: string): string {
   const cleaned = input
@@ -45,11 +52,34 @@ function slug(input: string, fallback: string): string {
   return cleaned || fallback;
 }
 
-function bad(message: string) {
-  return NextResponse.json({ ok: false, error: message }, { status: 400 });
+/** Very small escape — every field is attacker-controlled and lands in HTML. */
+function esc(value: string) {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function bad(error: string, status = 400) {
+  return NextResponse.json({ ok: false, error }, { status });
 }
 
 export async function POST(request: Request) {
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.CONTACT_TO_EMAIL;
+  const from = process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev";
+
+  if (!apiKey || !to) {
+    console.error(
+      "Applications are not configured: set RESEND_API_KEY and CONTACT_TO_EMAIL"
+    );
+    return bad(
+      "Applications can't be sent right now. Please email your CV to us instead.",
+      503
+    );
+  }
+
   let form: FormData;
   try {
     form = await request.formData();
@@ -77,13 +107,17 @@ export async function POST(request: Request) {
   if (!/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(email)) {
     return bad("That email address doesn't look right.");
   }
+  if ([name, email, phone, location, experience].some((v) => v.length > MAX_FIELD)) {
+    return bad("One of those fields is too long.");
+  }
+  if (note.length > MAX_NOTE) return bad("That note is too long.");
 
   const file = form.get("cv");
   if (!(file instanceof File) || file.size === 0) {
     return bad("Please attach your CV.");
   }
   if (file.size > MAX_BYTES) {
-    return bad(`That file is over ${MAX_BYTES / 1024 / 1024} MB. Please attach a smaller one.`);
+    return bad(`That file is over ${CAREERS.form.maxMb} MB. Please attach a smaller one.`);
   }
 
   const ext = (file.name.split(".").pop() ?? "").toLowerCase();
@@ -100,44 +134,59 @@ export async function POST(request: Request) {
   const bytes = Buffer.from(await file.arrayBuffer());
   // Re-check after reading: file.size is a claim until the bytes are in hand.
   if (bytes.byteLength > MAX_BYTES) {
-    return bad(`That file is over ${MAX_BYTES / 1024 / 1024} MB. Please attach a smaller one.`);
+    return bad(`That file is over ${CAREERS.form.maxMb} MB. Please attach a smaller one.`);
   }
 
+  // Only a known role id is named in the email; anything else is a general
+  // application, so a crafted value can't put arbitrary text in the subject.
+  const roleTitle =
+    CAREERS.roles.find((r) => r.id === role && role !== GENERAL_ROLE_ID)?.title ??
+    CAREERS.form.generalRoleLabel;
+
   const submittedAt = new Date();
-  const reference = `${submittedAt.toISOString().replace(/[:.]/g, "-")}__${slug(name, "applicant")}`;
-  const dir = join(process.cwd(), "applications", reference);
+  const who = slug(name, "applicant");
+  const reference = `${submittedAt.toISOString().replace(/[:.]/g, "-")}__${who}`;
+
+  const rows: [string, string][] = [
+    ["Name", name],
+    ["Email", email],
+    ["Phone", phone || "—"],
+    ["Current location", location || "—"],
+    ["Years of experience", experience || "—"],
+    ["Role", roleTitle],
+    ["Reference", reference],
+  ];
 
   try {
-    await mkdir(dir, { recursive: true });
-    await writeFile(join(dir, `cv.${ext}`), bytes);
-    await writeFile(
-      join(dir, "application.json"),
-      JSON.stringify(
-        {
-          reference,
-          submittedAt: submittedAt.toISOString(),
-          name,
-          email,
-          phone,
-          location,
-          experience,
-          role,
-          note,
-          // Recorded as data only — never used to build a path.
-          originalFilename: file.name,
-          fileBytes: bytes.byteLength,
-        },
-        null,
-        2
-      ) + "\n",
-      "utf8"
-    );
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from: `Vamscore website <${from}>`,
+      to: [to],
+      // So a reply in the inbox goes to the applicant, not to the site.
+      replyTo: email,
+      subject: `Job application — ${roleTitle} — ${name}`,
+      html: [
+        `<h2>New job application from the Vamscore website</h2>`,
+        `<table cellpadding="6" style="border-collapse:collapse">`,
+        ...rows.map(
+          ([k, v]) =>
+            `<tr><td style="color:#666">${k}</td><td><strong>${esc(v)}</strong></td></tr>`
+        ),
+        `</table>`,
+        note ? `<h3>Note from the applicant</h3><p style="white-space:pre-wrap">${esc(note)}</p>` : "",
+        `<p style="color:#666">The CV is attached.</p>`,
+      ].join(""),
+      attachments: [{ filename: `CV-${who}.${ext}`, content: bytes }],
+    });
+
+    if (error) {
+      // Logged in full server-side; the applicant gets a generic message.
+      console.error("Resend rejected the application email", error);
+      return bad("We couldn't send your application just now. Please try again.", 502);
+    }
   } catch (error) {
-    console.error("Failed to store application", error);
-    return NextResponse.json(
-      { ok: false, error: "We couldn't save your application. Please try again." },
-      { status: 500 }
-    );
+    console.error("Failed to send application email", error);
+    return bad("We couldn't send your application just now. Please try again.", 502);
   }
 
   return NextResponse.json({ ok: true, reference });

@@ -218,8 +218,8 @@ export const GET_THERE_TOGETHER = {
     },
     {
       title: "Careers",
-      body: "We hire people who like work that has to actually run. See what is open.",
-      cta: "See open roles",
+      body: "We hire people who like work that has to actually run. Tell us what you do.",
+      cta: "Careers at Vamscore",
       href: "/careers",
       image: `${IMG}/card-careers.webp`,
     },
@@ -348,7 +348,7 @@ export const CONNECT = {
     },
     {
       label: "Join the team",
-      body: "Open roles and how we hire.",
+      body: "How we hire, and how to apply.",
       href: "/careers",
     },
   ],

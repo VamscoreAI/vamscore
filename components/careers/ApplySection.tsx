@@ -5,6 +5,8 @@ import { CAREERS, GENERAL_ROLE_ID } from "@/content/careers";
 import { Arrow, cx } from "@/components/ui";
 
 const { form: F, roles } = CAREERS;
+/** With no roles, the section shows the "no open roles" message instead of cards. */
+const hasRoles = roles.length > 0;
 const MAX_BYTES = F.maxMb * 1024 * 1024;
 const ALLOWED_EXT = ["pdf", "doc", "docx"];
 
@@ -86,28 +88,47 @@ export default function ApplySection() {
       <section id="roles" className="scroll-mt-[100px] bg-cloud py-16 lg:py-24">
         <div className="shell">
           <h2 className="type-section text-carbon">{CAREERS.rolesTitle}</h2>
-          <p className="type-lede mt-4 max-w-2xl">{CAREERS.rolesNote}</p>
 
-          <ul className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {roles.map((r) => (
-              <li key={r.id} className="flex flex-col bg-white p-8">
-                <p className="eyebrow text-stone">{r.team}</p>
-                <h3 className="type-card mt-3 text-carbon">{r.title}</h3>
-                <p className="mt-2 text-[14px] text-stone">
-                  {r.location} · {r.type}
-                </p>
-                <p className="type-body mt-4">{r.summary}</p>
-                <button
-                  type="button"
-                  onClick={() => applyTo(r.id)}
-                  className="mt-8 inline-flex w-fit items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-carbon hover:text-white"
-                >
-                  Apply for this role
-                  <Arrow />
-                </button>
-              </li>
-            ))}
-          </ul>
+          {hasRoles ? (
+            <>
+              <p className="type-lede mt-4 max-w-2xl">{CAREERS.rolesNote}</p>
+              <ul className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                {roles.map((r) => (
+                  <li key={r.id} className="flex flex-col bg-white p-8">
+                    <p className="eyebrow text-stone">{r.team}</p>
+                    <h3 className="type-card mt-3 text-carbon">{r.title}</h3>
+                    <p className="mt-2 text-[14px] text-stone">
+                      {r.location} · {r.type}
+                    </p>
+                    <p className="type-body mt-4">{r.summary}</p>
+                    <button
+                      type="button"
+                      onClick={() => applyTo(r.id)}
+                      className="mt-8 inline-flex w-fit items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-carbon hover:text-white"
+                    >
+                      Apply for this role
+                      <Arrow />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            /* No openings: one honest card instead of empty role cards. The
+               coral rule is the site's accent for a single standout block. */
+            <div className="mt-10 max-w-3xl border-l-2 border-flame-2 bg-white p-8 lg:p-10">
+              <h3 className="type-card text-carbon">{CAREERS.noRoles.title}</h3>
+              <p className="type-body mt-3">{CAREERS.noRoles.body}</p>
+              <button
+                type="button"
+                onClick={() => applyTo(GENERAL_ROLE_ID)}
+                className="mt-8 inline-flex w-fit items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-carbon hover:text-white"
+              >
+                {CAREERS.noRoles.cta}
+                <Arrow />
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -200,25 +221,31 @@ export default function ApplySection() {
                       className={cx(fieldClass, "mt-2")}
                     />
                   </div>
-                  <div>
-                    <label htmlFor={`${uid}-role`} className="block text-[14px] text-stone">
-                      Role
-                    </label>
-                    <select
-                      id={`${uid}-role`}
-                      name="role"
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                      className={cx(fieldClass, "mt-2")}
-                    >
-                      <option value={GENERAL_ROLE_ID}>{F.generalRoleLabel}</option>
-                      {roles.map((r) => (
-                        <option key={r.id} value={r.id}>
-                          {r.title}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  {/* A dropdown with one option is noise, so with no roles the
+                      field is hidden and every application is a general one. */}
+                  {hasRoles ? (
+                    <div>
+                      <label htmlFor={`${uid}-role`} className="block text-[14px] text-stone">
+                        Role
+                      </label>
+                      <select
+                        id={`${uid}-role`}
+                        name="role"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        className={cx(fieldClass, "mt-2")}
+                      >
+                        <option value={GENERAL_ROLE_ID}>{F.generalRoleLabel}</option>
+                        {roles.map((r) => (
+                          <option key={r.id} value={r.id}>
+                            {r.title}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ) : (
+                    <input type="hidden" name="role" value={GENERAL_ROLE_ID} />
+                  )}
                 </div>
 
                 {/* Drop zone. A label wrapping the real input keeps click, keyboard
