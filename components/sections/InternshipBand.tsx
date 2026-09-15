@@ -19,7 +19,10 @@ export default function InternshipBand() {
   if (!href) return null;
 
   return (
+    // `id` is the target of the footer's "Internships" link (/#internships);
+    // the global scroll-padding-top keeps the band clear of the fixed header.
     <section
+      id="internships"
       aria-labelledby="internship-title"
       className="relative isolate overflow-hidden bg-carbon text-white"
     >

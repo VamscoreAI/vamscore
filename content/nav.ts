@@ -110,6 +110,7 @@ export const LOCALES = ["India - English"] as const;
 export const ACTIVE_LOCALE = "India - English";
 export const LOCALE_SHORT = "IN - EN";
 
+// Non-null exactly when the internship band renders (it uses the same call).
 const INTERNSHIP_CHAT = whatsappChatUrl(CONTACT.whatsapp.internshipPrefill);
 
 export const FOOTER_COLUMNS: NavGroup[] = [
@@ -123,12 +124,11 @@ export const FOOTER_COLUMNS: NavGroup[] = [
         href: "/services#education",
       },
       { label: "Tata channel partnership", href: "/services#channel" },
-      // Straight into WhatsApp with the internship message typed, like the
-      // band on the home page. Omitted if the WhatsApp number is ever removed,
-      // rather than linking to a chat that can't open.
-      ...(INTERNSHIP_CHAT
-        ? [{ label: "Internships", href: INTERNSHIP_CHAT, external: true }]
-        : []),
+      // Scrolls to the internship band on the home page (its section has
+      // id="internships"); the band's own button is what opens WhatsApp. The
+      // band renders nothing if the WhatsApp number is removed, so this link
+      // is omitted then too, rather than pointing at a section that isn't there.
+      ...(INTERNSHIP_CHAT ? [{ label: "Internships", href: "/#internships" }] : []),
     ],
   },
   {

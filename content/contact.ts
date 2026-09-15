@@ -62,8 +62,8 @@ export const CONTACT = {
     number: "919490729484",
     // Pre-typed in the visitor's WhatsApp so they only have to press send.
     prefill: "Hi Vamscore, I'd like to talk about working with you.",
-    // Pre-typed by the internship band's button and the footer's "Internships"
-    // link. Kept here, beside the number, so both read one copy.
+    // Pre-typed by the internship band's button on the home page (the footer's
+    // "Internships" link scrolls to that band). Kept here beside the number.
     internshipPrefill: "Hi Vamscore, I'm interested in an internship.",
   },
 

@@ -25,11 +25,12 @@ describe("public WhatsApp links", () => {
     expect(url.searchParams.get("text")).toBe("Hi Vamscore, I'm interested in an internship.");
   });
 
-  it("lists Internships in the footer's Services column, opening the same chat", () => {
+  it("lists Internships in the footer's Services column, linking to the home-page band", () => {
     const services = FOOTER_COLUMNS.find((c) => c.heading === "Services")!;
     const link = services.links.find((l) => l.label === "Internships")!;
-    expect(link.external).toBe(true);
-    expect(link.href).toBe(whatsappChatUrl(INTERNSHIP.prefill));
+    // Same page, same tab: the band's own button is what opens WhatsApp.
+    expect(link.href).toBe("/#internships");
+    expect(link.external).toBeUndefined();
   });
 
   it("encodes the pre-typed message, so it cannot break the link", () => {
