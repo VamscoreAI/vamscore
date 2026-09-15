@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { formatNumber, whatsappChatUrl, whatsappContactRow } from "@/lib/whatsapp/links";
-import { GMAIL_COMPOSE_URL } from "@/content/nav";
+import { FOOTER_COLUMNS, GMAIL_COMPOSE_URL } from "@/content/nav";
 import { INTERNSHIP } from "@/content/home";
 
 // The WhatsApp button and the contact page's WhatsApp row both depend on these.
@@ -23,6 +23,13 @@ describe("public WhatsApp links", () => {
     expect(url.origin).toBe("https://wa.me");
     expect(url.pathname).toBe("/919490729484");
     expect(url.searchParams.get("text")).toBe("Hi Vamscore, I'm interested in an internship.");
+  });
+
+  it("lists Internships in the footer's Services column, opening the same chat", () => {
+    const services = FOOTER_COLUMNS.find((c) => c.heading === "Services")!;
+    const link = services.links.find((l) => l.label === "Internships")!;
+    expect(link.external).toBe(true);
+    expect(link.href).toBe(whatsappChatUrl(INTERNSHIP.prefill));
   });
 
   it("encodes the pre-typed message, so it cannot break the link", () => {

@@ -8,6 +8,8 @@
 // Imagery under /assets is still the placeholder set downloaded from
 // kyndryl.com — replace it before this goes anywhere public.
 
+import { CONTACT } from "@/content/contact";
+
 const IMG = "/assets/img";
 const VIDEO = "/assets/video";
 const LOGO = "/assets/logos";
@@ -181,7 +183,8 @@ export const INTERNSHIP = {
   title: "Internships at Vamscore",
   body: "Interested in an internship with Vamscore? Message us on WhatsApp — tell us what you're studying and what you'd like to learn, and we'll let you know what's possible.",
   cta: "Ask about internships",
-  prefill: "Hi Vamscore, I'm interested in an internship.",
+  // One copy, shared with the footer's "Internships" link.
+  prefill: CONTACT.whatsapp.internshipPrefill,
   // Vamscore-supplied picture (2026-09-15): students round a laptop. It is
   // bright, so the band's left-to-right carbon fade does the work of keeping
   // the white copy readable. Set to null to fall back to the plain dark band

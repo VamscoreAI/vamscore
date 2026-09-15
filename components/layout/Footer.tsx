@@ -64,9 +64,17 @@ export default function Footer() {
                           fiddly. */}
                       <Link
                         href={link.href}
+                        // Links that leave the site (WhatsApp) open in a new
+                        // tab, like the social icons below.
+                        {...(link.external
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
                         className="block py-1.5 text-base leading-6 text-white/85 transition-colors hover:text-spring-green"
                       >
                         {link.label}
+                        {link.external && (
+                          <span className="sr-only"> (opens in a new tab)</span>
+                        )}
                       </Link>
                     </li>
                   ))}

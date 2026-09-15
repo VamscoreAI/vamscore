@@ -3,6 +3,9 @@
 // Anything in [square brackets] is a placeholder Vamscore still needs to supply.
 // Links point at on-page anchors until the inner pages exist.
 
+import { CONTACT } from "@/content/contact";
+import { whatsappChatUrl } from "@/lib/whatsapp/links";
+
 export type NavLink = { label: string; href: string; external?: boolean };
 export type NavGroup = { heading: string; links: NavLink[] };
 export type NavItem = { label: string; href: string; groups?: NavGroup[] };
@@ -107,6 +110,8 @@ export const LOCALES = ["India - English"] as const;
 export const ACTIVE_LOCALE = "India - English";
 export const LOCALE_SHORT = "IN - EN";
 
+const INTERNSHIP_CHAT = whatsappChatUrl(CONTACT.whatsapp.internshipPrefill);
+
 export const FOOTER_COLUMNS: NavGroup[] = [
   {
     heading: "Services",
@@ -118,6 +123,12 @@ export const FOOTER_COLUMNS: NavGroup[] = [
         href: "/services#education",
       },
       { label: "Tata channel partnership", href: "/services#channel" },
+      // Straight into WhatsApp with the internship message typed, like the
+      // band on the home page. Omitted if the WhatsApp number is ever removed,
+      // rather than linking to a chat that can't open.
+      ...(INTERNSHIP_CHAT
+        ? [{ label: "Internships", href: INTERNSHIP_CHAT, external: true }]
+        : []),
     ],
   },
   {
