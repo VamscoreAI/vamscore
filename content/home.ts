@@ -169,6 +169,28 @@ export const AI_NATIVE = {
 };
 
 /* -------------------------------------------------------------------------- */
+/* Internships — the band below "Let's get there together"                    */
+/*                                                                            */
+/* Styled like AI_NATIVE above. The button opens WhatsApp with `prefill`       */
+/* already typed; the conversation continues in the WhatsApp Business app.     */
+/* Copy is deliberately general (no areas, pay or duration): Vamscore has not  */
+/* said what its internships cover, so the band promises nothing specific.    */
+/* -------------------------------------------------------------------------- */
+
+export const INTERNSHIP = {
+  title: "Internships at Vamscore",
+  body: "Interested in an internship with Vamscore? Message us on WhatsApp — tell us what you're studying and what you'd like to learn, and we'll let you know what's possible.",
+  cta: "Ask about internships",
+  prefill: "Hi Vamscore, I'm interested in an internship.",
+  // Vamscore is supplying a picture. Until it arrives the band shows a plain
+  // dark ground with a soft coral glow. When it does: save it as
+  // `${IMG}/internship-band.webp`, set this to that path, and add a
+  // `!public/assets/img/internship-band.webp` line to .gitignore — without it
+  // the file deploys from one machine but never reaches the repo.
+  image: null as string | null,
+};
+
+/* -------------------------------------------------------------------------- */
 /* 6. Partners                                                                */
 /*                                                                            */
 /* Rendered as plain wordmarks, not the partners' actual logos: reproducing    */

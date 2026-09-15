@@ -6,6 +6,7 @@ import CustomerStories from "@/components/sections/CustomerStories";
 import Faq from "@/components/sections/Faq";
 import GetThereTogether from "@/components/sections/GetThereTogether";
 import Hero from "@/components/sections/Hero";
+import InternshipBand from "@/components/sections/InternshipBand";
 import PartnerMarquee from "@/components/sections/PartnerMarquee";
 import SectionNav from "@/components/sections/SectionNav";
 import SectionWatermark from "@/components/sections/SectionWatermark";
@@ -80,6 +81,7 @@ export default function HomePage() {
       <PartnerMarquee />
       <VisitorCounter />
       <GetThereTogether />
+      <InternshipBand />
       <Faq />
       <Connect />
     </>

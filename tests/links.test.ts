@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { formatNumber, whatsappChatUrl, whatsappContactRow } from "@/lib/whatsapp/links";
 import { GMAIL_COMPOSE_URL } from "@/content/nav";
+import { INTERNSHIP } from "@/content/home";
 
 // The WhatsApp button and the contact page's WhatsApp row both depend on these.
 
@@ -15,6 +16,13 @@ describe("public WhatsApp links", () => {
     expect(url.origin).toBe("https://wa.me");
     expect(url.pathname).toBe("/919490729484");
     expect(url.searchParams.get("text")).toBe("Hi Vamscore, I'd like to talk about working with you.");
+  });
+
+  it("opens the internship chat with its own pre-typed message", () => {
+    const url = new URL(whatsappChatUrl(INTERNSHIP.prefill)!);
+    expect(url.origin).toBe("https://wa.me");
+    expect(url.pathname).toBe("/919490729484");
+    expect(url.searchParams.get("text")).toBe("Hi Vamscore, I'm interested in an internship.");
   });
 
   it("encodes the pre-typed message, so it cannot break the link", () => {
