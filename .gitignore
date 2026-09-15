@@ -76,6 +76,21 @@ public/assets/img/*
 !public/assets/img/hero-intelligent-automation-poster.webp
 !public/assets/img/ai-native-automation.webp
 !public/assets/img/services-hero.webp
+# These twelve were used by the site but missing from this list, so every
+# deploy until 2026-09-15 shipped them from a local disk and the repo alone
+# could not build the site. None is refetchable.
+!public/assets/img/about-hero-human-machine.webp
+!public/assets/img/foundation-people-together.webp
+!public/assets/img/objective-ai-innovation.webp
+!public/assets/img/objective-customer-growth.webp
+!public/assets/img/objective-global-expansion.webp
+!public/assets/img/objective-intelligent-automation.webp
+!public/assets/img/objective-scalable-products.webp
+!public/assets/img/objectives-automation-hud.webp
+!public/assets/img/story-education-project.webp
+!public/assets/img/story-jio-telecom.webp
+!public/assets/img/values-customer-satisfaction.webp
+!public/assets/img/vision-mission-target.webp
 # Supplied video, plus the poster above that was captured from its first frame.
 # video/ needs its own ladder for the same reason logos/ does: git will not
 # descend into an excluded directory. The two Kyndryl clips beside it stay
@@ -88,6 +103,12 @@ public/assets/video/*
 !public/assets/logos/
 public/assets/logos/*
 !public/assets/logos/vamscore.webp
+# The square mark (browser icons, structured-data logo) and the partner marks
+# supplied by Vamscore.
+!public/assets/logos/vamscore-mark.png
+!public/assets/logos/partner-greycells18.webp
+!public/assets/logos/partner-jio.webp
+!public/assets/logos/partner-tata.webp
 
 # job applications — personal data (CVs, contact details), never commit
 applications/
