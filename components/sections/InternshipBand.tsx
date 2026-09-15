@@ -31,6 +31,7 @@ export default function InternshipBand() {
             fill
             sizes="100vw"
             className="object-cover opacity-60"
+            style={{ objectPosition: INTERNSHIP.imagePosition }}
           />
           <div
             aria-hidden

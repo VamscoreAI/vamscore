@@ -182,12 +182,17 @@ export const INTERNSHIP = {
   body: "Interested in an internship with Vamscore? Message us on WhatsApp — tell us what you're studying and what you'd like to learn, and we'll let you know what's possible.",
   cta: "Ask about internships",
   prefill: "Hi Vamscore, I'm interested in an internship.",
-  // Vamscore is supplying a picture. Until it arrives the band shows a plain
-  // dark ground with a soft coral glow. When it does: save it as
-  // `${IMG}/internship-band.webp`, set this to that path, and add a
-  // `!public/assets/img/internship-band.webp` line to .gitignore — without it
-  // the file deploys from one machine but never reaches the repo.
-  image: null as string | null,
+  // Vamscore-supplied picture (2026-09-15): students round a laptop. It is
+  // bright, so the band's left-to-right carbon fade does the work of keeping
+  // the white copy readable. Set to null to fall back to the plain dark band
+  // with a coral glow. Listed in .gitignore's exceptions so it reaches the repo.
+  image: `${IMG}/internship-band.webp` as string | null,
+  // Where the crop is anchored. The band is far wider than the 16:9 picture
+  // (about 2.6:1 at 1280px, 4:1 at 1920px), so a centred crop cut through the
+  // standing student's head (~75px from the top of the 941px original). 10%
+  // keeps every face in frame at both widths; the table is what gets trimmed.
+  // Re-check this if the picture is replaced.
+  imagePosition: "50% 10%",
 };
 
 /* -------------------------------------------------------------------------- */
