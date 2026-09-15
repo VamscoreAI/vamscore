@@ -1,6 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { formatCount, formatSince, isBot, istDay } from "@/lib/visits";
+import { formatCount, formatSince, isBot, istDay, PREVIOUS_SITE_VISITS, withPreviousSite } from "@/lib/visits";
 import { seenKey } from "@/lib/visitCounter";
+
+describe("withPreviousSite", () => {
+  it("adds the previous website's 4,000 visits to this site's count", () => {
+    expect(PREVIOUS_SITE_VISITS).toBe(4000);
+    expect(withPreviousSite(0)).toBe(4000);
+    expect(withPreviousSite(57)).toBe(4057);
+  });
+});
 
 describe("istDay", () => {
   it("rolls over at midnight in India, not at midnight UTC", () => {

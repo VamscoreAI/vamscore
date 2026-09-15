@@ -7,6 +7,21 @@
  * two must agree on where midnight falls.
  */
 
+/**
+ * Visits to Vamscore's previous website, carried into the total. Supplied by
+ * Vamscore on 2026-09-15 as "approx. 4000" from the old site. Added on read
+ * rather than written into Redis, so the stored count stays purely this site's
+ * and this figure can be corrected in one place. The page says the total
+ * includes the previous website, so the number is never passed off as this
+ * site's alone.
+ */
+export const PREVIOUS_SITE_VISITS = 4000;
+
+/** This site's stored total plus the previous website's visits. */
+export function withPreviousSite(stored: number): number {
+  return stored + PREVIOUS_SITE_VISITS;
+}
+
 /** Visits are counted by the Indian calendar day, not UTC. */
 export const COUNT_TIME_ZONE = "Asia/Kolkata";
 

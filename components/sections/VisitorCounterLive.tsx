@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Reveal from "@/components/ui/Reveal";
-import { formatCount, formatSince, istDay } from "@/lib/visits";
+import { formatCount, istDay } from "@/lib/visits";
 
 export type VisitorCopy = {
   eyebrow: string;
@@ -225,7 +225,6 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
     return () => window.clearInterval(id);
   }, [hasCounts, demo, apply]);
 
-  const since = counts?.since ?? counts?.day ?? null;
   const totalText = counts ? formatCount(counts.total) : "";
   // Digits and separators have different widths, so the fit rule in
   // globals.css needs them counted apart. Defaults size the skeleton.
@@ -309,12 +308,7 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
 
           {/* Reserves its line while loading, so nothing below jumps. */}
           <p className="mt-5 flex min-h-8 flex-wrap items-center gap-x-4 gap-y-2 text-[clamp(1.125rem,0.95rem+0.5vw,1.5rem)] leading-[1.333] font-light lg:justify-end">
-            {counts && since && (
-              <span>
-                {counts.total === 1 ? copy.totalLabelOne : copy.totalLabel}{" "}
-                <span className="font-normal text-carbon">{formatSince(since)}</span>
-              </span>
-            )}
+            {counts && <span>{counts.total === 1 ? copy.totalLabelOne : copy.totalLabel}</span>}
             {showToday && (
               <span className="inline-flex items-center gap-2 rounded-full border border-line bg-cloud px-3 py-1 text-[14px] leading-5 font-normal text-carbon">
                 <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-spring-green" />

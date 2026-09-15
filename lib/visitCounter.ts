@@ -1,6 +1,6 @@
 import { createHmac } from "node:crypto";
 import { Redis } from "@upstash/redis";
-import { istDay } from "@/lib/visits";
+import { istDay, withPreviousSite } from "@/lib/visits";
 
 /**
  * The visitor count, stored in Upstash Redis.
@@ -88,7 +88,8 @@ export async function readCounts(now = new Date()): Promise<Counts> {
     K.day(day),
     K.since
   );
-  return { total: Number(total ?? 0), today: Number(today ?? 0), day, since: since ?? null };
+  // The total includes the previous website's visits; "today" is this site only.
+  return { total: withPreviousSite(Number(total ?? 0)), today: Number(today ?? 0), day, since: since ?? null };
 }
 
 export async function recordVisit(
@@ -112,7 +113,7 @@ export async function recordVisit(
   p.get<string>(K.since);
   const [total, today, , , since] = await p.exec<[number, number, number, string | null, string | null]>();
 
-  return { total, today, day, since: since ?? day, counted: true };
+  return { total: withPreviousSite(total), today, day, since: since ?? day, counted: true };
 }
 
 /* -------------------------------------------------------------------------- */
