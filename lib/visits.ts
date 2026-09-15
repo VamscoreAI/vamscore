@@ -11,9 +11,9 @@
  * Visits to Vamscore's previous website, carried into the total. Supplied by
  * Vamscore on 2026-09-15 as "approx. 4000" from the old site. Added on read
  * rather than written into Redis, so the stored count stays purely this site's
- * and this figure can be corrected in one place. The page says the total
- * includes the previous website, so the number is never passed off as this
- * site's alone.
+ * and this figure can be corrected in one place. The section's title, "People
+ * who have visited Vamscore", covers both sites, which is why it does not say
+ * "vamscore.com".
  */
 export const PREVIOUS_SITE_VISITS = 4000;
 

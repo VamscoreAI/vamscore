@@ -394,16 +394,14 @@ export const CONNECT = {
 /* -------------------------------------------------------------------------- */
 
 // Every number shown is real: this site's count, plus the ~4,000 visits the
-// previous website had (PREVIOUS_SITE_VISITS in lib/visits.ts). The label says
-// so, which is why it no longer names a start date — "since 11 Sep 2026" would
-// be untrue of the old site's visits.
+// previous website had (PREVIOUS_SITE_VISITS in lib/visits.ts). The title says
+// "visited Vamscore" rather than "vamscore.com" because it covers both sites.
+// There is no label under the number (removed 2026-09-15 at Vamscore's
+// request) and no start date — "since 11 Sep 2026" would be untrue of the old
+// site's visits.
 export const VISITORS = {
   eyebrow: "Live",
   title: "People who have visited Vamscore",
-  totalLabel: "visitors, including our previous website",
-  // Unreachable while the previous site's visits are included; kept so the
-  // label stays right if that figure is ever removed.
-  totalLabelOne: "visitor, including our previous website",
   // Shown as "12 today" — only once it differs from the total, so the same
   // number never appears twice.
   todayLabel: "today",
