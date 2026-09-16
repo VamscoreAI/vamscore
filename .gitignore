@@ -104,7 +104,7 @@ public/assets/video/*
 # The logo. Under logos/ rather than img/, so it needs its own ladder.
 !public/assets/logos/
 public/assets/logos/*
-!public/assets/logos/vamscore.webp
+!public/assets/logos/vamscore-2026.webp
 # The square mark (browser icons, structured-data logo) and the partner marks
 # supplied by Vamscore.
 !public/assets/logos/vamscore-mark.png

@@ -171,13 +171,18 @@ export function Section({
 /* -------------------------------------------------------------------------- */
 /* Wordmark — Vamscore's logo                                                 */
 /*                                                                            */
-/* The supplied artwork was flattened on pure black with no alpha, and both    */
-/* the header and footer are carbon (#161616), so dropping it in unmodified    */
-/* would have shown a black rectangle. The background is keyed out and the     */
-/* colour un-premultiplied, otherwise every antialiased edge keeps a dark      */
-/* fringe against any ground that is not pure black.                           */
+/* The artwork Vamscore supplied on 2026-09-16 is ink on a white page with no  */
+/* alpha, and both the header and footer are carbon (#161616), so dropping it  */
+/* in unmodified would have shown a white rectangle. The white is keyed out by */
+/* un-multiplying each pixel against white — pixel = a*ink + (1-a)*255 solved  */
+/* for both — so antialiased edges keep no pale fringe on a dark ground.       */
 /*                                                                            */
-/* Sized by HEIGHT, never width: the mark is 8.57:1, so a width class would    */
+/* NOTE: the dark half of the gradient (#030047 at its darkest) sits at 1.06:1 */
+/* on carbon, so "VAM" reads far weaker than "SCORE" in the header and footer. */
+/* Vamscore was shown this and chose to ship it; a light version of the mark   */
+/* for dark grounds is the real fix.                                           */
+/*                                                                            */
+/* Sized by HEIGHT, never width: the mark is 8.05:1, so a width class would    */
 /* set the bar's height by accident. Callers pass an `h-*`.                    */
 /*                                                                            */
 /* `alt=""` on purpose — both call sites wrap this in a link that already      */
@@ -188,10 +193,10 @@ export function Section({
 export function Wordmark({ className }: { className?: string }) {
   return (
     <Image
-      src="/assets/logos/vamscore.webp"
+      src="/assets/logos/vamscore-2026.webp"
       alt=""
-      width={720}
-      height={84}
+      width={773}
+      height={96}
       priority
       className={cx("h-6 w-auto lg:h-7", className)}
     />
