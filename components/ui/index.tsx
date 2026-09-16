@@ -195,7 +195,7 @@ export function Wordmark({ className }: { className?: string }) {
     <Image
       src="/assets/logos/vamscore-2026.webp"
       alt=""
-      width={773}
+      width={758}
       height={96}
       priority
       className={cx("h-6 w-auto lg:h-7", className)}
