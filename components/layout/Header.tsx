@@ -55,7 +55,16 @@ export default function Header() {
   const openMenu = overlay?.kind === "menu" ? overlay.index : null;
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 bg-carbon text-white">
+    // Frosted glass. Translucency is applied only where backdrop-filter is
+    // supported, so older browsers keep the solid bar instead of white text on
+    // a washed-out one. 75% is the floor: over a white section the bar
+    // composites to #505050, where the 14px nav text still clears AA (7.5:1).
+    // The hairline is an inset shadow, not a border, because the section nav
+    // sticks at top-[60px]/[72px] and a border would push the bar 1px taller.
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 bg-carbon text-white shadow-[inset_0_-1px_0_rgb(255_255_255/0.10)] supports-[backdrop-filter]:bg-carbon/75 supports-[backdrop-filter]:backdrop-blur-xl supports-[backdrop-filter]:backdrop-saturate-150"
+    >
       {/* `shell`, not its own padding. The bar used to run px-5/lg:px-8/2xl:px-12
           against content capped at 1440, which put the logo 217px to the left of
           everything under it at 1920. Sharing the utility keeps the header, the
@@ -166,7 +175,7 @@ export default function Header() {
 
       {/* ---------------- Desktop mega-menu ---------------- */}
       {openMenu !== null && NAV_ITEMS[openMenu].groups && (
-        <div className="absolute inset-x-0 top-full hidden border-t border-white/10 bg-carbon lg:block">
+        <div className="absolute inset-x-0 top-full hidden border-t border-white/10 bg-carbon supports-[backdrop-filter]:bg-carbon/90 supports-[backdrop-filter]:backdrop-blur-xl lg:block">
           {/* Same reason: the panel's columns line up with the nav item that
               opened them, and with the page behind it. */}
           <div className="shell grid grid-cols-2 gap-x-10 gap-y-10 py-12 xl:grid-cols-4">
