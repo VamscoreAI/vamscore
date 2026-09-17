@@ -31,8 +31,13 @@ export const metadata: Metadata = {
  * `logo` is the wordmark on white, 1200x244 (Google wants at least 112x112),
  * from the artwork Vamscore supplied on 2026-09-17. Flattened onto white
  * rather than left transparent: the purple ink all but disappears if a
- * reader composites it on a dark ground. The browser-tab and home-screen
- * icons are the V cut from the same artwork, on a white rounded square.
+ * reader composites it on a dark ground.
+ *
+ * The browser-tab and home-screen icons (app/favicon.ico, app/icon.png,
+ * app/apple-icon.png) are a different piece of artwork: the standalone V
+ * mark Vamscore supplied on 2026-09-17 as "VamScore Letter V.png", squared
+ * and set on a white rounded tile. Regenerate all three together from that
+ * file if it is ever replaced, or the tab and the phone icon will diverge.
  */
 const STRUCTURED_DATA = {
   "@context": "https://schema.org",
