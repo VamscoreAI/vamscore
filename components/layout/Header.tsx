@@ -60,7 +60,7 @@ export default function Header() {
           against content capped at 1440, which put the logo 217px to the left of
           everything under it at 1920. Sharing the utility keeps the header, the
           page and the footer on one left edge at every width. */}
-      <div className="shell flex h-[60px] items-center gap-6 lg:h-[72px]">
+      <div className="shell flex h-[60px] items-center gap-4 lg:h-[72px] xl:gap-6">
         {/* Logo. 28px until xl, not 32px.
 
             Measured on the live site at a 1009px content width: the logo
@@ -138,7 +138,16 @@ export default function Header() {
               setOverlay(overlay?.kind === "locale" ? null : { kind: "locale" })
             }
             aria-expanded={overlay?.kind === "locale"}
-            className="hidden items-center gap-1.5 text-[14px] text-white/80 transition-colors hover:text-white lg:flex"
+            // `xl:flex`, not `lg:flex`. Measured live at a 1009px content
+            // width the row wanted 1019px and had 945, so everything in it
+            // wrapped. This button is the cheapest 81px to give back: LOCALES
+            // holds exactly one entry, so the overlay it opens offers only
+            // the locale already active. The footer still shows "IN - EN" at
+            // every width, and the mobile drawer carries this button.
+            //
+            // Put it back at lg the day there is a second locale — and find
+            // the width somewhere else if so.
+            className="hidden items-center gap-1.5 text-[14px] text-white/80 transition-colors hover:text-white xl:flex"
           >
             <GlobeIcon />
             {LOCALE_SHORT}
@@ -172,7 +181,7 @@ export default function Header() {
           </Link>
 
           <span className="hidden sm:block">
-            <Button href="/contact" className="!px-5 !py-2.5 !text-[15px]">
+            <Button href="/contact" className="!px-4 !py-2.5 !text-[15px] xl:!px-5">
               Talk to us
               <Arrow />
             </Button>
