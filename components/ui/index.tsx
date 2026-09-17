@@ -201,7 +201,11 @@ export function Wordmark({ className }: { className?: string }) {
       width={803}
       height={106}
       priority
-      className={cx("h-7 w-auto lg:h-8", className)}
+      // Height comes from the caller. `cx` only joins strings — it does not
+      // resolve Tailwind conflicts — so a default `lg:h-8` here could not be
+      // overridden at the same breakpoint without relying on which utility
+      // Tailwind happens to emit last.
+      className={cx("w-auto", className)}
     />
   );
 }

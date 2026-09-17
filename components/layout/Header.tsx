@@ -61,9 +61,19 @@ export default function Header() {
           everything under it at 1920. Sharing the utility keeps the header, the
           page and the footer on one left edge at every width. */}
       <div className="shell flex h-[60px] items-center gap-6 lg:h-[72px]">
-        {/* Logo */}
+        {/* Logo. 28px until xl, not 32px.
+
+            Measured on the live site at a 1009px content width: the logo
+            (242px at 32px tall), the nav and the right-hand cluster together
+            needed exactly the 945px available, so sub-pixel rounding tipped
+            "What we do" and "Who we are" onto two lines. 28px takes the logo
+            to 212px and gives the row ~30px of slack.
+
+            Production is the case that matters here: it renders an "Employee
+            sign in" link that a local dev server without Clerk keys does not,
+            so the row is 71px wider live than it looks locally. */}
         <Link href="/" className="shrink-0" aria-label="Vamscore home">
-          <Wordmark />
+          <Wordmark className="h-7 xl:h-8" />
         </Link>
 
         {/* Primary nav (desktop).
