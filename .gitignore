@@ -105,7 +105,7 @@ public/assets/video/*
 !public/assets/logos/
 public/assets/logos/*
 !public/assets/logos/vamscore-2026.webp
-!public/assets/logos/vamscore-2026-light.webp
+!public/assets/logos/vamscore-2026-ondark.webp
 # The square mark (browser icons, structured-data logo) and the partner marks
 # supplied by Vamscore.
 !public/assets/logos/vamscore-mark.png

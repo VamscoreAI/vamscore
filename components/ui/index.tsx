@@ -171,23 +171,22 @@ export function Section({
 /* -------------------------------------------------------------------------- */
 /* Wordmark — Vamscore's logo                                                 */
 /*                                                                            */
-/* The artwork Vamscore supplied on 2026-09-16 is ink on a white page with no  */
-/* alpha, and both the header and footer are carbon (#161616), so dropping it  */
-/* in unmodified would have shown a white rectangle. The white is keyed out by */
-/* un-multiplying each pixel against white — pixel = a*ink + (1-a)*255 solved  */
-/* for both — so antialiased edges keep no pale fringe on a dark ground.       */
+/* Vamscore supplied this version on 2026-09-17, drawn for dark grounds:      */
+/* bright violet-to-pink with a glow, on black. Both call sites are the       */
+/* carbon header and footer, so this is the one in use.                       */
 /*                                                                            */
-/* Both call sites are the carbon header and footer, where the supplied        */
-/* purple-to-pink artwork was unreadable: its indigo half measures 1.14:1      */
-/* against #161616. This is the dark-ground variant, made by lifting each      */
-/* pixel to a target perceived brightness while keeping its hue and as much    */
-/* saturation as that allows, so the indigo-to-magenta sweep survives. It now  */
-/* runs 5.1:1 at the indigo end to 7.6:1 at the pink one, clearing AA across   */
-/* the whole mark.  beside it is the untouched artwork,    */
-/* for white grounds (icons, share image).                                     */
+/* Ink on black is premultiplied (pixel = a * ink), so the black is keyed by  */
+/* taking alpha from the brightest channel and dividing it back out. That     */
+/* keeps the glow as a soft halo rather than a grey box. The crop keeps only  */
+/* part of the halo and scales so the LETTERS are 96px tall: pad the full     */
+/* glow in and the letters shrink inside the fixed bar height.                */
 /*                                                                            */
-/* Sized by HEIGHT, never width: the mark is 8.05:1, so a width class would    */
-/* set the bar's height by accident. Callers pass an `h-*`.                    */
+/* It measures 4.3:1 (violet) to 7.2:1 (pink) on carbon, but only ~2.5:1 on   */
+/* white — never put it on a light ground. `vamscore-2026.webp` beside it is  */
+/* the purple-on-white artwork for that (icons, share image).                 */
+/*                                                                            */
+/* Sized by HEIGHT, never width: the mark is 7.6:1, so a width class would    */
+/* set the bar's height by accident. Callers pass an `h-*`.                   */
 /*                                                                            */
 /* `alt=""` on purpose — both call sites wrap this in a link that already      */
 /* carries `aria-label="Vamscore home"`, so a filled alt would say the name    */
@@ -197,12 +196,12 @@ export function Section({
 export function Wordmark({ className }: { className?: string }) {
   return (
     <Image
-      src="/assets/logos/vamscore-2026-light.webp"
+      src="/assets/logos/vamscore-2026-ondark.webp"
       alt=""
-      width={758}
-      height={96}
+      width={803}
+      height={106}
       priority
-      className={cx("h-6 w-auto lg:h-7", className)}
+      className={cx("h-7 w-auto lg:h-8", className)}
     />
   );
 }

@@ -36,7 +36,7 @@ export default function Footer() {
               was a logo above nothing. */}
           <div>
             <Link href="/" aria-label="Vamscore home" className="inline-block">
-              <Wordmark className="h-7 lg:h-8" />
+              <Wordmark className="h-8 lg:h-9" />
             </Link>
             <p className="mt-6 max-w-[38ch] text-[14px] leading-6 text-white/70">
               {SITE_DESCRIPTION}
