@@ -91,7 +91,7 @@ export default function SectionNav() {
                   className={cx(
                     // px-4 py-2 / 14px / leading-5 — Header.tsx:88 exactly.
                     // 36px tall, so it clears the 24px target minimum too.
-                    "block rounded-full px-4 py-2 text-[14px] leading-5 whitespace-nowrap transition-colors",
+                    "block rounded-full px-4 py-2 text-[15px] leading-5 whitespace-nowrap transition-colors",
                     active === item.id
                       ? "bg-spring-green text-deep-forest"
                       : "text-white/75 hover:text-spring-green"

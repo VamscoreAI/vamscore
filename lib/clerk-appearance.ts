@@ -58,9 +58,9 @@ export const clerkAppearance: Appearance = {
     // never determined — and for social buttons a Tailwind class demonstrably
     // did NOT win. Keeping one of them removes the question.)
     card: "border border-white/10 shadow-none",
-    headerTitle: "font-display font-light",
+    headerTitle: "font-display font-normal",
     formButtonPrimary:
-      "rounded-pill bg-spring-green text-deep-forest hover:bg-white normal-case font-medium text-[15px]",
+      "rounded-pill bg-spring-green text-deep-forest hover:bg-white normal-case font-medium text-[16px]",
     footerActionLink: "text-spring-green hover:text-white",
     // Social buttons are styled in app/globals.css, not here. Tailwind classes
     // passed through `elements` lose the cascade to Clerk's runtime-injected

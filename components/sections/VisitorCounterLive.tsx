@@ -266,7 +266,7 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
             <span className="vc-live-dot" aria-hidden />
             {copy.eyebrow}
             {demo && (
-              <span className="rounded-full border border-line px-2.5 py-0.5 text-[12px] tracking-normal text-stone normal-case">
+              <span className="rounded-full border border-line px-2.5 py-0.5 text-[13px] tracking-normal text-stone normal-case">
                 Demo data — local preview only
               </span>
             )}
@@ -279,7 +279,7 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
         <Reveal variant="wipe" delay={120} className="vc-fit min-w-0 lg:text-right">
           <div className="relative inline-block max-w-full">
             <p
-              className="vc-number overflow-clip pr-1 font-display leading-none font-light text-flame-2"
+              className="vc-number overflow-clip pr-1 font-display leading-none font-normal text-flame-2"
               style={{ "--digits": digitCount, "--seps": sepCount } as React.CSSProperties}
             >
               {counts ? (
@@ -309,9 +309,9 @@ export default function VisitorCounterLive({ copy }: { copy: VisitorCopy }) {
           <span aria-hidden className="vc-rule mt-5 block h-[2px] w-full bg-flame-2" />
 
           {/* Reserves its line while loading, so nothing below jumps. */}
-          <p className="mt-5 flex min-h-8 flex-wrap items-center gap-x-4 gap-y-2 text-[clamp(1.125rem,0.95rem+0.5vw,1.5rem)] leading-[1.333] font-light lg:justify-end">
+          <p className="mt-5 flex min-h-8 flex-wrap items-center gap-x-4 gap-y-2 text-[clamp(1.125rem,0.95rem+0.5vw,1.5rem)] leading-[1.333] font-normal lg:justify-end">
             {showToday && (
-              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-cloud px-3 py-1 text-[14px] leading-5 font-normal text-carbon">
+              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-cloud px-3 py-1 text-[15px] leading-5 font-normal text-carbon">
                 <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-spring-green" />
                 {formatCount(counts.today)} {copy.todayLabel}
               </span>

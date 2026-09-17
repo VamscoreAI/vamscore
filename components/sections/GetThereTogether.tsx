@@ -23,7 +23,7 @@ export default function GetThereTogether() {
               />
               <div className="flex flex-1 flex-col p-8">
                 <h3 className="type-section text-carbon">{card.title}</h3>
-                <p className="mt-3 text-[clamp(1.125rem,0.95rem+0.5vw,1.5rem)] leading-[1.333] font-light">{card.body}</p>
+                <p className="mt-3 text-[clamp(1.125rem,0.95rem+0.5vw,1.5rem)] leading-[1.333] font-normal">{card.body}</p>
                 <ArrowLink href={card.href} className="mt-8 text-carbon">
                   {card.cta}
                 </ArrowLink>

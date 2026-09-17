@@ -92,7 +92,7 @@ export default function AuthLayout({
 
             <Link
               href={copy.escape.href}
-              className="mt-8 inline-flex items-center gap-2 text-[15px] text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline lg:mt-10"
+              className="mt-8 inline-flex items-center gap-2 text-[16px] text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline lg:mt-10"
             >
               {copy.escape.label}
               <Arrow />

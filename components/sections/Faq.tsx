@@ -94,11 +94,11 @@ export default function Faq() {
                             selected ? "w-10 bg-flame" : "w-5 bg-line"
                           )}
                         />
-                        <span className="truncate text-[17px] leading-6">
+                        <span className="truncate text-[18px] leading-6">
                           {t.label}
                         </span>
                       </span>
-                      <span className="shrink-0 text-[13px] tabular-nums text-stone">
+                      <span className="shrink-0 text-[14px] tabular-nums text-stone">
                         {t.items.length}
                       </span>
                     </button>
@@ -168,7 +168,7 @@ export default function Faq() {
       <div className="shell mt-14 xl:mt-20">
         <div className="flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-[17px] leading-6 text-carbon">
+            <p className="text-[18px] leading-6 text-carbon">
               {FAQ.fallback.heading}
             </p>
             <p className="type-body mt-2">{FAQ.fallback.body}</p>

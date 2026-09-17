@@ -46,7 +46,7 @@ export default function CareersPage() {
               there are none — so the button goes straight to the form. */}
           <a
             href={CAREERS.roles.length ? "#roles" : "#apply"}
-            className="mt-10 inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-white"
+            className="mt-10 inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[16px] leading-none font-medium text-deep-forest transition-colors hover:bg-white"
           >
             {CAREERS.roles.length ? CAREERS.heroCtaRoles : CAREERS.heroCtaNoRoles}
             <Arrow />

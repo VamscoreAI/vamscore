@@ -66,7 +66,23 @@ export default function Header() {
           <Wordmark />
         </Link>
 
-        {/* Primary nav (desktop) */}
+        {/* Primary nav (desktop).
+
+            `px-2.5` until xl, not a flat `px-4`. The desktop row first appears
+            at lg (1024) and that is where it is tightest. Measured in the
+            browser at a 1009px content width, as the free space between the
+            nav and the right-hand cluster (the flex `gap-6` is 24px, so 24
+            means none):
+
+              14px type + px-4  →  24   (what shipped before 2026-09-17)
+              15px type + px-4  →  24
+              15px type + px-3  →  25
+              15px type + px-2.5 → 41
+
+            So the header has been running with no slack at 1024 all along,
+            and raising the nav to 15px did not cause that. px-2.5 is what
+            actually buys headroom, and it only applies in the 1024-1279 band
+            — from xl the original padding returns. */}
         <nav className="hidden lg:block" aria-label="Main">
           <ul className="flex items-center">
             {NAV_ITEMS.map((item, i) => (
@@ -79,7 +95,7 @@ export default function Header() {
                       setOverlay(openMenu === i ? null : { kind: "menu", index: i })
                     }
                     className={cx(
-                      "flex items-center gap-1.5 px-4 py-2 text-[14px] leading-5 transition-colors hover:text-spring-green",
+                      "flex items-center gap-1.5 px-2.5 py-2 text-[15px] leading-5 transition-colors hover:text-spring-green xl:px-4",
                       openMenu === i && "text-spring-green"
                     )}
                   >
@@ -94,7 +110,7 @@ export default function Header() {
                 ) : (
                   <Link
                     href={item.href}
-                    className="block px-4 py-2 text-[14px] leading-5 transition-colors hover:text-spring-green"
+                    className="block px-2.5 py-2 text-[15px] leading-5 transition-colors hover:text-spring-green xl:px-4"
                   >
                     {item.label}
                   </Link>
@@ -112,7 +128,7 @@ export default function Header() {
               setOverlay(overlay?.kind === "locale" ? null : { kind: "locale" })
             }
             aria-expanded={overlay?.kind === "locale"}
-            className="hidden items-center gap-1.5 text-[13px] text-white/80 transition-colors hover:text-white lg:flex"
+            className="hidden items-center gap-1.5 text-[14px] text-white/80 transition-colors hover:text-white lg:flex"
           >
             <GlobeIcon />
             {LOCALE_SHORT}
@@ -146,7 +162,7 @@ export default function Header() {
           </Link>
 
           <span className="hidden sm:block">
-            <Button href="/contact" className="!px-5 !py-2.5 !text-[14px]">
+            <Button href="/contact" className="!px-5 !py-2.5 !text-[15px]">
               Talk to us
               <Arrow />
             </Button>
@@ -179,7 +195,7 @@ export default function Header() {
                       <Link
                         href={link.href}
                         onClick={close}
-                        className="inline-flex items-center gap-1.5 text-[15px] text-white/85 transition-colors hover:text-spring-green"
+                        className="inline-flex items-center gap-1.5 text-[16px] text-white/85 transition-colors hover:text-spring-green"
                       >
                         {link.label}
                         {link.external && <ExternalIcon />}
@@ -211,7 +227,7 @@ export default function Header() {
                   <span
                     aria-current={locale === ACTIVE_LOCALE ? "true" : undefined}
                     className={cx(
-                      "block rounded px-4 py-2.5 text-[15px]",
+                      "block rounded px-4 py-2.5 text-[16px]",
                       locale === ACTIVE_LOCALE
                         ? "bg-teal text-white"
                         : "text-white/80"
@@ -262,7 +278,7 @@ export default function Header() {
                                     <Link
                                       href={link.href}
                                       onClick={() => setMobileOpen(false)}
-                                      className="text-[15px] text-white/85"
+                                      className="text-[16px] text-white/85"
                                     >
                                       {link.label}
                                     </Link>
@@ -294,7 +310,7 @@ export default function Header() {
                   setMobileOpen(false);
                   setOverlay({ kind: "locale" });
                 }}
-                className="flex items-center gap-1.5 text-[15px] text-white/80"
+                className="flex items-center gap-1.5 text-[16px] text-white/80"
               >
                 <GlobeIcon />
                 {LOCALE_SHORT}
@@ -312,7 +328,7 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-1.5 text-[15px] text-white/80"
+                className="flex items-center gap-1.5 text-[16px] text-white/80"
               >
                 <MailIcon />
                 Email us in Gmail
@@ -363,7 +379,7 @@ function AuthSlot() {
         // customers and stays the one prominent action.
         <Link
           href="/sign-in"
-          className="hidden items-center text-[13px] text-white/80 transition-colors hover:text-white lg:flex"
+          className="hidden items-center text-[14px] text-white/80 transition-colors hover:text-white lg:flex"
         >
           Employee sign in
         </Link>
@@ -384,7 +400,7 @@ function DrawerAuthLink({ onNavigate }: { onNavigate: () => void }) {
     <Link
       href={isSignedIn ? "/portal" : "/sign-in"}
       onClick={onNavigate}
-      className="flex items-center gap-1.5 text-[15px] text-white/80"
+      className="flex items-center gap-1.5 text-[16px] text-white/80"
     >
       {isSignedIn ? "Employee portal" : "Employee sign in"}
     </Link>

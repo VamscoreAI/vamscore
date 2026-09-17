@@ -15,12 +15,12 @@ type ButtonVariant = "primary" | "outline" | "ghost" | "dark";
 // Two shapes are in play on the real site: the green "Consult an expert" pill
 // (66px radius) and the hero's hairline CTA, which is a 4px rectangle.
 const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
-  primary: "rounded-pill px-6 py-3 text-[15px] bg-spring-green text-deep-forest hover:bg-white",
+  primary: "rounded-pill px-6 py-3 text-[16px] bg-spring-green text-deep-forest hover:bg-white",
   outline:
-    "rounded-[4px] px-4 py-3 text-[16px] border-[0.8px] border-white text-white hover:bg-white hover:text-carbon",
+    "rounded-[4px] px-4 py-3 text-[17px] border-[0.8px] border-white text-white hover:bg-white hover:text-carbon",
   ghost:
-    "rounded-[4px] px-4 py-3 text-[16px] border-[0.8px] border-dark-stone/50 text-dark-stone hover:border-dark-stone hover:bg-cloud",
-  dark: "rounded-pill px-6 py-3 text-[15px] bg-carbon text-white hover:bg-dark-stone",
+    "rounded-[4px] px-4 py-3 text-[17px] border-[0.8px] border-dark-stone/50 text-dark-stone hover:border-dark-stone hover:bg-cloud",
+  dark: "rounded-pill px-6 py-3 text-[16px] bg-carbon text-white hover:bg-dark-stone",
 };
 
 export function Button({

@@ -123,7 +123,7 @@ export default function CustomerStories() {
           <Eyebrow variant="eyelid" className="text-white">
             {story.eyebrow}
           </Eyebrow>
-          <h3 className="mt-4 text-[clamp(1.5rem,1.05rem+1.6vw,2.25rem)] leading-[1.222] font-light text-white">
+          <h3 className="mt-4 text-[clamp(1.5rem,1.05rem+1.6vw,2.25rem)] leading-[1.222] font-normal text-white">
             {story.title}
           </h3>
           <div className="mt-4 flex flex-wrap gap-4">
@@ -133,7 +133,7 @@ export default function CustomerStories() {
                 /* both buttons open this slide's story page; "Highlights"
                    just lands you further down it */
                 href={`/stories/${story.slug}${cta.hash}`}
-                className="inline-flex rounded-[4px] border-white px-4 py-3 text-[16px] leading-[26px] text-white transition-colors hover:bg-white hover:text-carbon"
+                className="inline-flex rounded-[4px] border-white px-4 py-3 text-[17px] leading-[26px] text-white transition-colors hover:bg-white hover:text-carbon"
                 style={{ borderWidth: "0.8px" }}
               >
                 {cta.label}

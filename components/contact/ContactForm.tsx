@@ -86,7 +86,7 @@ export default function ContactForm() {
                 alone conveyed it to sighted users. The input keeps its
                 `required` attribute for assistive tech. */}
             {field.required && (
-              <span className="ml-1 text-[13px] font-normal text-stone">
+              <span className="ml-1 text-[14px] font-normal text-stone">
                 (required)
               </span>
             )}
@@ -150,7 +150,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={busy}
-          className="inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[16px] leading-none font-medium text-deep-forest transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
         >
           {busy ? form.sending : form.submit}
           {!busy && <Arrow />}
@@ -163,7 +163,7 @@ export default function ContactForm() {
         <p
           role="alert"
           aria-live="polite"
-          className="mt-4 text-[16px] leading-6 font-normal text-flame"
+          className="mt-4 text-[17px] leading-6 font-normal text-flame"
         >
           {status.kind === "error" ? `⚠ ${status.message}` : ""}
         </p>

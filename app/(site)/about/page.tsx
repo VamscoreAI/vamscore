@@ -397,7 +397,7 @@ export default function AboutPage() {
           <Reveal delay={240}>
             <Link
               href={ABOUT_CTA.cta.href}
-              className="mt-10 inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-white"
+              className="mt-10 inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[16px] leading-none font-medium text-deep-forest transition-colors hover:bg-white"
             >
               {ABOUT_CTA.cta.label}
               <Arrow />

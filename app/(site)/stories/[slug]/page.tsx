@@ -72,7 +72,7 @@ export default async function StoryPage({ params }: Params) {
             /* `-my-2` cancels the padding again in the layout, so the target
                grows to 36px without opening a gap above the eyebrow. The link
                measured 121x20 before, which is fiddly on a phone. */
-            className="story-rise group -my-2 inline-flex w-fit items-center gap-2 py-2 text-[14px] leading-5 text-white/70 transition-colors hover:text-white"
+            className="story-rise group -my-2 inline-flex w-fit items-center gap-2 py-2 text-[15px] leading-5 text-white/70 transition-colors hover:text-white"
           >
             <span className="transition-transform duration-300 group-hover:-translate-x-1">
               ←
@@ -111,7 +111,7 @@ export default async function StoryPage({ params }: Params) {
           >
             {story.meta.map((item) => (
               <div key={item.term}>
-                <dt className="eyebrow text-white/50 uppercase">{item.term}</dt>
+                <dt className="eyebrow text-white/70 uppercase">{item.term}</dt>
                 <dd className="type-body mt-2 text-white">{item.detail}</dd>
               </div>
             ))}
@@ -149,7 +149,7 @@ export default async function StoryPage({ params }: Params) {
                 <span className="type-card-lg mt-3 block text-carbon">
                   {next.title}
                 </span>
-                <span className="mt-6 inline-flex items-center gap-3 text-[16px] leading-6 text-carbon">
+                <span className="mt-6 inline-flex items-center gap-3 text-[17px] leading-6 text-carbon">
                   Read full story
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     <Arrow />
@@ -173,7 +173,7 @@ export default async function StoryPage({ params }: Params) {
           <Reveal delay={240}>
             <Link
               href={STORY_UI.ctaHref}
-              className="mt-10 inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-white"
+              className="mt-10 inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[16px] leading-none font-medium text-deep-forest transition-colors hover:bg-white"
             >
               {STORY_UI.ctaLabel}
               <Arrow />

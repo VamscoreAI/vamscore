@@ -46,18 +46,32 @@
     scroll-padding-top: 170px;
   }
 
+  /* 17px, not 16, and Regular everywhere rather than Roboto Light.
+     Vamscore's client reported on 2026-09-17 that they could not read the
+     site. Contrast was never the problem — this colour on white measures
+     10.9:1 — Light at small sizes was, which is a thin stroke on a normal
+     Windows screen at 100%.
+
+     `-webkit-font-smoothing: antialiased` was removed with it: on macOS it
+     thins every stroke further, which is the opposite of what this page
+     needs, and it does nothing at all on Windows.
+
+     Note the root `html` font-size is deliberately untouched. Tailwind's
+     spacing scale is rem-based, so raising the root would have grown every
+     padding, gap and width by 6% and moved the whole layout that this file's
+     comments record as measured at 1440. Type sizes are raised one by one
+     below instead. */
   body {
     background: #fff;
     color: var(--color-dark-stone);
     font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+    font-size: 17px;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5 {
     font-family: var(--font-display);
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: -0.005em;
     line-height: 1.18;
   }
@@ -103,13 +117,18 @@
 
 /* Type scale transcribed from the original at 1440. Kyndryl gives each section
    its own size rather than sharing one display ladder, so these are named for
-   the role they play. The clamp maxima are the exact measured px. */
+   the role they play. The clamp maxima are the exact measured px.
 
-/* 48/56 w300 — hero h1, press band, "Connect with us" */
+   Every weight below is one step above the transcription, and the two
+   smallest sizes are one step up as well — see the note on `body`. The
+   comments give the size and the weight as they now are, not as the original
+   set them. */
+
+/* 48/56 w400 — hero h1, press band, "Connect with us" */
 @utility type-hero {
   font-size: clamp(2.5rem, 1.875rem + 1.25vw, 3rem);
   line-height: 1.167;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -0.01em;
 }
 /* 44/46.64 w400 — "Industry recognition. Client trust." */
@@ -118,17 +137,17 @@
   line-height: 1.06;
   font-weight: 400;
 }
-/* 40/48 w300 — "Progress, one client at a time" */
+/* 40/48 w400 — "Progress, one client at a time" */
 @utility type-section {
   font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
   line-height: 1.2;
-  font-weight: 300;
+  font-weight: 400;
 }
-/* 40/46 w300 — "Discover ideas that drive transformation" */
+/* 40/46 w400 — "Discover ideas that drive transformation" */
 @utility type-section-tight {
   font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
   line-height: 1.15;
-  font-weight: 300;
+  font-weight: 400;
 }
 /* 34/40 w400 — AI-native band, partner strip */
 @utility type-band {
@@ -136,11 +155,11 @@
   line-height: 1.176;
   font-weight: 400;
 }
-/* 32/40 w300 — service cards, team headings */
+/* 32/40 w400 — service cards, team headings */
 @utility type-card-lg {
   font-size: clamp(1.5rem, 1.1rem + 1.1vw, 2rem);
   line-height: 1.25;
-  font-weight: 300;
+  font-weight: 400;
 }
 /* 32/33.92 w400 — recognition band titles */
 @utility type-card-tight {
@@ -154,32 +173,36 @@
   line-height: 1.25;
   font-weight: 400;
 }
-/* 84/112 w200 — "Let's get there together" */
+/* 84/112 w300 — "Let's get there together". Was 200: at that weight an
+   84px line of Be Vietnam Pro is a hairline, and it was the single thinnest
+   thing on the site. */
 @utility type-giant {
   font-size: clamp(3rem, 1rem + 5.5vw, 5.25rem);
   line-height: 1.333;
-  font-weight: 200;
-}
-/* 20/28 w300 — section intros */
-@utility type-lede {
-  font-size: clamp(1.125rem, 1rem + 0.35vw, 1.25rem);
-  line-height: 1.4;
   font-weight: 300;
+}
+/* 19-21/1.5 w400 — section intros */
+@utility type-lede {
+  font-size: clamp(1.1875rem, 1.05rem + 0.4vw, 1.3125rem);
+  line-height: 1.5;
+  font-weight: 400;
   letter-spacing: 0.008em;
 }
-/* 16/24 w300 — card body copy */
+/* 17/1.6 w400 — card body copy. In rem so a reader who has set a larger
+   default text size still gets one; the value is 17px at the standard 16px
+   root, matching `body`. */
 @utility type-body {
-  font-size: 1rem;
-  line-height: 1.5;
-  font-weight: 300;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
-/* The eyebrow is plain 12px/500 — the mixed casing you see ("WHO WE ARE" but
+/* The eyebrow is plain 13px/600 (12px/500 as transcribed) — the mixed casing you see ("WHO WE ARE" but
    "how kyndryl helps") is literal text, so no text-transform here. */
 @utility eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.8125rem;
+  font-weight: 600;
   line-height: 1.5;
 }
 

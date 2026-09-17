@@ -38,7 +38,7 @@ export default function Footer() {
             <Link href="/" aria-label="Vamscore home" className="inline-block">
               <Wordmark className="h-8 lg:h-9" />
             </Link>
-            <p className="mt-6 max-w-[38ch] text-[14px] leading-6 text-white/70">
+            <p className="mt-6 max-w-[38ch] text-[15px] leading-6 text-white/70">
               {SITE_DESCRIPTION}
             </p>
           </div>
@@ -146,8 +146,8 @@ export default function Footer() {
             Below `sm` it collapses to one centred column and the spacer goes. */}
         <div className="shell grid gap-4 py-8 text-center sm:grid-cols-3 sm:items-center">
           <span aria-hidden className="hidden sm:block" />
-          <p className="text-[14px] text-white/70">{COPYRIGHT}</p>
-          <span className="text-[14px] text-white/70 sm:text-right">
+          <p className="text-[15px] text-white/70">{COPYRIGHT}</p>
+          <span className="text-[15px] text-white/70 sm:text-right">
             {LOCALE_SHORT}
           </span>
         </div>

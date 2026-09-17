@@ -17,7 +17,7 @@ type Status =
   | { kind: "error"; message: string };
 
 const fieldClass =
-  "w-full rounded border border-line bg-cloud px-4 py-3 text-[15px] outline-none transition-colors focus:border-carbon";
+  "w-full rounded border border-line bg-cloud px-4 py-3 text-[16px] outline-none transition-colors focus:border-carbon";
 
 /**
  * Roles list and application form together, because clicking Apply on a role
@@ -97,14 +97,14 @@ export default function ApplySection() {
                   <li key={r.id} className="flex flex-col bg-white p-8">
                     <p className="eyebrow text-stone">{r.team}</p>
                     <h3 className="type-card mt-3 text-carbon">{r.title}</h3>
-                    <p className="mt-2 text-[14px] text-stone">
+                    <p className="mt-2 text-[15px] text-stone">
                       {r.location} · {r.type}
                     </p>
                     <p className="type-body mt-4">{r.summary}</p>
                     <button
                       type="button"
                       onClick={() => applyTo(r.id)}
-                      className="mt-8 inline-flex w-fit items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-carbon hover:text-white"
+                      className="mt-8 inline-flex w-fit items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[16px] leading-none font-medium text-deep-forest transition-colors hover:bg-carbon hover:text-white"
                     >
                       Apply for this role
                       <Arrow />
@@ -122,7 +122,7 @@ export default function ApplySection() {
               <button
                 type="button"
                 onClick={() => applyTo(GENERAL_ROLE_ID)}
-                className="mt-8 inline-flex w-fit items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-carbon hover:text-white"
+                className="mt-8 inline-flex w-fit items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[16px] leading-none font-medium text-deep-forest transition-colors hover:bg-carbon hover:text-white"
               >
                 {CAREERS.noRoles.cta}
                 <Arrow />
@@ -148,13 +148,13 @@ export default function ApplySection() {
               >
                 <h3 className="type-card text-carbon">{F.successTitle}</h3>
                 <p className="type-body mt-3">{F.successBody}</p>
-                <p className="mt-4 text-[14px] text-stone">
+                <p className="mt-4 text-[15px] text-stone">
                   Reference: <span className="font-mono">{status.reference}</span>
                 </p>
                 <button
                   type="button"
                   onClick={() => setStatus({ kind: "idle" })}
-                  className="mt-6 text-[15px] underline underline-offset-4"
+                  className="mt-6 text-[16px] underline underline-offset-4"
                 >
                   Send another application
                 </button>
@@ -163,7 +163,7 @@ export default function ApplySection() {
               <form ref={formRef} onSubmit={onSubmit} noValidate className="grid gap-5">
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
-                    <label htmlFor={`${uid}-name`} className="block text-[14px] text-stone">
+                    <label htmlFor={`${uid}-name`} className="block text-[15px] text-stone">
                       Full name *
                     </label>
                     <input
@@ -175,7 +175,7 @@ export default function ApplySection() {
                     />
                   </div>
                   <div>
-                    <label htmlFor={`${uid}-email`} className="block text-[14px] text-stone">
+                    <label htmlFor={`${uid}-email`} className="block text-[15px] text-stone">
                       Email *
                     </label>
                     <input
@@ -188,7 +188,7 @@ export default function ApplySection() {
                     />
                   </div>
                   <div>
-                    <label htmlFor={`${uid}-phone`} className="block text-[14px] text-stone">
+                    <label htmlFor={`${uid}-phone`} className="block text-[15px] text-stone">
                       Phone
                     </label>
                     <input
@@ -200,7 +200,7 @@ export default function ApplySection() {
                     />
                   </div>
                   <div>
-                    <label htmlFor={`${uid}-location`} className="block text-[14px] text-stone">
+                    <label htmlFor={`${uid}-location`} className="block text-[15px] text-stone">
                       Current location
                     </label>
                     <input
@@ -211,7 +211,7 @@ export default function ApplySection() {
                     />
                   </div>
                   <div>
-                    <label htmlFor={`${uid}-experience`} className="block text-[14px] text-stone">
+                    <label htmlFor={`${uid}-experience`} className="block text-[15px] text-stone">
                       Years of experience
                     </label>
                     <input
@@ -225,7 +225,7 @@ export default function ApplySection() {
                       field is hidden and every application is a general one. */}
                   {hasRoles ? (
                     <div>
-                      <label htmlFor={`${uid}-role`} className="block text-[14px] text-stone">
+                      <label htmlFor={`${uid}-role`} className="block text-[15px] text-stone">
                         Role
                       </label>
                       <select
@@ -251,7 +251,7 @@ export default function ApplySection() {
                 {/* Drop zone. A label wrapping the real input keeps click, keyboard
                     and drag-and-drop all working without re-implementing any of them. */}
                 <div>
-                  <span className="block text-[14px] text-stone">CV *</span>
+                  <span className="block text-[15px] text-stone">CV *</span>
                   <label
                     onDragOver={(e) => {
                       e.preventDefault();
@@ -280,15 +280,15 @@ export default function ApplySection() {
                     />
                     {file ? (
                       <>
-                        <span className="text-[15px] text-carbon">{file.name}</span>
-                        <span className="text-[13px] text-stone">
+                        <span className="text-[16px] text-carbon">{file.name}</span>
+                        <span className="text-[14px] text-stone">
                           {(file.size / 1024).toFixed(0)} KB
                         </span>
                       </>
                     ) : (
                       <>
-                        <span className="text-[15px] text-carbon">{F.dropHint}</span>
-                        <span id={`${uid}-cv-help`} className="text-[13px] text-stone">
+                        <span className="text-[16px] text-carbon">{F.dropHint}</span>
+                        <span id={`${uid}-cv-help`} className="text-[14px] text-stone">
                           {F.dropMeta}
                         </span>
                       </>
@@ -303,20 +303,20 @@ export default function ApplySection() {
                         setFileError(null);
                         if (inputRef.current) inputRef.current.value = "";
                       }}
-                      className="mt-2 text-[14px] underline underline-offset-4"
+                      className="mt-2 text-[15px] underline underline-offset-4"
                     >
                       Remove file
                     </button>
                   )}
                   {fileError && (
-                    <p id={`${uid}-cv-error`} className="mt-2 text-[14px] text-flame">
+                    <p id={`${uid}-cv-error`} className="mt-2 text-[15px] text-flame">
                       {fileError}
                     </p>
                   )}
                 </div>
 
                 <div>
-                  <label htmlFor={`${uid}-note`} className="block text-[14px] text-stone">
+                  <label htmlFor={`${uid}-note`} className="block text-[15px] text-stone">
                     Anything you’d like to add
                   </label>
                   <textarea
@@ -331,12 +331,12 @@ export default function ApplySection() {
                   <button
                     type="submit"
                     disabled={status.kind === "sending"}
-                    className="inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[15px] leading-none font-medium text-deep-forest transition-colors hover:bg-carbon hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[16px] leading-none font-medium text-deep-forest transition-colors hover:bg-carbon hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {status.kind === "sending" ? F.submittingLabel : F.submitLabel}
                     <Arrow />
                   </button>
-                  <p aria-live="polite" className="text-[14px] text-flame">
+                  <p aria-live="polite" className="text-[15px] text-flame">
                     {status.kind === "error" ? status.message : ""}
                   </p>
                 </div>
