@@ -28,8 +28,11 @@ export const metadata: Metadata = {
  * for the site name shown above the result, and `sameAs` ties the four social
  * profiles to this domain as one organisation.
  *
- * `logo` is the square V mark (512×512; Google wants at least 112×112), cut
- * from the wordmark's first letter — the same art as the browser-tab icon.
+ * `logo` is the wordmark on white, 1200x244 (Google wants at least 112x112),
+ * from the artwork Vamscore supplied on 2026-09-17. Flattened onto white
+ * rather than left transparent: the purple ink all but disappears if a
+ * reader composites it on a dark ground. The browser-tab and home-screen
+ * icons are the V cut from the same artwork, on a white rounded square.
  */
 const STRUCTURED_DATA = {
   "@context": "https://schema.org",
