@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { formatNumber, whatsappChatUrl, whatsappContactRow } from "@/lib/whatsapp/links";
 import { FOOTER_COLUMNS, GMAIL_COMPOSE_URL } from "@/content/nav";
 import { INTERNSHIP } from "@/content/home";
+import { CONTACT } from "@/content/contact";
 
 // The WhatsApp button and the contact page's WhatsApp row both depend on these.
 
@@ -59,5 +60,21 @@ describe("Gmail compose button", () => {
 
   it("does not pin the first Google account", () => {
     expect(new URL(GMAIL_COMPOSE_URL).pathname).not.toMatch(/\/u\/\d/);
+  });
+});
+
+describe("floating Google Meet button", () => {
+  it("opens Google Meet's new-meeting page", () => {
+    const url = new URL(CONTACT.meet.url);
+    expect(url.origin).toBe("https://meet.google.com");
+    expect(url.pathname).toBe("/new");
+  });
+
+  // /new starts a meeting in the visitor's own account, so a label implying it
+  // dials Vamscore would be a lie. Swap the URL for a booking page or a room
+  // link first, then the wording can change.
+  it("does not claim the call reaches Vamscore", () => {
+    expect(CONTACT.meet.label.toLowerCase()).not.toContain("vamscore");
+    expect(CONTACT.meet.label.toLowerCase()).not.toMatch(/call us|talk to us|meet us/);
   });
 });

@@ -67,6 +67,20 @@ export const CONTACT = {
     internshipPrefill: "Hi Vamscore, I'm interested in an internship.",
   },
 
+  /**
+   * The floating Google Meet button.
+   *
+   * `/new` opens a meeting in the VISITOR's own Google account — Vamscore is
+   * not in it, and a visitor who is not signed in lands on Google sign-in
+   * first. Vamscore chose this on 2026-09-17 knowing that, which is why the
+   * label says "start a Google Meet call" and never claims it reaches us.
+   * Swap this one URL for a Calendar booking page or a fixed room when there
+   * is one; nothing else has to change.
+   */
+  meet: {
+    url: "https://meet.google.com/new",
+    label: "Start a Google Meet call",
+  },
   // Sits behind the hero copy at 60% under a left-weighted scrim. Supplied by
   // Vamscore.
   heroImage: `${IMG}/contact-hero.webp`,
