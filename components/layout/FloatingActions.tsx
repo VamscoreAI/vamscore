@@ -29,21 +29,36 @@ export default function FloatingActions() {
   return (
     <div className="fixed right-[max(1rem,env(safe-area-inset-right))] bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex flex-col gap-3 lg:right-8 lg:bottom-8">
       {/* Google Meet.
-          White circle with the mark in Meet's green, which is how Google shows
-          it on light chrome. The ring is not decoration: over the site's white
-          sections a white button would have no visible edge at all, and WCAG
-          1.4.11 asks 3:1 for the boundary of a control.
-          The glyph is Simple Icons' Google Meet path (icon data CC0; the mark
-          itself is Google's trademark, used here only to label a link to Meet). */}
+          Google's own four-colour camera mark, on a white circle — the way
+          Google itself shows it on light chrome, and what people recognise as
+          Meet. (An earlier version of this used Simple Icons' monochrome
+          glyph, which is Meet's pre-2020 outline mark and reads as a generic
+          camera.) The mark is Google's trademark, drawn here unaltered and
+          only to label a link to Meet.
+
+          The ring is not decoration: over the site's white sections a white
+          button would have no visible edge at all, and WCAG 1.4.11 asks 3:1
+          for the boundary of a control. It is on the circle rather than the
+          glyph so the mark's own colours are untouched.
+
+          The artwork is 87.5x72, so it is drawn 28x23 rather than square. */}
       <a
         href={CONTACT.meet.url}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${CONTACT.meet.label} (opens in a new tab)`}
-        className={`${BUTTON} bg-white text-[#00832D] ring-1 ring-black/10 focus-visible:outline-[#00832D]`}
+        className={`${BUTTON} bg-white ring-1 ring-black/10 focus-visible:outline-[#00832D]`}
       >
-        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden>
-          <path d="M5.53 2.13 0 7.75h5.53zm.398 0v5.62h7.608v3.65l5.47-4.45c-.014-1.22.031-2.25-.025-3.46-.148-1.09-1.287-1.47-2.236-1.36zM23.1 4.32c-.802.295-1.358.995-2.047 1.49-2.506 2.05-4.982 4.12-7.468 6.19 3.025 2.59 6.04 5.18 9.065 7.76 1.218.671 1.428-.814 1.328-1.64v-13a.828.828 0 0 0-.877-.825zM.038 8.15v7.7h5.53v-7.7zm13.577 8.1H6.008v5.62c3.864-.006 7.737.011 11.58-.009 1.02-.07 1.618-1.12 1.468-2.07v-2.51l-5.47-4.68v3.65zm-13.577 0c.02 1.44-.041 2.88.033 4.31.162.948 1.158 1.43 2.047 1.31h3.464v-5.62z" />
+        <svg viewBox="0 0 87.5 72" width="28" height="23" aria-hidden>
+          <path fill="#00832d" d="M49.5 36l8.53 9.75 11.47 7.33 2-17.02-2-16.64-11.69 6.44z" />
+          <path fill="#0066da" d="M0 51.5V66c0 3.315 2.685 6 6 6h14.5l3-10.96-3-9.54-9.95-3z" />
+          <path fill="#e94235" d="M20.5 0L0 20.5l10.55 3 9.95-3 2.95-9.41z" />
+          <path fill="#2684fc" d="M20.5 20.5H0v31h20.5z" />
+          <path
+            fill="#00ac47"
+            d="M82.6 8.68L69.5 19.42v33.66l13.16 10.79c1.97 1.54 4.85.135 4.85-2.37V11c0-2.535-2.945-3.925-4.91-2.32zM49.5 36v15.5h-29V72h43c3.315 0 6-2.685 6-6V53.08z"
+          />
+          <path fill="#ffba00" d="M63.5 0h-43v20.5h29V36l20-16.57V6c0-3.315-2.685-6-6-6z" />
         </svg>
       </a>
 
