@@ -22,7 +22,9 @@ const roboto = Roboto({
 // same 53px x-height (Schibsted Grotesk, used previously, was 478 and 45).
 const display = Be_Vietnam_Pro({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600", "700"],
+  // No "200": the only thing that used ExtraLight was `type-giant`, and it
+  // moved to 300 on 2026-09-17. Listing a weight here downloads its file.
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-display-face",
   display: "swap",
 });
