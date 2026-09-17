@@ -177,10 +177,14 @@ export function Section({
 /* un-multiplying each pixel against white — pixel = a*ink + (1-a)*255 solved  */
 /* for both — so antialiased edges keep no pale fringe on a dark ground.       */
 /*                                                                            */
-/* NOTE: the dark half of the gradient (#030047 at its darkest) sits at 1.06:1 */
-/* on carbon, so "VAM" reads far weaker than "SCORE" in the header and footer. */
-/* Vamscore was shown this and chose to ship it; a light version of the mark   */
-/* for dark grounds is the real fix.                                           */
+/* Both call sites are the carbon header and footer, where the supplied        */
+/* purple-to-pink artwork was unreadable: its indigo half measures 1.14:1      */
+/* against #161616. This is the dark-ground variant, made by lifting each      */
+/* pixel to a target perceived brightness while keeping its hue and as much    */
+/* saturation as that allows, so the indigo-to-magenta sweep survives. It now  */
+/* runs 5.1:1 at the indigo end to 7.6:1 at the pink one, clearing AA across   */
+/* the whole mark.  beside it is the untouched artwork,    */
+/* for white grounds (icons, share image).                                     */
 /*                                                                            */
 /* Sized by HEIGHT, never width: the mark is 8.05:1, so a width class would    */
 /* set the bar's height by accident. Callers pass an `h-*`.                    */
@@ -193,7 +197,7 @@ export function Section({
 export function Wordmark({ className }: { className?: string }) {
   return (
     <Image
-      src="/assets/logos/vamscore-2026.webp"
+      src="/assets/logos/vamscore-2026-light.webp"
       alt=""
       width={758}
       height={96}
