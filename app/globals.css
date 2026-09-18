@@ -5,7 +5,7 @@
    --------------------------------------------------------------------------- */
 @theme {
   /* Brand palette */
-  --color-carbon: #161616;         /* header / nav bar                        */
+  --color-carbon: #161616;         /* footer, dark bands                      */
   --color-deep-forest: #042315;    /* text sitting on spring-green            */
   --color-spring-green: #4cdd84;   /* primary CTA fill, links on dark         */
   --color-dark-stone: #3d3c3c;     /* body copy, dark cards                   */

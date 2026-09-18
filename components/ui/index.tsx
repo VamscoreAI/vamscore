@@ -171,9 +171,14 @@ export function Section({
 /* -------------------------------------------------------------------------- */
 /* Wordmark — Vamscore's logo                                                 */
 /*                                                                            */
-/* Vamscore supplied this version on 2026-09-17, drawn for dark grounds:      */
-/* bright violet-to-pink with a glow, on black. Both call sites are the       */
-/* carbon header and footer, so this is the one in use.                       */
+/* Two artworks, picked by `ground`:                                         */
+/*                                                                            */
+/* - "dark" (default): the version Vamscore supplied on 2026-09-17 for dark   */
+/*   grounds, bright violet-to-pink with a glow. Used by the carbon footer.   */
+/* - "light": `vamscore-2026.webp`, the purple-on-white artwork, keyed to     */
+/*   transparent. Used by the header since it turned white on 2026-09-18.    */
+/*                                                                            */
+/* Notes on the dark version:                                                 */
 /*                                                                            */
 /* Ink on black is premultiplied (pixel = a * ink), so the black is keyed by  */
 /* taking alpha from the brightest channel and dividing it back out. That     */
@@ -182,8 +187,7 @@ export function Section({
 /* glow in and the letters shrink inside the fixed bar height.                */
 /*                                                                            */
 /* It measures 4.3:1 (violet) to 7.2:1 (pink) on carbon, but only ~2.5:1 on   */
-/* white — never put it on a light ground. `vamscore-2026.webp` beside it is  */
-/* the purple-on-white artwork for that (icons, share image).                 */
+/* white — never put it on a light ground; that is what "light" is for.       */
 /*                                                                            */
 /* Sized by HEIGHT, never width: the mark is 7.6:1, so a width class would    */
 /* set the bar's height by accident. Callers pass an `h-*`.                   */
@@ -193,13 +197,26 @@ export function Section({
 /* twice.                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export function Wordmark({ className }: { className?: string }) {
+const WORDMARK = {
+  dark: { src: "/assets/logos/vamscore-2026-ondark.webp", width: 803, height: 106 },
+  light: { src: "/assets/logos/vamscore-2026.webp", width: 758, height: 96 },
+} as const;
+
+export function Wordmark({
+  className,
+  ground = "dark",
+}: {
+  className?: string;
+  /** The colour of what the logo sits on, not the logo's own colour. */
+  ground?: "dark" | "light";
+}) {
+  const art = WORDMARK[ground];
   return (
     <Image
-      src="/assets/logos/vamscore-2026-ondark.webp"
+      src={art.src}
       alt=""
-      width={803}
-      height={106}
+      width={art.width}
+      height={art.height}
       priority
       // Height comes from the caller. `cx` only joins strings — it does not
       // resolve Tailwind conflicts — so a default `lg:h-8` here could not be

@@ -71,11 +71,14 @@ export const clerkAppearance: Appearance = {
     // 28px and sits visibly small against it. The search and apps-grid buttons
     // this used to be measured against were removed from the header.
     userButtonAvatarBox: "size-9",
+    // Ring in the site's hairline grey: the header has been white since
+    // 2026-09-18, and the white/25 ring it had on the carbon bar vanished.
     userButtonTrigger:
-      "rounded-full border border-white/25 transition-colors hover:border-white focus:shadow-none",
-    // Deliberately carbon, not the card's #1e1e1e: this popover hangs over the
-    // carbon header rather than sitting on a page, so it is a different surface
-    // doing a different job.
+      "rounded-full border border-line transition-colors hover:border-carbon focus:shadow-none",
+    // Carbon, not the card's #1e1e1e. It stays dark on the white header on
+    // purpose: every other Clerk surface uses the dark theme above, so a white
+    // popover would need its own text colours for one menu staff alone see.
+    // Its border reads against the white page it now overlaps.
     userButtonPopoverCard: "bg-carbon border border-white/10",
   },
 };

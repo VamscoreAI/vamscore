@@ -55,7 +55,17 @@ export default function Header() {
   const openMenu = overlay?.kind === "menu" ? overlay.index : null;
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50 bg-carbon text-white">
+    // White since 2026-09-18 (it was carbon). The 1px rule is a box-shadow, not
+    // a border, so the bar stays exactly 60/72px: the overlays and the drawer
+    // below are positioned at `top-[60px]` / `top-[72px]` against that.
+    //
+    // Colours on white: text is carbon/dark-stone, and hover/active is teal
+    // (5.7:1) rather than the spring-green used on the dark bar — green on
+    // white measures 1.75:1 and would be unreadable as text.
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 bg-white text-carbon shadow-[0_1px_0_var(--color-line)]"
+    >
       {/* `shell`, not its own padding. The bar used to run px-5/lg:px-8/2xl:px-12
           against content capped at 1440, which put the logo 217px to the left of
           everything under it at 1920. Sharing the utility keeps the header, the
@@ -73,7 +83,7 @@ export default function Header() {
             sign in" link that a local dev server without Clerk keys does not,
             so the row is 71px wider live than it looks locally. */}
         <Link href="/" className="shrink-0" aria-label="Vamscore home">
-          <Wordmark className="h-7 xl:h-8" />
+          <Wordmark ground="light" className="h-7 xl:h-8" />
         </Link>
 
         {/* Primary nav (desktop).
@@ -105,8 +115,8 @@ export default function Header() {
                       setOverlay(openMenu === i ? null : { kind: "menu", index: i })
                     }
                     className={cx(
-                      "flex items-center gap-1.5 px-2.5 py-2 text-[15px] leading-5 transition-colors hover:text-spring-green xl:px-4",
-                      openMenu === i && "text-spring-green"
+                      "flex items-center gap-1.5 px-2.5 py-2 text-[15px] leading-5 transition-colors hover:text-teal xl:px-4",
+                      openMenu === i && "text-teal"
                     )}
                   >
                     {item.label}
@@ -120,7 +130,7 @@ export default function Header() {
                 ) : (
                   <Link
                     href={item.href}
-                    className="block px-2.5 py-2 text-[15px] leading-5 transition-colors hover:text-spring-green xl:px-4"
+                    className="block px-2.5 py-2 text-[15px] leading-5 transition-colors hover:text-teal xl:px-4"
                   >
                     {item.label}
                   </Link>
@@ -147,7 +157,7 @@ export default function Header() {
             //
             // Put it back at lg the day there is a second locale — and find
             // the width somewhere else if so.
-            className="hidden items-center gap-1.5 text-[14px] text-white/80 transition-colors hover:text-white xl:flex"
+            className="hidden items-center gap-1.5 text-[14px] text-dark-stone transition-colors hover:text-carbon xl:flex"
           >
             <GlobeIcon />
             {LOCALE_SHORT}
@@ -175,13 +185,18 @@ export default function Header() {
             // The icon is decorative, so the name has to come from here or the
             // link announces as just "link".
             aria-label="Email Vamscore in Gmail"
-            className="hidden size-9 place-items-center text-white/80 transition-colors hover:text-white lg:grid"
+            className="hidden size-9 place-items-center text-dark-stone transition-colors hover:text-carbon lg:grid"
           >
             <MailIcon />
           </Link>
 
           <span className="hidden sm:block">
-            <Button href="/contact" className="!px-4 !py-2.5 !text-[15px] xl:!px-5">
+            {/* The primary Button hovers to white, which on this bar would make it
+                disappear under the cursor. Deep forest keeps it a solid pill. */}
+            <Button
+              href="/contact"
+              className="!px-4 !py-2.5 !text-[15px] hover:!bg-deep-forest hover:!text-white xl:!px-5"
+            >
               Talk to us
               <Arrow />
             </Button>
@@ -201,20 +216,20 @@ export default function Header() {
 
       {/* ---------------- Desktop mega-menu ---------------- */}
       {openMenu !== null && NAV_ITEMS[openMenu].groups && (
-        <div className="absolute inset-x-0 top-full hidden border-t border-white/10 bg-carbon lg:block">
+        <div className="absolute inset-x-0 top-full hidden border-t border-line bg-white shadow-[0_16px_32px_rgba(0,0,0,0.08)] lg:block">
           {/* Same reason: the panel's columns line up with the nav item that
               opened them, and with the page behind it. */}
           <div className="shell grid grid-cols-2 gap-x-10 gap-y-10 py-12 xl:grid-cols-4">
             {NAV_ITEMS[openMenu].groups.map((group) => (
               <div key={group.heading}>
-                <h2 className="eyebrow mb-5 text-spring-green">{group.heading}</h2>
+                <h2 className="eyebrow mb-5 text-stone">{group.heading}</h2>
                 <ul className="space-y-3">
                   {group.links.map((link) => (
                     <li key={link.label}>
                       <Link
                         href={link.href}
                         onClick={close}
-                        className="inline-flex items-center gap-1.5 text-[16px] text-white/85 transition-colors hover:text-spring-green"
+                        className="inline-flex items-center gap-1.5 text-[16px] text-dark-stone transition-colors hover:text-teal"
                       >
                         {link.label}
                         {link.external && <ExternalIcon />}
@@ -232,9 +247,9 @@ export default function Header() {
 
       {/* ---------------- Locale overlay ---------------- */}
       {overlay?.kind === "locale" && (
-        <div className="fixed inset-x-0 top-[60px] bottom-0 z-40 overflow-y-auto bg-carbon lg:top-[72px]">
+        <div className="fixed inset-x-0 top-[60px] bottom-0 z-40 overflow-y-auto bg-white lg:top-[72px]">
           <div className="shell py-16">
-            <h2 className="type-card-lg text-white">Select a country or region</h2>
+            <h2 className="type-card-lg text-carbon">Select a country or region</h2>
             <ul className="mt-10 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {LOCALES.map((locale) => (
                 <li key={locale}>
@@ -249,7 +264,7 @@ export default function Header() {
                       "block rounded px-4 py-2.5 text-[16px]",
                       locale === ACTIVE_LOCALE
                         ? "bg-teal text-white"
-                        : "text-white/80"
+                        : "text-dark-stone"
                     )}
                   >
                     {locale}
@@ -263,9 +278,9 @@ export default function Header() {
 
       {/* ---------------- Mobile drawer ---------------- */}
       {mobileOpen && (
-        <div className="fixed inset-x-0 top-[60px] bottom-0 z-40 overflow-y-auto bg-carbon lg:hidden">
+        <div className="fixed inset-x-0 top-[60px] bottom-0 z-40 overflow-y-auto bg-white lg:hidden">
           <nav className="px-5 py-6" aria-label="Mobile">
-            <ul className="divide-y divide-white/10">
+            <ul className="divide-y divide-line">
               {NAV_ITEMS.map((item, i) => (
                 <li key={item.label}>
                   {item.groups ? (
@@ -288,7 +303,7 @@ export default function Header() {
                         <div className="space-y-6 pb-6">
                           {item.groups.map((group) => (
                             <div key={group.heading}>
-                              <h3 className="eyebrow mb-3 text-spring-green">
+                              <h3 className="eyebrow mb-3 text-stone">
                                 {group.heading}
                               </h3>
                               <ul className="space-y-2.5">
@@ -297,7 +312,7 @@ export default function Header() {
                                     <Link
                                       href={link.href}
                                       onClick={() => setMobileOpen(false)}
-                                      className="text-[16px] text-white/85"
+                                      className="text-[16px] text-dark-stone"
                                     >
                                       {link.label}
                                     </Link>
@@ -322,14 +337,14 @@ export default function Header() {
               ))}
             </ul>
 
-            <div className="mt-8 space-y-4 border-t border-white/10 pt-8">
+            <div className="mt-8 space-y-4 border-t border-line pt-8">
               <button
                 type="button"
                 onClick={() => {
                   setMobileOpen(false);
                   setOverlay({ kind: "locale" });
                 }}
-                className="flex items-center gap-1.5 text-[16px] text-white/80"
+                className="flex items-center gap-1.5 text-[16px] text-dark-stone"
               >
                 <GlobeIcon />
                 {LOCALE_SHORT}
@@ -347,13 +362,16 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-1.5 text-[16px] text-white/80"
+                className="flex items-center gap-1.5 text-[16px] text-dark-stone"
               >
                 <MailIcon />
                 Email us in Gmail
               </Link>
 
-              <Button href="/contact" className="w-full">
+              <Button
+                href="/contact"
+                className="w-full hover:!bg-deep-forest hover:!text-white"
+              >
                 Talk to us
                 <Arrow />
               </Button>
@@ -398,7 +416,7 @@ function AuthSlot() {
         // customers and stays the one prominent action.
         <Link
           href="/sign-in"
-          className="hidden items-center text-[14px] text-white/80 transition-colors hover:text-white lg:flex"
+          className="hidden items-center text-[14px] text-dark-stone transition-colors hover:text-carbon lg:flex"
         >
           Employee sign in
         </Link>
@@ -419,7 +437,7 @@ function DrawerAuthLink({ onNavigate }: { onNavigate: () => void }) {
     <Link
       href={isSignedIn ? "/portal" : "/sign-in"}
       onClick={onNavigate}
-      className="flex items-center gap-1.5 text-[16px] text-white/80"
+      className="flex items-center gap-1.5 text-[16px] text-dark-stone"
     >
       {isSignedIn ? "Employee portal" : "Employee sign in"}
     </Link>
