@@ -214,22 +214,28 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ---------------- Desktop mega-menu ---------------- */}
+      {/* ---------------- Desktop mega-menu ----------------
+          Carbon under the white bar, by Vamscore's choice (2026-09-18) — the
+          phone menu and the locale overlay are white, this panel is not. So
+          it keeps the dark-bar colours: spring-green headings and hover,
+          white/85 links. The bottom hairline is what ends the panel over the
+          dark heroes: without it the last link ran straight into the hero's
+          heading below. */}
       {openMenu !== null && NAV_ITEMS[openMenu].groups && (
-        <div className="absolute inset-x-0 top-full hidden border-t border-line bg-white shadow-[0_16px_32px_rgba(0,0,0,0.08)] lg:block">
+        <div className="absolute inset-x-0 top-full hidden border-b border-white/15 bg-carbon lg:block">
           {/* Same reason: the panel's columns line up with the nav item that
               opened them, and with the page behind it. */}
           <div className="shell grid grid-cols-2 gap-x-10 gap-y-10 py-12 xl:grid-cols-4">
             {NAV_ITEMS[openMenu].groups.map((group) => (
               <div key={group.heading}>
-                <h2 className="eyebrow mb-5 text-stone">{group.heading}</h2>
+                <h2 className="eyebrow mb-5 text-spring-green">{group.heading}</h2>
                 <ul className="space-y-3">
                   {group.links.map((link) => (
                     <li key={link.label}>
                       <Link
                         href={link.href}
                         onClick={close}
-                        className="inline-flex items-center gap-1.5 text-[16px] text-dark-stone transition-colors hover:text-teal"
+                        className="inline-flex items-center gap-1.5 text-[16px] text-white/85 transition-colors hover:text-spring-green"
                       >
                         {link.label}
                         {link.external && <ExternalIcon />}
