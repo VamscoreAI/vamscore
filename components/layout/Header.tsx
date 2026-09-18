@@ -185,7 +185,7 @@ export default function Header() {
             // The icon is decorative, so the name has to come from here or the
             // link announces as just "link".
             aria-label="Email Vamscore in Gmail"
-            className="hidden size-9 place-items-center text-dark-stone transition-colors hover:text-carbon lg:grid"
+            className="hidden size-9 place-items-center text-carbon transition-colors hover:text-teal lg:grid"
           >
             <MailIcon />
           </Link>
@@ -470,16 +470,18 @@ function ExternalIcon() {
 function GlobeIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <circle cx="8" cy="8" r="6.3" stroke="currentColor" strokeWidth="1.2" />
-      <path d="M1.7 8h12.6M8 1.7c1.7 1.7 2.5 3.9 2.5 6.3S9.7 12.6 8 14.3C6.3 12.6 5.5 10.4 5.5 8S6.3 3.4 8 1.7Z" stroke="currentColor" strokeWidth="1.2" />
+      <circle cx="8" cy="8" r="6.3" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M1.7 8h12.6M8 1.7c1.7 1.7 2.5 3.9 2.5 6.3S9.7 12.6 8 14.3C6.3 12.6 5.5 10.4 5.5 8S6.3 3.4 8 1.7Z" stroke="currentColor" strokeWidth="1.5" />
     </svg>
   );
 }
 
 /* Gmail's envelope-and-M silhouette, in currentColor. Not the full-colour
    Google mark: every icon in this bar is monochrome, so a coloured logo would
-   be the only one and would fight the hover state. 16px at 1.2 matches
-   GlobeIcon, its nearest neighbour in the cluster. */
+   be the only one and would fight the hover state. 16px at a 1.5 stroke
+   matches GlobeIcon, its nearest neighbour in the cluster — both were 1.2
+   until the bar's text went Medium on 2026-09-18, and a hairline icon beside
+   Medium text read as the one grey thing left. */
 function MailIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -490,12 +492,12 @@ function MailIcon() {
         height="9.8"
         rx="1.6"
         stroke="currentColor"
-        strokeWidth="1.2"
+        strokeWidth="1.5"
       />
       <path
         d="M1.4 4 8 8.9 14.6 4"
         stroke="currentColor"
-        strokeWidth="1.2"
+        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
