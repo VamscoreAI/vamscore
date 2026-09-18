@@ -157,7 +157,7 @@ export default function Header() {
             //
             // Put it back at lg the day there is a second locale — and find
             // the width somewhere else if so.
-            className="hidden items-center gap-1.5 text-[14px] text-dark-stone transition-colors hover:text-carbon xl:flex"
+            className="hidden items-center gap-1.5 text-[14px] font-medium text-carbon transition-colors hover:text-teal xl:flex"
           >
             <GlobeIcon />
             {LOCALE_SHORT}
@@ -422,7 +422,7 @@ function AuthSlot() {
         // customers and stays the one prominent action.
         <Link
           href="/sign-in"
-          className="hidden items-center text-[14px] text-dark-stone transition-colors hover:text-carbon lg:flex"
+          className="hidden items-center text-[14px] font-medium text-carbon transition-colors hover:text-teal lg:flex"
         >
           Employee sign in
         </Link>
