@@ -213,11 +213,9 @@ export const ABOUT_CTA = {
 /** The condensed vision/mission band on the homepage. */
 export const VISION_MISSION_BAND = {
   eyebrow: "VISION & MISSION",
-  // Supplied by Vamscore 2026-09-22: a glowing blue target held between two
-  // hands, replacing the dark dartboard photo. Baked in at 85% brightness,
-  // and the scrim in VisionMission.tsx was retuned for it — see the note
-  // there before swapping either. Set to null to render no image at all.
-  image: `${IMG}/vision-mission-hands.webp` as string | null,
+  // Sits behind the copy at 60% under a carbon scrim. Set to null to render no
+  // image at all — no 404, no empty frame, the band just goes flat carbon.
+  image: `${IMG}/vision-mission-target.webp` as string | null,
 
   cta: { label: "Read our objectives and values", href: "/about" },
 };

@@ -40,20 +40,13 @@ export default function VisionMission() {
             sizes="100vw"
             className="band-art object-cover"
           />
-          {/* Tuned for the blue target-and-hands artwork (2026-09-22). Its
-              subject is bright and sits on the right, which is exactly where
-              the heading and mission paragraph run at 1280-1536: at 1280 the
-              heading reaches ~92% of the width.
-
-              Measured by compositing the picture under candidate scrims at
-              1280, 1536 and 1920 and taking the brightest pixel behind each
-              block of text. The old stops (80 / 62 at 55% / 10) gave white
-              text 2.3:1 over the target. These (80 / 70 at 55% / 40), with the
-              image baked at 85% brightness, give 5.3:1 behind the heading and
-              4.9:1 behind the paragraph at all three — the most visible
-              setting of the 46 that pass. Re-measure if either the image or
-              the stops change. */}
-          <div className="absolute inset-0 bg-gradient-to-r from-carbon/80 via-carbon/70 via-55% to-carbon/40" />
+          {/* Tuned for a DARK image, unlike the scrim on the AI band which
+              starts at fully opaque carbon because it covers a bright photo.
+              Measured: at 60% opacity under that scrim this artwork sat 4-12
+              away from flat carbon on a 0-255 scale — invisible. It stays heavy
+              across the copy (which ends around 70% of the width) and opens up
+              past it, so the art actually reads in the space to the right. */}
+          <div className="absolute inset-0 bg-gradient-to-r from-carbon/80 via-carbon/62 via-55% to-carbon/10" />
         </div>
       )}
 
