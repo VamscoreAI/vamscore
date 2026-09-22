@@ -476,8 +476,8 @@ export const STORIES: Story[] = [
         heading: "How it is built",
         intro: "Chosen so the business has as little as possible to run.",
         // Drawn for this page, not client artwork. Shows only what the rows
-        // below say: two devices, one app, Sheets and Drive. The host is left
-        // out of the picture (Vamscore's call); the Hosting row still names it.
+        // below say: two devices, one app, Sheets and Drive. The host is not
+        // named, here or in the rows (Vamscore's call, 2026-09-22).
         aside: {
           src: `${IMG}/story-mahaveer-architecture.webp`,
           alt: "Diagram: the counter computer and the owner's phone both connect to the Mahaveer app, which reads and writes the loan register in Google Sheets and stores ticket photos in Google Drive",
@@ -501,10 +501,6 @@ export const STORIES: Story[] = [
             term: "Google access",
             detail:
               "Authorised once through Google's own sign-in. The application holds a revocable access token, never a Google password.",
-          },
-          {
-            term: "Hosting",
-            detail: "Vercel, with the app and its API deployed together.",
           },
         ],
       },
