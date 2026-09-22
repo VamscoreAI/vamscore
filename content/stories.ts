@@ -9,6 +9,13 @@
  * is left in [square brackets], exactly as elsewhere in `content/`. Those are
  * facts only Vamscore can supply, and inventing them for a real business would be
  * worse than leaving a gap. `grep -n '\[' content/stories.ts` lists them.
+ *
+ * Mahaveer Pawn Broker is different: Vamscore built the software, and that
+ * story was written from the application's own source code
+ * (MahaveerPawnBroker-main, supplied 2026-09-22). Every capability it lists is
+ * something the code does. It makes no claim about results, and — because the
+ * app's API does not check who is calling it — no claim that customer
+ * records are access-controlled. Keep it that way until the code changes.
  */
 
 const IMG = "/assets/img";
@@ -366,6 +373,118 @@ export const STORIES: Story[] = [
           src: `${IMG}/story-tata-kyc.webp`,
           alt: "An identity record on screen behind a shield and padlock",
         },
+      },
+    ],
+  },
+  /* ---------------------------------------------------------------------- */
+  {
+    slug: "mahaveer-pawn-broker",
+    eyebrow: "FINANCIAL SERVICES",
+    client: "Mahaveer Pawn Broker",
+    title: "Mahaveer Pawn Broker: a gold loan counter, moved off paper",
+    standfirst:
+      "A pawn broker's day runs on paper tickets, a calculator and a ledger. We built Mahaveer Pawn Broker a web application that does the work of all three — and remembers every customer who has come back to the counter.",
+    // The project's own artwork: jewellery on a dark table, with the calm left
+    // third the carousel's headline needs.
+    hero: `${IMG}/story-mahaveer-gold.webp`,
+    heroAlt:
+      "Gold bangles, rings and a chain necklace heaped on a dark wooden table in warm light",
+    meta: [
+      { term: "Client", detail: "Mahaveer Pawn Broker" },
+      { term: "Sector", detail: "Gold loans and pawn broking" },
+      { term: "What we built", detail: "A web application for the loan counter" },
+      { term: "Vamscore's role", detail: "Design, development and deployment" },
+    ],
+    blocks: [
+      {
+        kind: "prose",
+        paragraphs: [
+          "A gold loan is a simple transaction with a lot of paperwork behind it. The jewellery is weighed, the day's gold rate applied, a loan amount and a redemption period agreed, and a pawn ticket written out — the customer's name, their father's or husband's name, address and identity number, and a line for every article with its gross and net weight.",
+          "The difficulty is everything after that. The ticket goes into a file and the figures into a ledger. When the same customer comes back months later with another piece, the only way to see what they already owe is to go looking. Reminding someone that a loan is due means finding their number and typing the message by hand.",
+        ],
+        // A crop of the client's banner: the bars only, with the advertising
+        // line that sat to their left cut away.
+        aside: {
+          src: `${IMG}/story-mahaveer-bars.webp`,
+          alt: "A stack of fine gold bars, each stamped 999.9 and 1000 g",
+        },
+      },
+      {
+        kind: "list",
+        heading: "What we built",
+        intro:
+          "One application for the counter, used on the shop's computer and the owner's phone alike.",
+        items: [
+          {
+            title: "Owner sign-in",
+            // Deliberately "the counter screens", not "the records": the
+            // sign-in gates the pages, and the API behind them does not check
+            // it. See the note at the top of this file.
+            body: "The counter screens open only after one of the business's owners signs in with their mobile number and PIN.",
+          },
+          {
+            title: "The loan calculator",
+            body: "Enter the gold weight, the day's price per gram, the tenure and the interest rate, and the loan amount and total due are worked out. The figures carry straight into the ticket and stay editable, because the final number is still the owner's call.",
+          },
+          {
+            title: "The pawn ticket, on screen",
+            body: "Every field of the paper ticket — ticket number, date, customer and guardian name, phone, Aadhaar, address, the principal in figures and in words, the time agreed for redemption, and each article's gross and net weight — with the declaration and signature lines, ready to print.",
+          },
+          {
+            title: "Photographs with every loan",
+            body: "A photo of the customer and of the jewellery is taken with each ticket. Both are compressed on the device before upload, so a phone on a weak connection can still send them.",
+          },
+          {
+            title: "Customer history before every new loan",
+            body: "Search by phone number, name, ticket number or Aadhaar and see every earlier loan with its payment status — before the new ticket is written, not after.",
+          },
+          {
+            title: "Reminders in one tap",
+            body: "The reminder message is written from the loan's own details and sent over WhatsApp or SMS from whichever phone the owner is using.",
+          },
+          {
+            title: "Closing a loan",
+            body: "When a loan is repaid it is marked paid, and the customer's history shows it from then on.",
+          },
+        ],
+      },
+      {
+        kind: "facts",
+        heading: "How it is built",
+        intro: "Chosen so the business has as little as possible to run.",
+        rows: [
+          {
+            term: "Application",
+            detail:
+              "A React web app. It opens in a browser with nothing to install, and has its own layout for phone screens.",
+          },
+          {
+            term: "Server",
+            detail: "A Node.js API that handles every read and write.",
+          },
+          {
+            term: "Records",
+            detail:
+              "Each ticket is written as a row in a Google Sheet; the photographs go to a Google Drive folder.",
+          },
+          {
+            term: "Google access",
+            detail:
+              "Authorised once through Google's own sign-in. The application holds a revocable access token, never a Google password.",
+          },
+          {
+            term: "Hosting",
+            detail: "Vercel, with the app and its API deployed together.",
+          },
+        ],
+      },
+      {
+        kind: "prose",
+        heading: "Why a spreadsheet, not a database",
+        paragraphs: [
+          "A business of this size does not need a database server, and it does not need another monthly bill for one. Its register is a list of loans, which is exactly what a spreadsheet is. Keeping the records in Google Sheets leaves nothing for the business to host or maintain, and the register is never locked inside the software: it can be opened, sorted, filtered and exported with tools that are already free.",
+          "The application does the part a spreadsheet does badly — holding every ticket to the same format, doing the arithmetic, attaching the photographs, finding a customer's past loans in seconds, and turning a due date into a message.",
+        ],
       },
     ],
   },

@@ -147,6 +147,13 @@ export const CUSTOMER_STORIES = {
       image: `${IMG}/story-tata-channel.webp`,
       slug: "tata-docomo-channel-partner",
     },
+    {
+      eyebrow: "FINANCIAL SERVICES",
+      title:
+        "Mahaveer Pawn Broker — a gold loan counter, moved off paper and onto a web app",
+      image: `${IMG}/story-mahaveer-gold.webp`,
+      slug: "mahaveer-pawn-broker",
+    },
   ],
   // `href` is completed per slide in the component from the slug above.
   ctas: [

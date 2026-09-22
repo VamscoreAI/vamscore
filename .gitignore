@@ -93,6 +93,11 @@ public/assets/img/*
 !public/assets/img/vision-mission-target.webp
 # The internship band's picture, supplied by Vamscore 2026-09-15.
 !public/assets/img/internship-band.webp
+# Mahaveer Pawn Broker case study, from the project's own artwork
+# (2026-09-22). The bars are a crop of their banner with its advertising
+# line cut away.
+!public/assets/img/story-mahaveer-gold.webp
+!public/assets/img/story-mahaveer-bars.webp
 # Supplied video, plus the poster above that was captured from its first frame.
 # video/ needs its own ladder for the same reason logos/ does: git will not
 # descend into an excluded directory. The two Kyndryl clips beside it stay

@@ -3,6 +3,9 @@ import { formatNumber, whatsappChatUrl, whatsappContactRow } from "@/lib/whatsap
 import { FOOTER_COLUMNS, GMAIL_COMPOSE_URL } from "@/content/nav";
 import { INTERNSHIP } from "@/content/home";
 import { CONTACT } from "@/content/contact";
+import { SERVICES } from "@/content/services";
+import { STORY_BY_SLUG } from "@/content/stories";
+import { NAV_ITEMS } from "@/content/nav";
 
 // The WhatsApp button and the contact page's WhatsApp row both depend on these.
 
@@ -76,5 +79,41 @@ describe("floating Google Meet button", () => {
   it("does not claim the call reaches Vamscore", () => {
     expect(CONTACT.meet.label.toLowerCase()).not.toContain("vamscore");
     expect(CONTACT.meet.label.toLowerCase()).not.toMatch(/call us|talk to us|meet us/);
+  });
+});
+
+describe("services and the stories that evidence them", () => {
+  const topics =
+    CONTACT.form.fields.find((f) => f.name === "topic")?.options ?? [];
+
+  // "Talk to us about this" on /services opens /contact?topic=<topic>. A topic
+  // that is not an option falls back to "Please choose…" without any error,
+  // so renaming either side breaks the link silently.
+  it("gives every service a topic the contact form offers", () => {
+    for (const service of SERVICES) {
+      expect(topics, service.id).toContain(service.topic);
+    }
+  });
+
+  // Every /services#… and /stories/… link in the header menu must land on
+  // something that exists.
+  it("points every header menu link at a real service or story", () => {
+    const serviceIds = new Set(SERVICES.map((s) => s.id));
+    const links = NAV_ITEMS.flatMap((item) =>
+      (item.groups ?? []).flatMap((g) => g.links)
+    );
+    for (const { label, href } of links) {
+      const service = href.match(/^\/services#(.+)$/);
+      if (service) expect(serviceIds.has(service[1]), label).toBe(true);
+      const story = href.match(/^\/stories\/(.+)$/);
+      if (story) expect(STORY_BY_SLUG.has(story[1]), label).toBe(true);
+    }
+    // The two added for the Mahaveer work, named so a removal is noticed.
+    expect(links.map((l) => l.href)).toEqual(
+      expect.arrayContaining([
+        "/services#software",
+        "/stories/mahaveer-pawn-broker",
+      ])
+    );
   });
 });

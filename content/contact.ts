@@ -116,6 +116,9 @@ export const CONTACT = {
           "Robotics and automation",
           "Education or government projects",
           "Channel partnership",
+          // Must match `topic` on the software line in content/services.ts
+          // exactly, or /contact?topic= falls back to "Please choose…".
+          "Software or website development",
           "Careers",
           "Something else",
         ],

@@ -1,4 +1,4 @@
-// The four service lines, as a page of their own.
+// The service lines, as a page of their own.
 //
 // This copy lived in a "What we deliver" band on the home page until that band
 // was removed. It came back as a page rather than as a section because the
@@ -29,7 +29,7 @@ export const SERVICES_HERO = {
   eyebrow: "WHAT WE DO",
   title: "Operations, automation and delivery at scale",
   standfirst:
-    "Four lines of work, built in the order Vamscore learned them: run the process first, automate it second, and take it to market with partners who need reach.",
+    "Five lines of work, built in the order Vamscore learned them: run the process first, automate it second, take it to market with partners who need reach — and build the software a business runs on.",
   // Vamscore-supplied. Replaced a Kyndryl photograph of two identifiable women,
   // which this page shared with the homepage automation band until that band
   // was swapped. A silhouette, so there is no identifiable face in it either.
@@ -81,10 +81,23 @@ export const SERVICES: Service[] = [
     ],
     topic: "Channel partnership",
   },
+  {
+    // Added 2026-09-22, evidenced by the Mahaveer Pawn Broker story. Last
+    // because it is the newest line, which is the order the hero describes.
+    id: "software",
+    title: "Software and web development",
+    body: "We build web applications and websites for businesses that still run on paper, spreadsheets and phone calls — shaped around how the work is actually done, and handed over in tools the owner already uses.",
+    points: [
+      "Business web applications built around a real workflow",
+      "Websites",
+      "A gold loan counter for a pawn broker — see the Mahaveer Pawn Broker story",
+    ],
+    topic: "Software or website development",
+  },
 ];
 
 export const SERVICES_CTA = {
   title: "Not sure which of these you need?",
-  body: "Tell us the process you want run, automated or supported, and we will tell you honestly whether we are the right people for it.",
+  body: "Tell us the process you want run, automated, built or supported, and we will tell you honestly whether we are the right people for it.",
   cta: { label: "Talk to us", href: "/contact" },
 };
