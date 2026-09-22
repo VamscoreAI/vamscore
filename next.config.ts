@@ -53,6 +53,14 @@ const nextConfig: NextConfig = {
         destination: "https://vamscore.com/:path*",
         permanent: true,
       })),
+      // The case study was published as "Mahaveer Pawn Broker" on 2026-09-22
+      // and renamed the same day. The old address was in the sitemap, so it
+      // may already be crawled or shared.
+      {
+        source: "/stories/mahaveer-pawn-broker",
+        destination: "/stories/mahaveer-instant-loan",
+        permanent: true,
+      },
     ];
   },
 };

@@ -148,11 +148,11 @@ export const CUSTOMER_STORIES = {
       slug: "tata-docomo-channel-partner",
     },
     {
-      eyebrow: "FINANCIAL SERVICES",
+      eyebrow: "FINTECH",
       title:
-        "Mahaveer Pawn Broker — a gold loan counter, moved off paper and onto a web app",
+        "Mahaveer Instant Loan — a cloud platform that takes gold lending off paper",
       image: `${IMG}/story-mahaveer-gold.webp`,
-      slug: "mahaveer-pawn-broker",
+      slug: "mahaveer-instant-loan",
     },
   ],
   // `href` is completed per slide in the component from the slug above.

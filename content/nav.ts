@@ -63,7 +63,7 @@ export const NAV_ITEMS: NavItem[] = [
             label: "Channel partnership",
             href: "/stories/tata-docomo-channel-partner",
           },
-          { label: "Financial services", href: "/stories/mahaveer-pawn-broker" },
+          { label: "Fintech", href: "/stories/mahaveer-instant-loan" },
         ],
       },
       {

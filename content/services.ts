@@ -82,15 +82,15 @@ export const SERVICES: Service[] = [
     topic: "Channel partnership",
   },
   {
-    // Added 2026-09-22, evidenced by the Mahaveer Pawn Broker story. Last
+    // Added 2026-09-22, evidenced by the Mahaveer Instant Loan story. Last
     // because it is the newest line, which is the order the hero describes.
     id: "software",
     title: "Software and web development",
     body: "We build web applications and websites for businesses that still run on paper, spreadsheets and phone calls — shaped around how the work is actually done, and handed over in tools the owner already uses.",
     points: [
-      "Business web applications built around a real workflow",
+      "Cloud platforms and business web applications built around a real workflow",
       "Websites",
-      "A gold loan counter for a pawn broker — see the Mahaveer Pawn Broker story",
+      "Mahaveer Instant Loan, a gold loan management platform — see the story",
     ],
     topic: "Software or website development",
   },

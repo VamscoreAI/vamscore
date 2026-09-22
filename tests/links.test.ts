@@ -112,7 +112,7 @@ describe("services and the stories that evidence them", () => {
     expect(links.map((l) => l.href)).toEqual(
       expect.arrayContaining([
         "/services#software",
-        "/stories/mahaveer-pawn-broker",
+        "/stories/mahaveer-instant-loan",
       ])
     );
   });

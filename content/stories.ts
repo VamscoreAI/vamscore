@@ -10,12 +10,17 @@
  * facts only Vamscore can supply, and inventing them for a real business would be
  * worse than leaving a gap. `grep -n '\[' content/stories.ts` lists them.
  *
- * Mahaveer Pawn Broker is different: Vamscore built the software, and that
+ * Mahaveer Instant Loan is different: Vamscore built the software, and that
  * story was written from the application's own source code
  * (MahaveerPawnBroker-main, supplied 2026-09-22). Every capability it lists is
  * something the code does. It makes no claim about results, and — because the
  * app's API does not check who is calling it — no claim that customer
  * records are access-controlled. Keep it that way until the code changes.
+ *
+ * Named and framed as a product at Vamscore's request (2026-09-22). "Cloud"
+ * and "nothing to install" are true of how it is delivered. It does not say
+ * or imply that other businesses subscribe to it: the code serves one
+ * business and its owners. Change that only if it becomes true.
  */
 
 const IMG = "/assets/img";
@@ -389,22 +394,23 @@ export const STORIES: Story[] = [
   },
   /* ---------------------------------------------------------------------- */
   {
-    slug: "mahaveer-pawn-broker",
-    eyebrow: "FINANCIAL SERVICES",
-    client: "Mahaveer Pawn Broker",
-    title: "Mahaveer Pawn Broker: a gold loan counter, moved off paper",
+    // Was "mahaveer-pawn-broker"; next.config.ts redirects the old address.
+    slug: "mahaveer-instant-loan",
+    eyebrow: "FINTECH",
+    client: "Mahaveer Instant Loan",
+    title: "Mahaveer Instant Loan: a cloud platform for gold lending",
     standfirst:
-      "A pawn broker's day runs on paper tickets, a calculator and a ledger. We built Mahaveer Pawn Broker a web application that does the work of all three — and remembers every customer who has come back to the counter.",
+      "Gold lending still runs on paper tickets, a calculator and a ledger. Mahaveer Instant Loan replaces all three with one cloud platform — loan pricing, digital pawn tickets, customer history and payment reminders — that runs in any browser, at the counter or on a phone.",
     // The project's own artwork: jewellery on a dark table, with the calm left
     // third the carousel's headline needs.
     hero: `${IMG}/story-mahaveer-gold.webp`,
     heroAlt:
       "Gold bangles, rings and a chain necklace heaped on a dark wooden table in warm light",
     meta: [
-      { term: "Client", detail: "Mahaveer Pawn Broker" },
-      { term: "Sector", detail: "Gold loans and pawn broking" },
-      { term: "What we built", detail: "A web application for the loan counter" },
-      { term: "Vamscore's role", detail: "Design, development and deployment" },
+      { term: "Product", detail: "Mahaveer Instant Loan" },
+      { term: "Category", detail: "Gold loan management software" },
+      { term: "Delivery", detail: "Cloud web app, nothing to install" },
+      { term: "Vamscore's role", detail: "Product design, development and deployment" },
     ],
     blocks: [
       {
@@ -436,7 +442,7 @@ export const STORIES: Story[] = [
         kind: "list",
         heading: "What we built",
         intro:
-          "One application for the counter, used on the shop's computer and the owner's phone alike.",
+          "One platform for the whole loan desk, used on the counter's computer and the owner's phone alike.",
         items: [
           {
             title: "Owner sign-in",
@@ -474,13 +480,13 @@ export const STORIES: Story[] = [
       {
         kind: "facts",
         heading: "How it is built",
-        intro: "Chosen so the business has as little as possible to run.",
+        intro: "Built so the business has nothing to install, host or maintain.",
         // Drawn for this page, not client artwork. Shows only what the rows
         // below say: two devices, one app, Sheets and Drive. The host is not
         // named, here or in the rows (Vamscore's call, 2026-09-22).
         aside: {
           src: `${IMG}/story-mahaveer-architecture.webp`,
-          alt: "Diagram: the counter computer and the owner's phone both connect to the Mahaveer app, which reads and writes the loan register in Google Sheets and stores ticket photos in Google Drive",
+          alt: "Diagram: the counter computer and the owner's phone both connect to the Mahaveer Instant Loan platform, which reads and writes the loan register in Google Sheets and stores ticket photos in Google Drive",
         },
         rows: [
           {
