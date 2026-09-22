@@ -98,6 +98,10 @@ public/assets/img/*
 # line cut away.
 !public/assets/img/story-mahaveer-gold.webp
 !public/assets/img/story-mahaveer-bars.webp
+# Drawn for the story (not client artwork): the how-it-fits diagram and an
+# illustrated loan register with grey bars in place of customer names.
+!public/assets/img/story-mahaveer-architecture.webp
+!public/assets/img/story-mahaveer-register.webp
 # Supplied video, plus the poster above that was captured from its first frame.
 # video/ needs its own ladder for the same reason logos/ does: git will not
 # descend into an excluded directory. The two Kyndryl clips beside it stay

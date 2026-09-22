@@ -452,6 +452,12 @@ export const STORIES: Story[] = [
         kind: "facts",
         heading: "How it is built",
         intro: "Chosen so the business has as little as possible to run.",
+        // Drawn for this page, not client artwork. Shows only what the rows
+        // below say: two devices, one app on Vercel, Sheets and Drive.
+        aside: {
+          src: `${IMG}/story-mahaveer-architecture.webp`,
+          alt: "Diagram: the counter computer and the owner's phone both connect to the Mahaveer app, hosted on Vercel, which reads and writes the loan register in Google Sheets and stores ticket photos in Google Drive",
+        },
         rows: [
           {
             term: "Application",
@@ -481,6 +487,12 @@ export const STORIES: Story[] = [
       {
         kind: "prose",
         heading: "Why a spreadsheet, not a database",
+        // Drawn for this page. Customer names are grey bars on purpose: made-up
+        // names on a pawn register would read as a leak of real customers.
+        aside: {
+          src: `${IMG}/story-mahaveer-register.webp`,
+          alt: "Illustration of the loan register as a spreadsheet, with ticket numbers, gold weights, loan amounts, due dates and paid or due status, and a reminder-sent message beside a loan that is due",
+        },
         paragraphs: [
           "A business of this size does not need a database server, and it does not need another monthly bill for one. Its register is a list of loans, which is exactly what a spreadsheet is. Keeping the records in Google Sheets leaves nothing for the business to host or maintain, and the register is never locked inside the software: it can be opened, sorted, filtered and exported with tools that are already free.",
           "The application does the part a spreadsheet does badly — holding every ticket to the same format, doing the arithmetic, attaching the photographs, finding a customer's past loans in seconds, and turning a due date into a message.",
