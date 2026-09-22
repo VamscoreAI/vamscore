@@ -35,6 +35,17 @@ export type StoryBlock =
       heading?: string;
       paragraphs: string[];
       aside?: { src: string; alt: string };
+      /**
+       * A before/after list under the paragraphs, in the same column. Made for
+       * a prose block whose aside is taller than its copy: it fills the space
+       * beside the picture with the point of the story rather than padding.
+       * Keep each phrase short — at phone width a column is ~120px.
+       */
+      shift?: {
+        fromLabel: string;
+        toLabel: string;
+        rows: { from: string; to: string }[];
+      };
     }
   | {
       kind: "facts";
@@ -402,6 +413,18 @@ export const STORIES: Story[] = [
           "A gold loan is a simple transaction with a lot of paperwork behind it. The jewellery is weighed, the day's gold rate applied, a loan amount and a redemption period agreed, and a pawn ticket written out — the customer's name, their father's or husband's name, address and identity number, and a line for every article with its gross and net weight.",
           "The difficulty is everything after that. The ticket goes into a file and the figures into a ledger. When the same customer comes back months later with another piece, the only way to see what they already owe is to go looking. Reminding someone that a loan is due means finding their number and typing the message by hand.",
         ],
+        // Each row restates a capability from "What we built" below; nothing
+        // here claims more than that list does.
+        shift: {
+          fromLabel: "On paper",
+          toLabel: "With the app",
+          rows: [
+            { from: "Handwritten pawn ticket", to: "Filled in on screen, ready to print" },
+            { from: "Loan worked out on a calculator", to: "Calculated as the details are entered" },
+            { from: "Searching files for past loans", to: "Every earlier loan, in seconds" },
+            { from: "Reminders typed by hand", to: "Sent over WhatsApp in one tap" },
+          ],
+        },
         // A crop of the client's banner: the bars only, with the advertising
         // line that sat to their left cut away.
         aside: {

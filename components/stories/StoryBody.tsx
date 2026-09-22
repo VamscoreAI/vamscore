@@ -69,6 +69,64 @@ function Aside({ src, alt }: { src: string; alt: string }) {
   );
 }
 
+/**
+ * The before/after list under a prose block. A `<dl>`: each "before" is a term
+ * and its "after" the description, so a screen reader hears the pairs in
+ * order. The column labels are visual only; each cell carries its own label
+ * for assistive tech instead.
+ *
+ * The "before" side is struck through in a light line rather than hidden or
+ * greyed to nothing: it is still worth reading, it is just what changed.
+ */
+function Shift({
+  fromLabel,
+  toLabel,
+  rows,
+}: {
+  fromLabel: string;
+  toLabel: string;
+  rows: { from: string; to: string }[];
+}) {
+  // Two tracks, not three: inside a <dl> a row may only hold <dt> and <dd>,
+  // so the arrow lives at the start of the <dd> and the "after" label is
+  // indented by the arrow's width plus its gap (24px + 12px) to line up.
+  const GRID = "grid grid-cols-2 items-center gap-x-4 sm:gap-x-6";
+  return (
+    <Reveal className="mt-10 overflow-hidden rounded-lg border border-line">
+      <div aria-hidden className={`${GRID} bg-cloud px-4 py-3 sm:px-5`}>
+        <span className="eyebrow text-stone uppercase">{fromLabel}</span>
+        <span className="eyebrow pl-9 text-flame-2 uppercase">{toLabel}</span>
+      </div>
+      <dl className="divide-y divide-line">
+        {rows.map((row, i) => (
+          <Reveal key={row.from} delay={120 + i * 110} className={`${GRID} px-4 py-4 sm:px-5`}>
+            <dt className="text-[16px] leading-snug text-stone line-through decoration-stone/40">
+              <span className="sr-only">{fromLabel}: </span>
+              {row.from}
+            </dt>
+            <dd className="flex items-center gap-3 text-[16px] leading-snug font-medium text-carbon">
+              <svg
+                aria-hidden
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="shrink-0 text-flame-2"
+              >
+                <path d="M4 12h15m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span>
+                <span className="sr-only">{toLabel}: </span>
+                {row.to}
+              </span>
+            </dd>
+          </Reveal>
+        ))}
+      </dl>
+    </Reveal>
+  );
+}
+
 function Block({ block, id }: { block: StoryBlock; id?: string }) {
   switch (block.kind) {
     case "prose": {
@@ -89,6 +147,7 @@ function Block({ block, id }: { block: StoryBlock; id?: string }) {
               {p}
             </Reveal>
           ))}
+          {block.shift && <Shift {...block.shift} />}
         </div>
       );
 
