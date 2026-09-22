@@ -21,6 +21,11 @@
  * and "nothing to install" are true of how it is delivered. It does not say
  * or imply that other businesses subscribe to it: the code serves one
  * business and its owners. Change that only if it becomes true.
+ *
+ * "Loan agreement", not "pawn ticket" (Vamscore's call, same day). It is an
+ * accurate name for what the app produces — borrower details, principal,
+ * redemption period, a declaration and both signatures — in the language
+ * a lender's customers expect. Its number is the "loan number".
  */
 
 const IMG = "/assets/img";
@@ -400,7 +405,7 @@ export const STORIES: Story[] = [
     client: "Mahaveer Instant Loan",
     title: "Mahaveer Instant Loan: a cloud platform for gold lending",
     standfirst:
-      "Gold lending still runs on paper tickets, a calculator and a ledger. Mahaveer Instant Loan replaces all three with one cloud platform — loan pricing, digital pawn tickets, customer history and payment reminders — that runs in any browser, at the counter or on a phone.",
+      "Gold lending still runs on paper forms, a calculator and a ledger. Mahaveer Instant Loan replaces all three with one cloud platform — loan pricing, digital loan agreements, customer history and payment reminders — that runs in any browser, at the counter or on a phone.",
     // The project's own artwork: jewellery on a dark table, with the calm left
     // third the carousel's headline needs.
     hero: `${IMG}/story-mahaveer-gold.webp`,
@@ -416,8 +421,8 @@ export const STORIES: Story[] = [
       {
         kind: "prose",
         paragraphs: [
-          "A gold loan is a simple transaction with a lot of paperwork behind it. The jewellery is weighed, the day's gold rate applied, a loan amount and a redemption period agreed, and a pawn ticket written out — the customer's name, their father's or husband's name, address and identity number, and a line for every article with its gross and net weight.",
-          "The difficulty is everything after that. The ticket goes into a file and the figures into a ledger. When the same customer comes back months later with another piece, the only way to see what they already owe is to go looking. Reminding someone that a loan is due means finding their number and typing the message by hand.",
+          "A gold loan is a simple transaction with a lot of paperwork behind it. The jewellery is weighed, the day's gold rate applied, a loan amount and a redemption period agreed, and a loan agreement written out by hand — the customer's name, their father's or husband's name, address and identity number, and a line for every article with its gross and net weight.",
+          "The difficulty is everything after that. The agreement goes into a file and the figures into a ledger. When the same customer comes back months later with another piece, the only way to see what they already owe is to go looking. Reminding someone that a loan is due means finding their number and typing the message by hand.",
         ],
         // Each row restates a capability from "What we built" below; nothing
         // here claims more than that list does.
@@ -425,7 +430,7 @@ export const STORIES: Story[] = [
           fromLabel: "On paper",
           toLabel: "With the app",
           rows: [
-            { from: "Handwritten pawn ticket", to: "Filled in on screen, ready to print" },
+            { from: "Handwritten loan agreement", to: "Filled in on screen, ready to print" },
             { from: "Loan worked out on a calculator", to: "Calculated as the details are entered" },
             { from: "Searching files for past loans", to: "Every earlier loan, in seconds" },
             { from: "Reminders typed by hand", to: "Sent over WhatsApp in one tap" },
@@ -453,19 +458,19 @@ export const STORIES: Story[] = [
           },
           {
             title: "The loan calculator",
-            body: "Enter the gold weight, the day's price per gram, the tenure and the interest rate, and the loan amount and total due are worked out. The figures carry straight into the ticket and stay editable, because the final number is still the owner's call.",
+            body: "Enter the gold weight, the day's price per gram, the tenure and the interest rate, and the loan amount and total due are worked out. The figures carry straight into the agreement and stay editable, because the final number is still the owner's call.",
           },
           {
-            title: "The pawn ticket, on screen",
-            body: "Every field of the paper ticket — ticket number, date, customer and guardian name, phone, Aadhaar, address, the principal in figures and in words, the time agreed for redemption, and each article's gross and net weight — with the declaration and signature lines, ready to print.",
+            title: "Digital loan agreements",
+            body: "Every field of the paper form — loan number, date, customer and guardian name, phone, Aadhaar, address, the principal in figures and in words, the time agreed for redemption, and each article's gross and net weight — with the declaration and signature lines, ready to print.",
           },
           {
             title: "Photographs with every loan",
-            body: "A photo of the customer and of the jewellery is taken with each ticket. Both are compressed on the device before upload, so a phone on a weak connection can still send them.",
+            body: "A photo of the customer and of the jewellery is taken with each loan. Both are compressed on the device before upload, so a phone on a weak connection can still send them.",
           },
           {
             title: "Customer history before every new loan",
-            body: "Search by phone number, name, ticket number or Aadhaar and see every earlier loan with its payment status — before the new ticket is written, not after.",
+            body: "Search by phone number, name, loan number or Aadhaar and see every earlier loan with its payment status — before a new loan is issued, not after.",
           },
           {
             title: "Reminders in one tap",
@@ -486,7 +491,7 @@ export const STORIES: Story[] = [
         // named, here or in the rows (Vamscore's call, 2026-09-22).
         aside: {
           src: `${IMG}/story-mahaveer-architecture.webp`,
-          alt: "Diagram: the counter computer and the owner's phone both connect to the Mahaveer Instant Loan platform, which reads and writes the loan register in Google Sheets and stores ticket photos in Google Drive",
+          alt: "Diagram: the counter computer and the owner's phone both connect to the Mahaveer Instant Loan platform, which reads and writes the loan register in Google Sheets and stores loan photos in Google Drive",
         },
         rows: [
           {
@@ -501,7 +506,7 @@ export const STORIES: Story[] = [
           {
             term: "Records",
             detail:
-              "Each ticket is written as a row in a Google Sheet; the photographs go to a Google Drive folder.",
+              "Each loan is written as a row in a Google Sheet; the photographs go to a Google Drive folder.",
           },
           {
             term: "Google access",
@@ -514,14 +519,14 @@ export const STORIES: Story[] = [
         kind: "prose",
         heading: "Why a spreadsheet, not a database",
         // Drawn for this page. Customer names are grey bars on purpose: made-up
-        // names on a pawn register would read as a leak of real customers.
+        // names on a loan register would read as a leak of real customers.
         aside: {
           src: `${IMG}/story-mahaveer-register.webp`,
-          alt: "Illustration of the loan register as a spreadsheet, with ticket numbers, gold weights, loan amounts, due dates and paid or due status, and a reminder-sent message beside a loan that is due",
+          alt: "Illustration of the loan register as a spreadsheet, with loan numbers, loan amounts, due dates and paid or due status, and a reminder-sent message beside a loan that is due",
         },
         paragraphs: [
           "A business of this size does not need a database server, and it does not need another monthly bill for one. Its register is a list of loans, which is exactly what a spreadsheet is. Keeping the records in Google Sheets leaves nothing for the business to host or maintain, and the register is never locked inside the software: it can be opened, sorted, filtered and exported with tools that are already free.",
-          "The application does the part a spreadsheet does badly — holding every ticket to the same format, doing the arithmetic, attaching the photographs, finding a customer's past loans in seconds, and turning a due date into a message.",
+          "The application does the part a spreadsheet does badly — holding every agreement to the same format, doing the arithmetic, attaching the photographs, finding a customer's past loans in seconds, and turning a due date into a message.",
         ],
       },
     ],
