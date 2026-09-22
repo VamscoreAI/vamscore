@@ -453,10 +453,11 @@ export const STORIES: Story[] = [
         heading: "How it is built",
         intro: "Chosen so the business has as little as possible to run.",
         // Drawn for this page, not client artwork. Shows only what the rows
-        // below say: two devices, one app on Vercel, Sheets and Drive.
+        // below say: two devices, one app, Sheets and Drive. The host is left
+        // out of the picture (Vamscore's call); the Hosting row still names it.
         aside: {
           src: `${IMG}/story-mahaveer-architecture.webp`,
-          alt: "Diagram: the counter computer and the owner's phone both connect to the Mahaveer app, hosted on Vercel, which reads and writes the loan register in Google Sheets and stores ticket photos in Google Drive",
+          alt: "Diagram: the counter computer and the owner's phone both connect to the Mahaveer app, which reads and writes the loan register in Google Sheets and stores ticket photos in Google Drive",
         },
         rows: [
           {
