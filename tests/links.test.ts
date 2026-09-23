@@ -83,6 +83,19 @@ describe("floating Google Meet button", () => {
 });
 
 describe("services and the stories that evidence them", () => {
+  // A story's closing button may open the contact form on a topic. Like the
+  // services' links, an unknown topic silently falls back to "Please choose…".
+  it("gives every story CTA a topic the contact form offers", () => {
+    const options =
+      CONTACT.form.fields.find((f) => f.name === "topic")?.options ?? [];
+    for (const story of STORY_BY_SLUG.values()) {
+      const href = story.cta?.href;
+      if (!href?.startsWith("/contact?")) continue;
+      const topic = new URL(href, "https://vamscore.com").searchParams.get("topic");
+      if (topic) expect(options, story.slug).toContain(topic);
+    }
+  });
+
   const topics =
     CONTACT.form.fields.find((f) => f.name === "topic")?.options ?? [];
 

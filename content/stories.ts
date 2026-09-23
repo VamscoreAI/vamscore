@@ -85,6 +85,8 @@ export type Story = {
   heroAlt: string;
   meta: { term: string; detail: string }[];
   blocks: StoryBlock[];
+  /** Replaces any part of the closing band's copy (STORY_UI) for this story. */
+  cta?: Partial<{ title: string; body: string; label: string; href: string }>;
 };
 
 export const STORIES: Story[] = [
@@ -466,7 +468,7 @@ export const STORIES: Story[] = [
           },
           {
             title: "Photographs with every loan",
-            body: "A photo of the customer and of the jewellery is taken with each loan. Both are compressed on the device before upload, so a phone on a weak connection can still send them.",
+            body: "A photo of the customer and of the jewellery is attached to every loan, and uploads even on a weak phone connection.",
           },
           {
             title: "Customer history before every new loan",
@@ -484,8 +486,10 @@ export const STORIES: Story[] = [
       },
       {
         kind: "facts",
-        heading: "How it is built",
-        intro: "Built so the business has nothing to install, host or maintain.",
+        // Benefits, not stack, at Vamscore's request (2026-09-23): a prospect
+        // should come away wanting the result, not reading a spec sheet.
+        heading: "Built to run itself",
+        intro: "Nothing to install, nothing to maintain, and nothing locked away.",
         // Drawn for this page, not client artwork. Shows only what the rows
         // below say: two devices, one app, Sheets and Drive. The host is not
         // named, here or in the rows (Vamscore's call, 2026-09-22).
@@ -495,29 +499,30 @@ export const STORIES: Story[] = [
         },
         rows: [
           {
-            term: "Application",
+            term: "Works anywhere",
             detail:
-              "A React web app. It opens in a browser with nothing to install, and has its own layout for phone screens.",
+              "Opens in any browser, on the counter's computer or the owner's phone, with a layout made for each. Nothing to install and nothing to update.",
           },
           {
-            term: "Server",
-            detail: "A Node.js API that handles every read and write.",
+            term: "Records you own",
+            detail:
+              "Every loan lands in the business's own Google Sheet and every photo in its own Google Drive. The register can be opened, searched and exported any time, with or without us.",
           },
           {
-            term: "Records",
+            term: "No IT to run",
             detail:
-              "Each loan is written as a row in a Google Sheet; the photographs go to a Google Drive folder.",
+              "No servers, databases or IT staff for the business to look after. The owner opens it and gets on with the day.",
           },
           {
-            term: "Google access",
+            term: "Built around the desk",
             detail:
-              "Authorised once through Google's own sign-in. The application holds a revocable access token, never a Google password.",
+              "Designed from how the counter actually works: the same fields, the same order, the same agreement. There was nothing new to learn.",
           },
         ],
       },
       {
         kind: "prose",
-        heading: "Why a spreadsheet, not a database",
+        heading: "The register stays yours",
         // Drawn for this page. Customer names are grey bars on purpose: made-up
         // names on a loan register would read as a leak of real customers.
         aside: {
@@ -525,11 +530,19 @@ export const STORIES: Story[] = [
           alt: "Illustration of the loan register as a spreadsheet, with loan numbers, loan amounts, due dates and paid or due status, and a reminder-sent message beside a loan that is due",
         },
         paragraphs: [
-          "A business of this size does not need a database server, and it does not need another monthly bill for one. Its register is a list of loans, which is exactly what a spreadsheet is. Keeping the records in Google Sheets leaves nothing for the business to host or maintain, and the register is never locked inside the software: it can be opened, sorted, filtered and exported with tools that are already free.",
-          "The application does the part a spreadsheet does badly — holding every agreement to the same format, doing the arithmetic, attaching the photographs, finding a customer's past loans in seconds, and turning a due date into a message.",
+          "A lending business's register is its most valuable record, so we kept it where the owner can always reach it: a Google Sheet in their own account. It can be opened, sorted and shared like any spreadsheet, and it never depends on the software to be read.",
+          "The platform does everything a spreadsheet does badly — holding every agreement to the same format, doing the arithmetic, attaching the photographs, finding a customer's past loans in seconds, and turning a due date into a reminder.",
         ],
       },
     ],
+    // Opens the contact form on the software topic. The string must match an
+    // option in content/contact.ts; tests/links.test.ts checks it.
+    cta: {
+      title: "Still running on paper?",
+      body: "Mahaveer Instant Loan took a gold loan desk from forms and ledgers to one platform. Tell us how your business runs today, and we will show you what it could look like.",
+      label: "Talk to us about your platform",
+      href: "/contact?topic=Software%20or%20website%20development",
+    },
   },
 ];
 

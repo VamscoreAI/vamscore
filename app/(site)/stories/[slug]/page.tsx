@@ -165,17 +165,17 @@ export default async function StoryPage({ params }: Params) {
       <section className="bg-carbon py-20 text-white lg:py-28">
         <div className="shell">
           <Reveal as="h2" className="type-hero max-w-[16ch] text-white">
-            {STORY_UI.ctaTitle}
+            {story.cta?.title ?? STORY_UI.ctaTitle}
           </Reveal>
           <Reveal as="p" delay={120} className="type-lede mt-6 max-w-[52ch] text-white/70">
-            {STORY_UI.ctaBody}
+            {story.cta?.body ?? STORY_UI.ctaBody}
           </Reveal>
           <Reveal delay={240}>
             <Link
-              href={STORY_UI.ctaHref}
+              href={story.cta?.href ?? STORY_UI.ctaHref}
               className="mt-10 inline-flex items-center gap-2 rounded-pill bg-spring-green px-6 py-3 text-[16px] leading-none font-medium text-deep-forest transition-colors hover:bg-white"
             >
-              {STORY_UI.ctaLabel}
+              {story.cta?.label ?? STORY_UI.ctaLabel}
               <Arrow />
             </Link>
           </Reveal>
