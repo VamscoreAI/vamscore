@@ -24,11 +24,18 @@ import Reveal from "@/components/ui/Reveal";
  */
 export default function SectionWatermark({ children }: { children: string }) {
   return (
-    <div aria-hidden className="bg-white px-5 pt-14 pb-10 md:px-8 lg:pt-24 lg:pb-16">
+    // Line height 1.2, not FitText's 0.75: at 0.75 the "y" of "story" hung
+    // ~60px below the text box at 1920 and the next section's white background
+    // painted over it, cutting the tail off flat. Measured from the font's
+    // baseline, 1.1 still left the tail 1px outside the band; 1.2 with this
+    // padding leaves ~20px clear at the largest size (260px). The padding is
+    // trimmed so the overall spacing stays about what it was.
+    <div aria-hidden className="bg-white px-5 pt-6 pb-6 md:px-8 lg:pt-8 lg:pb-10">
       <Reveal>
         <FitText
           className="font-display font-light tracking-[-0.02em] text-carbon lowercase"
           accent={{ text: ".", className: "text-flame-2" }}
+          leading={1.2}
         >
           {children}
         </FitText>

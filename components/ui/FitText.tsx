@@ -15,6 +15,7 @@ export default function FitText({
   className,
   max = 260,
   accent,
+  leading = 0.75,
 }: {
   children: string;
   className?: string;
@@ -22,6 +23,10 @@ export default function FitText({
   /** Trailing characters in their own colour, e.g. a coral full stop.
    *  Inside the measured span, so the fit accounts for them. */
   accent?: { text: string; className: string };
+  /** Line height. The 0.75 default is tight enough that descenders (the "y"
+   *  in "story") hang out of the box, into whatever comes next; pass ~1.1
+   *  when the band below has its own background that would paint over them. */
+  leading?: number;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const text = useRef<HTMLSpanElement>(null);
@@ -60,8 +65,12 @@ export default function FitText({
     <div ref={wrap} className={className}>
       <span
         ref={text}
-        className="inline-block whitespace-nowrap leading-[0.75]"
-        style={measured ? undefined : { fontSize: "12vw", visibility: "hidden" }}
+        className="inline-block whitespace-nowrap"
+        style={
+          measured
+            ? { lineHeight: leading }
+            : { lineHeight: leading, fontSize: "12vw", visibility: "hidden" }
+        }
       >
         {children}
         {accent && <span className={accent.className}>{accent.text}</span>}
