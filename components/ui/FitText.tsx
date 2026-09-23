@@ -14,10 +14,14 @@ export default function FitText({
   children,
   className,
   max = 260,
+  accent,
 }: {
   children: string;
   className?: string;
   max?: number;
+  /** Trailing characters in their own colour, e.g. a coral full stop.
+   *  Inside the measured span, so the fit accounts for them. */
+  accent?: { text: string; className: string };
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const text = useRef<HTMLSpanElement>(null);
@@ -50,7 +54,7 @@ export default function FitText({
     // Re-fit once the webfont swaps in, or we've measured the fallback face.
     document.fonts?.ready.then(fit).catch(() => {});
     return () => ro.disconnect();
-  }, [children, max]);
+  }, [children, max, accent?.text]);
 
   return (
     <div ref={wrap} className={className}>
@@ -60,6 +64,7 @@ export default function FitText({
         style={measured ? undefined : { fontSize: "12vw", visibility: "hidden" }}
       >
         {children}
+        {accent && <span className={accent.className}>{accent.text}</span>}
       </span>
     </div>
   );

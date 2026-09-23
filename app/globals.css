@@ -227,60 +227,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* ---------------------------------------------------------------------------
-   Section bands (components/sections/SectionWatermark.tsx)
-   Three designs on trial side by side; keep only the chosen one's rules.
-   --------------------------------------------------------------------------- */
-
-/* Hollow lettering. The stroke colour comes from the band as --band-stroke. */
-.band-outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px var(--band-stroke);
-}
-
-/* The logo's indigo-violet-pink, clipped to the glyphs. Where clipping text is
-   unsupported the word would vanish, so it falls back to a solid violet. */
-.band-brand-ink {
-  background-image: linear-gradient(90deg, #3b1fd1 0%, #9b3cf0 55%, #e64bd0 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
-  .band-brand-ink {
-    background-image: none;
-    color: #7c3aed;
-  }
-}
-
-@keyframes band-fill {
-  from { clip-path: inset(0 100% 0 0); }
-  to   { clip-path: inset(0 0 0 0); }
-}
-@keyframes band-draw {
-  from { stroke-dashoffset: 1; }
-  to   { stroke-dashoffset: 0; }
-}
-
-/* Scroll-driven, and only where supported and wanted. Everywhere else the rule
-   is never declared, so the fill rests complete and the line rests drawn —
-   the finished state, not a half-drawn one. The bands clip with
-   `overflow-clip`, not `hidden`, for the reason in the band-art note above. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .band-fill {
-      animation: band-fill linear both;
-      animation-timeline: view();
-      animation-range: entry 60% cover 55%;
-    }
-    .band-draw {
-      animation: band-draw linear both;
-      animation-timeline: view();
-      animation-range: entry 30% cover 50%;
-    }
-  }
-}
-
 /* Infinite partner-logo marquee */
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }
@@ -447,14 +393,6 @@
   to   { transform: scale(1.12) translate3d(0,  4%, 0); }
 }
 
-/* The giant tone-on-tone section words slide a little as you pass them. Purely
-   decorative (the element is aria-hidden), and it reads as depth rather than as
-   an animation. */
-@keyframes watermark-drift {
-  from { transform: translate3d(-2.5%, 0, 0); }
-  to   { transform: translate3d(2.5%, 0, 0); }
-}
-
 /* Progressive enhancement, twice over: declared only where scroll-driven
    timelines exist, and only for readers who have not asked for less motion.
    Everywhere else the artwork simply sits still — the rule is never declared,
@@ -473,12 +411,6 @@
   @media (prefers-reduced-motion: no-preference) {
     .band-art {
       animation: band-parallax linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 100%;
-      will-change: transform;
-    }
-    .watermark-drift {
-      animation: watermark-drift linear both;
       animation-timeline: view();
       animation-range: cover 0% cover 100%;
       will-change: transform;
@@ -568,7 +500,6 @@
   /* `.band-art` keeps its scale (that is framing, not motion). The reveal
      variants must land un-blurred and in place, as the other variants do. */
   [data-reveal="soft"] { transform: none; filter: none; }
-  .watermark-drift { animation: none; transform: none; }
   /* These must still land in their finished state, just not travel there. */
   .reveal-rule { transform: scaleX(1); }
   .art-settle { transform: none; }
