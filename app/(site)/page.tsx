@@ -79,11 +79,11 @@ export default function HomePage() {
       />
       <Hero />
       <SectionNav />
-      <SectionWatermark>{WHO_WE_ARE.eyebrow}</SectionWatermark>
+      <SectionWatermark index={1}>{WHO_WE_ARE.eyebrow}</SectionWatermark>
       <WhoWeAre />
-      <SectionWatermark>{VISION_MISSION_BAND.eyebrow}</SectionWatermark>
+      <SectionWatermark index={2}>{VISION_MISSION_BAND.eyebrow}</SectionWatermark>
       <VisionMission />
-      <SectionWatermark>{CUSTOMER_STORIES.eyebrow}</SectionWatermark>
+      <SectionWatermark index={3}>{CUSTOMER_STORIES.eyebrow}</SectionWatermark>
       <CustomerStories />
       <AiNativeBand />
       <PartnerMarquee />

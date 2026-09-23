@@ -227,6 +227,33 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* The giant section words. The gradient is clipped to the glyphs, so the word
+   fades warm-to-light across its own letters rather than sitting as one flat
+   slab of grey. Tones come from SectionWatermark as `--wm-*`.
+
+   `-webkit-background-clip` is still needed for Safari. Where neither form is
+   supported the text would render fully transparent — i.e. vanish — so the
+   fallback paints it in the mid tone, which is exactly what the band used
+   before this gradient. */
+.watermark-ink {
+  background-image: linear-gradient(
+    104deg,
+    var(--wm-from) 0%,
+    var(--wm-mid) 46%,
+    var(--wm-to) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .watermark-ink {
+    background-image: none;
+    color: var(--wm-mid);
+  }
+}
+
 /* Infinite partner-logo marquee */
 @keyframes marquee {
   from { transform: translate3d(0, 0, 0); }
