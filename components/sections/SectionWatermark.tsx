@@ -1,83 +1,179 @@
 import FitText from "@/components/ui/FitText";
-import Reveal from "@/components/ui/Reveal";
 
 /**
- * The full-bleed band that introduces the major sections — a single lowercase
- * word-set scaled to the viewport width, under a chapter marker.
+ * The band that introduces each major section on the home page.
  *
- * **On the contrast.** This started as a true tone-on-tone watermark (cloud on
- * white, white on cloud), which measured **1.13:1** — below the threshold where
- * the eye resolves an edge at all, so the words simply could not be read.
+ * Three designs, one per band, live side by side from 2026-09-23 so Vamscore
+ * can compare them on the real page and pick one:
  *
- * The lettering now carries a gradient rather than one flat greige, but its
- * midpoint is the same tone as before, about **2.3:1** against the band. That
- * is deliberately short of the 4.5:1 WCAG asks for body copy: this is display
- * type at ~200px, where far less contrast is needed to read comfortably, and
- * pushing it to 4.5:1 would make the watermark compete with the real `<h2>`
- * directly beneath it (which runs about 17:1) — at which point it stops reading
- * as a background element and starts looking like two headings stacked.
+ * - "ticker"  — dark band; the word glides sideways on a loop like the
+ *               partner strip, alternating solid and outlined, separated by
+ *               the four-point star from the VAMSCORE logo.
+ * - "fill"    — white band; the word is a thin coral outline (the services
+ *               page's numeral idiom) that fills with the logo's purple-to-
+ *               pink as it scrolls through the viewport.
+ * - "network" — dark band with the flowing green lines and dots of the
+ *               site's hero and story artwork; the green line draws itself
+ *               in as the band arrives.
  *
- * The gradient runs warm-to-light across the word: it starts near the coral the
- * eyebrows use, so the band belongs to the palette instead of looking like grey
- * placeholder text, and fades out to the right so the word settles back into
- * the page rather than sitting on it as a slab.
+ * Once one is chosen, set it on all three bands in app/(site)/page.tsx and
+ * delete the other two here and in the "Section bands" block of globals.css.
  *
- * The marker above it — coral tick, section number, hairline to the edge — is
- * the same vocabulary as `Eyebrow`'s 2px rule, and it gives the band something
- * to sit against. Without it the word floated in the middle of a lot of white.
- *
- * Still `aria-hidden`: the words repeat the section's own eyebrow, every
- * section carries a real heading, and the number is decoration, not a count a
- * reader needs.
+ * Always `aria-hidden`: the word repeats the section's own eyebrow and every
+ * section carries a real heading. All motion is decorative, and each design
+ * rests in a complete, readable state where motion is reduced or unsupported.
  */
+export type BandVariant = "ticker" | "fill" | "network";
+
 export default function SectionWatermark({
   children,
   index,
-  tone = "onWhite",
+  variant = "ticker",
 }: {
   children: string;
-  /** 1-based; rendered as 01, 02, … Omit it and the marker shows the rule only. */
+  /** 1-based chapter number; the network card shows it as 01, 02, … */
   index?: number;
-  tone?: "onWhite" | "onCloud";
+  variant?: BandVariant;
 }) {
-  // `--wm-mid` is the old flat tone, so the word's overall weight on the page
-  // is unchanged; `--wm-from` is that tone warmed toward the coral accent.
-  const tones = {
-    onWhite: {
-      band: "bg-white",
-      rule: "bg-[#e2ddd7]",
-      vars: { "--wm-from": "#c2907a", "--wm-mid": "#b2aaa0", "--wm-to": "#e6e1db" },
-    },
-    onCloud: {
-      band: "bg-[#f2f1ee]",
-      rule: "bg-[#d9d4cc]",
-      vars: { "--wm-from": "#b5836d", "--wm-mid": "#a79f96", "--wm-to": "#dbd5cd" },
-    },
-  }[tone];
+  if (variant === "fill") return <FillBand word={children} />;
+  if (variant === "network") return <NetworkBand word={children} index={index} />;
+  return <TickerBand word={children} id={`band-${index ?? 0}`} />;
+}
 
+/* ------------------------------------------------------------------ ticker */
+
+const WORD = "font-display font-bold lowercase whitespace-nowrap leading-none";
+
+/** The four-point star from the O in the VAMSCORE wordmark. */
+function Star({ gradient }: { gradient: string }) {
+  return (
+    <svg viewBox="0 0 100 100" className="size-[0.42em] shrink-0" aria-hidden>
+      <path
+        d="M50 0C53 38 62 47 100 50C62 53 53 62 50 100C47 62 38 53 0 50C38 47 47 38 50 0Z"
+        fill={`url(#${gradient})`}
+      />
+    </svg>
+  );
+}
+
+function TickerBand({ word, id }: { word: string; id: string }) {
+  const gradient = `${id}-star`;
+  // Two identical halves: the shared `marquee` keyframes move the track by
+  // -50%, so the second half lands exactly where the first began. Four words a
+  // half keeps each half wider than a 1920px screen, so there is never a gap.
+  const half = (key: string) => (
+    <div key={key} className="flex items-center gap-[0.35em] pr-[0.35em]">
+      {[0, 1, 2, 3].map((i) => (
+        <span key={i} className="flex items-center gap-[0.35em]">
+          <span className={i % 2 === 0 ? "text-white" : "band-outline"}>{word}</span>
+          <Star gradient={gradient} />
+        </span>
+      ))}
+    </div>
+  );
+
+  return (
+    // The `marquee` edge fade lives on the inner row, not this div: on the
+    // band itself it faded the carbon background out to white at both edges.
+    <div
+      aria-hidden
+      className="bg-carbon py-8 lg:py-12"
+      style={{ "--band-stroke": "rgb(255 255 255 / 0.35)" } as React.CSSProperties}
+    >
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <linearGradient id={gradient} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#3b1fd1" />
+            <stop offset="0.55" stopColor="#9b3cf0" />
+            <stop offset="1" stopColor="#e64bd0" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div className="marquee overflow-clip">
+        <div
+          className={`marquee-track flex w-max text-[clamp(3.5rem,1.6rem+6vw,8.5rem)] ${WORD}`}
+          style={{ animationDuration: "60s" }}
+        >
+          {half("a")}
+          {half("b")}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------- fill */
+
+function FillBand({ word }: { word: string }) {
+  // Two copies of the same fitted word stacked exactly: FitText sizes each to
+  // its own wrapper's width, and both wrappers are the same width, so the
+  // glyphs line up. The top copy is clipped from the right and uncovered as
+  // the band scrolls through the viewport.
   return (
     <div
       aria-hidden
-      className={`overflow-hidden px-5 pt-10 pb-8 md:px-8 md:pb-12 lg:pt-16 lg:pb-20 ${tones.band}`}
-      style={tones.vars as React.CSSProperties}
+      className="overflow-clip bg-white px-5 py-10 md:px-8 lg:py-16"
+      style={{ "--band-stroke": "rgb(251 81 47 / 0.75)" } as React.CSSProperties}
     >
-      <Reveal className="mb-5 flex items-center gap-4 lg:mb-7">
-        {/* The same 2px coral tick the eyebrows carry, then the number, then a
-            hairline out to the edge. */}
-        <span className="h-[2px] w-4 shrink-0 bg-flame-2" />
-        {index !== undefined && (
-          <span className="eyebrow shrink-0 text-flame-2 tabular-nums">
-            {String(index).padStart(2, "0")}
-          </span>
-        )}
-        <span className={`h-px flex-1 ${tones.rule}`} />
-      </Reveal>
+      <div className="relative">
+        <FitText className={`band-outline ${WORD}`}>{word}</FitText>
+        <FitText className={`band-fill band-brand-ink absolute inset-0 ${WORD}`}>{word}</FitText>
+      </div>
+    </div>
+  );
+}
 
-      {/* Slides a little as you scroll past, where the browser supports
-          scroll-driven timelines. Decorative only — the band is aria-hidden. */}
-      <FitText className="watermark-drift watermark-ink font-display font-bold lowercase">
-        {children}
-      </FitText>
+/* ----------------------------------------------------------------- network */
+
+// Fixed, not random: the same dots on every render, so server and client
+// markup match and nothing shifts between visits.
+const DOTS = Array.from({ length: 64 }, (_, i) => ({
+  x: 180 + ((i * 97) % 600),
+  y: 24 + ((i * 53) % 252),
+  r: 1.6 + (i % 3) * 0.7,
+  o: 0.22 + (i % 4) * 0.16,
+}));
+
+function NetworkBand({ word, index }: { word: string; index?: number }) {
+  return (
+    <div aria-hidden className="relative overflow-clip bg-carbon">
+      <svg
+        viewBox="0 0 800 300"
+        preserveAspectRatio="xMaxYMid slice"
+        className="absolute inset-y-0 right-0 h-full w-full md:w-[75%] lg:w-[62%]"
+      >
+        <path d="M0 250 C260 250 420 170 800 175" fill="none" stroke="#fff" strokeOpacity="0.14" strokeWidth="1.5" />
+        <path d="M160 40 C360 80 560 140 800 150" fill="none" stroke="#fff" strokeOpacity="0.1" strokeWidth="1.5" />
+        {DOTS.map((d, i) => (
+          <circle key={i} cx={d.x} cy={d.y} r={d.r} fill="#4cdd84" fillOpacity={d.o} />
+        ))}
+        {/* pathLength="1" lets the draw-in animate a 0-1 dash offset
+            regardless of the curve's real length; at rest it is drawn. */}
+        <path
+          className="band-draw"
+          d="M60 240 C310 240 400 120 800 110"
+          fill="none"
+          stroke="#4cdd84"
+          strokeWidth="2.4"
+          pathLength={1}
+          strokeDasharray="1"
+        />
+        <circle cx="520" cy="136" r="6" fill="#fb512f" />
+        <circle cx="520" cy="136" r="15" fill="none" stroke="#fb512f" strokeOpacity="0.4" />
+      </svg>
+      {/* Keeps the art off the word: solid carbon on the left, clear by the
+          middle. */}
+      <div className="absolute inset-0 bg-gradient-to-r from-carbon via-carbon/70 via-40% to-transparent" />
+
+      <div className="shell relative py-12 lg:py-16">
+        <p className="eyebrow flex items-center gap-3 text-spring-green tabular-nums">
+          <span className="h-[2px] w-6 bg-spring-green" />
+          {index !== undefined ? String(index).padStart(2, "0") : null}
+        </p>
+        {/* Floor low enough for "our track record" to fit a 375px phone
+            (38px); the old 48px floor ran 61px past the column. */}
+        <p className={`mt-4 text-[clamp(2.25rem,0.5rem+8vw,8rem)] text-white ${WORD}`}>{word}</p>
+      </div>
     </div>
   );
 }

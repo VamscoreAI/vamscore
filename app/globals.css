@@ -227,30 +227,57 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* The giant section words. The gradient is clipped to the glyphs, so the word
-   fades warm-to-light across its own letters rather than sitting as one flat
-   slab of grey. Tones come from SectionWatermark as `--wm-*`.
+/* ---------------------------------------------------------------------------
+   Section bands (components/sections/SectionWatermark.tsx)
+   Three designs on trial side by side; keep only the chosen one's rules.
+   --------------------------------------------------------------------------- */
 
-   `-webkit-background-clip` is still needed for Safari. Where neither form is
-   supported the text would render fully transparent — i.e. vanish — so the
-   fallback paints it in the mid tone, which is exactly what the band used
-   before this gradient. */
-.watermark-ink {
-  background-image: linear-gradient(
-    104deg,
-    var(--wm-from) 0%,
-    var(--wm-mid) 46%,
-    var(--wm-to) 100%
-  );
+/* Hollow lettering. The stroke colour comes from the band as --band-stroke. */
+.band-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--band-stroke);
+}
+
+/* The logo's indigo-violet-pink, clipped to the glyphs. Where clipping text is
+   unsupported the word would vanish, so it falls back to a solid violet. */
+.band-brand-ink {
+  background-image: linear-gradient(90deg, #3b1fd1 0%, #9b3cf0 55%, #e64bd0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-
 @supports not ((background-clip: text) or (-webkit-background-clip: text)) {
-  .watermark-ink {
+  .band-brand-ink {
     background-image: none;
-    color: var(--wm-mid);
+    color: #7c3aed;
+  }
+}
+
+@keyframes band-fill {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes band-draw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* Scroll-driven, and only where supported and wanted. Everywhere else the rule
+   is never declared, so the fill rests complete and the line rests drawn —
+   the finished state, not a half-drawn one. The bands clip with
+   `overflow-clip`, not `hidden`, for the reason in the band-art note above. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .band-fill {
+      animation: band-fill linear both;
+      animation-timeline: view();
+      animation-range: entry 60% cover 55%;
+    }
+    .band-draw {
+      animation: band-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 30% cover 50%;
+    }
   }
 }
 
