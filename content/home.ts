@@ -150,9 +150,9 @@ export const CUSTOMER_STORIES = {
     {
       eyebrow: "FINTECH",
       title:
-        "Mahaveer Instant Loan — a cloud platform that takes gold lending off paper",
+        "Instant Gold Loan — a cloud platform that takes gold lending off paper",
       image: `${IMG}/story-mahaveer-gold.webp`,
-      slug: "mahaveer-instant-loan",
+      slug: "instant-gold-loan",
     },
   ],
   // `href` is completed per slide in the component from the slug above.

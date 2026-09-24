@@ -10,14 +10,16 @@
  * facts only Vamscore can supply, and inventing them for a real business would be
  * worse than leaving a gap. `grep -n '\[' content/stories.ts` lists them.
  *
- * Mahaveer Instant Loan is different: Vamscore built the software, and that
+ * Instant Gold Loan is different: Vamscore built the software, and that
  * story was written from the application's own source code
  * (MahaveerPawnBroker-main, supplied 2026-09-22). Every capability it lists is
  * something the code does. It makes no claim about results, and — because the
  * app's API does not check who is calling it — no claim that customer
  * records are access-controlled. Keep it that way until the code changes.
  *
- * Named and framed as a product at Vamscore's request (2026-09-22). "Cloud"
+ * Named and framed as a product at Vamscore's request (2026-09-22), and
+ * renamed from "Mahaveer Instant Loan" to "Instant Gold Loan" on 09-24 so the
+ * page carries no client name. "Cloud"
  * and "nothing to install" are true of how it is delivered. It does not say
  * or imply that other businesses subscribe to it: the code serves one
  * business and its owners. Change that only if it becomes true.
@@ -401,20 +403,21 @@ export const STORIES: Story[] = [
   },
   /* ---------------------------------------------------------------------- */
   {
-    // Was "mahaveer-pawn-broker"; next.config.ts redirects the old address.
-    slug: "mahaveer-instant-loan",
+    // Was "mahaveer-pawn-broker", then "mahaveer-instant-loan";
+    // next.config.ts redirects both old addresses here.
+    slug: "instant-gold-loan",
     eyebrow: "FINTECH",
-    client: "Mahaveer Instant Loan",
-    title: "Mahaveer Instant Loan: a cloud platform for gold lending",
+    client: "Instant Gold Loan",
+    title: "Instant Gold Loan: a cloud platform for gold lending",
     standfirst:
-      "Gold lending still runs on paper forms, a calculator and a ledger. Mahaveer Instant Loan replaces all three with one cloud platform — loan pricing, digital loan agreements, customer history and payment reminders — that runs in any browser, at the counter or on a phone.",
+      "Gold lending still runs on paper forms, a calculator and a ledger. Instant Gold Loan replaces all three with one cloud platform — loan pricing, digital loan agreements, customer history and payment reminders — that runs in any browser, at the counter or on a phone.",
     // The project's own artwork: jewellery on a dark table, with the calm left
     // third the carousel's headline needs.
     hero: `${IMG}/story-mahaveer-gold.webp`,
     heroAlt:
       "Gold bangles, rings and a chain necklace heaped on a dark wooden table in warm light",
     meta: [
-      { term: "Product", detail: "Mahaveer Instant Loan" },
+      { term: "Product", detail: "Instant Gold Loan" },
       { term: "Category", detail: "Gold loan management software" },
       { term: "Delivery", detail: "Cloud web app, nothing to install" },
       { term: "Vamscore's role", detail: "Product design, development and deployment" },
@@ -435,7 +438,7 @@ export const STORIES: Story[] = [
             { from: "Handwritten loan agreement", to: "Filled in on screen, ready to print" },
             { from: "Loan worked out on a calculator", to: "Calculated as the details are entered" },
             { from: "Searching files for past loans", to: "Every earlier loan, in seconds" },
-            { from: "Reminders typed by hand", to: "Sent over WhatsApp in one tap" },
+            { from: "Reminders typed by hand", to: "WhatsApp and SMS reminders, in one tap" },
           ],
         },
         // A crop of the client's banner: the bars only, with the advertising
@@ -495,7 +498,7 @@ export const STORIES: Story[] = [
         // named, here or in the rows (Vamscore's call, 2026-09-22).
         aside: {
           src: `${IMG}/story-mahaveer-architecture.webp`,
-          alt: "Diagram: the counter computer and the owner's phone both connect to the Mahaveer Instant Loan platform, which reads and writes the loan register in Google Sheets and stores loan photos in Google Drive",
+          alt: "Diagram: the counter computer and the owner's phone both connect to the Instant Gold Loan platform, which reads and writes the loan register in Google Sheets and stores loan photos in Google Drive",
         },
         rows: [
           {
@@ -539,7 +542,7 @@ export const STORIES: Story[] = [
     // option in content/contact.ts; tests/links.test.ts checks it.
     cta: {
       title: "Still running on paper?",
-      body: "Mahaveer Instant Loan took a gold loan desk from forms and ledgers to one platform. Tell us how your business runs today, and we will show you what it could look like.",
+      body: "Instant Gold Loan took a gold loan desk from forms and ledgers to one platform. Tell us how your business runs today, and we will show you what it could look like.",
       label: "Talk to us about your platform",
       href: "/contact?topic=Software%20or%20website%20development",
     },

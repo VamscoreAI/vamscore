@@ -82,7 +82,7 @@ export const SERVICES: Service[] = [
     topic: "Channel partnership",
   },
   {
-    // Added 2026-09-22, evidenced by the Mahaveer Instant Loan story. Last
+    // Added 2026-09-22, evidenced by the Instant Gold Loan story. Last
     // because it is the newest line, which is the order the hero describes.
     id: "software",
     title: "Software and web development",
@@ -90,7 +90,7 @@ export const SERVICES: Service[] = [
     points: [
       "Cloud platforms and business web applications built around a real workflow",
       "Websites",
-      "Mahaveer Instant Loan, a gold loan management platform — see the story",
+      "Instant Gold Loan, a gold loan management platform — see the story",
     ],
     topic: "Software or website development",
   },

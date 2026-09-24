@@ -53,14 +53,17 @@ const nextConfig: NextConfig = {
         destination: "https://vamscore.com/:path*",
         permanent: true,
       })),
-      // The case study was published as "Mahaveer Pawn Broker" on 2026-09-22
-      // and renamed the same day. The old address was in the sitemap, so it
-      // may already be crawled or shared.
-      {
-        source: "/stories/mahaveer-pawn-broker",
-        destination: "/stories/mahaveer-instant-loan",
-        permanent: true,
-      },
+      // The case study was published as "Mahaveer Pawn Broker" (2026-09-22),
+      // renamed "Mahaveer Instant Loan" the same day, and "Instant Gold Loan"
+      // on 09-24. Both old addresses were in the sitemap, so they may already
+      // be crawled or shared; each goes straight to the current one.
+      ...["/stories/mahaveer-pawn-broker", "/stories/mahaveer-instant-loan"].map(
+        (source) => ({
+          source,
+          destination: "/stories/instant-gold-loan",
+          permanent: true,
+        })
+      ),
     ];
   },
 };

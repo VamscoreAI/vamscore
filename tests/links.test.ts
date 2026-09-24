@@ -121,11 +121,11 @@ describe("services and the stories that evidence them", () => {
       const story = href.match(/^\/stories\/(.+)$/);
       if (story) expect(STORY_BY_SLUG.has(story[1]), label).toBe(true);
     }
-    // The two added for the Mahaveer work, named so a removal is noticed.
+    // The two added for the Instant Gold Loan work, named so a removal is noticed.
     expect(links.map((l) => l.href)).toEqual(
       expect.arrayContaining([
         "/services#software",
-        "/stories/mahaveer-instant-loan",
+        "/stories/instant-gold-loan",
       ])
     );
   });
