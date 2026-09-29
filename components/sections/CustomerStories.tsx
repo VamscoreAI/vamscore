@@ -2,12 +2,21 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { CUSTOMER_STORIES } from "@/content/home";
+import { CUSTOMER_STORIES, SECTION_NAV, TRACK_RECORD_STATS } from "@/content/home";
 import { Eyebrow, cx } from "@/components/ui";
+import Reveal from "@/components/ui/Reveal";
+import SectionHeading, { SectionBackdrop } from "./SectionHeading";
+import StatCards from "./StatCards";
 
 /**
- * A 21:9 image band with the featured story overlaid on the left, and three
- * progress segments beneath it that both show and set which story is running.
+ * "Our track record" — the last of the three stacked home-page sections
+ * (z-index 3), rising 48px over Vision & mission on a rounded top. It opens on
+ * its SectionHeading, the subhead and intro, and the three stat cards; the
+ * story carousel below is unchanged.
+ *
+ * The carousel: a 21:9 image band with the featured story overlaid on the
+ * left, and progress segments beneath it that both show and set which story
+ * is running.
  *
  * Measured on the original at 1440: section on `#F2F1EE`; heading 40/48 at
  * weight 300; intro 20/28; the band is `aspect-ratio: 21/9`, `background-size:
@@ -23,7 +32,7 @@ import { Eyebrow, cx } from "@/components/ui";
 const DWELL_MS = 2500;
 
 export default function CustomerStories() {
-  const { title, body, slides, ctas } = CUSTOMER_STORIES;
+  const { eyebrow, title, body, slides, ctas } = CUSTOMER_STORIES;
   const [active, setActive] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const bandRef = useRef<HTMLDivElement>(null);
@@ -89,14 +98,27 @@ export default function CustomerStories() {
   const story = slides[active];
 
   return (
-    <section id="customer-stories" className="bg-[#f2f1ee] py-16 md:py-24 xl:py-28">
-      <div className="shell">
-        <h2 className="type-section max-w-[58%] min-w-[16rem] text-dark-stone">
-          {title}
-        </h2>
-        <p className="type-lede mt-6 max-w-[58%] min-w-[16rem] text-dark-stone">
-          {body}
-        </p>
+    <section
+      id="customer-stories"
+      className="relative z-[3] -mt-12 overflow-clip rounded-t-[32px] bg-sand pt-16 pb-16 md:rounded-t-[48px] md:pb-24 lg:pt-[88px] xl:pb-28"
+    >
+      <SectionBackdrop variant="record" />
+
+      <div className="shell relative">
+        <SectionHeading index="03" label={SECTION_NAV[2].label} text={eyebrow} />
+
+        {/* The section's own heading is now the one above, so the old h2
+            reads as a subhead. */}
+        <Reveal delay={200}>
+          <p className="mt-8 font-display text-[clamp(1.625rem,1.2rem+1.1vw,2.125rem)] leading-[1.25] text-carbon lg:mt-10">
+            {title}
+          </p>
+        </Reveal>
+        <Reveal delay={260}>
+          <p className="type-lede mt-4 max-w-[62ch] text-dark-stone">{body}</p>
+        </Reveal>
+
+        <StatCards stats={TRACK_RECORD_STATS} className="mt-10 lg:mt-12" />
       </div>
 
       <div

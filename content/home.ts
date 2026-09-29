@@ -9,6 +9,7 @@
 // kyndryl.com — replace it before this goes anywhere public.
 
 import { CONTACT } from "@/content/contact";
+import { SERVICES } from "@/content/services";
 
 const IMG = "/assets/img";
 const VIDEO = "/assets/video";
@@ -235,6 +236,24 @@ export const PARTNERS = {
     },
   ] as { name: string; logo?: string | null; w?: number; h?: number }[],
 };
+
+/* -------------------------------------------------------------------------- */
+/* Track-record stat cards (the "Our track record" section)                   */
+/*                                                                            */
+/* Only figures the site already states. Two are counted from the content     */
+/* that states them, so they cannot drift from it; the third mirrors copy     */
+/* that spells it out. tests/section-heading.test.ts holds all three to that. */
+/* Do not add a figure here that the site does not already say elsewhere.     */
+/* -------------------------------------------------------------------------- */
+
+export const TRACK_RECORD_STATS: { value: number; label: string }[] = [
+  // "fourteen years of operations" (WHO_WE_ARE.title), "since 2012".
+  { value: 14, label: "Years of operations" },
+  // The services page: "Five lines of work".
+  { value: SERVICES.length, label: "Lines of work" },
+  // The "Who we work with" strip: Tata, Jio Communications, Greycells 18 Media.
+  { value: PARTNERS.logos.length, label: "Brands we work with" },
+];
 
 /* -------------------------------------------------------------------------- */
 /* 7. Let's get there together                                                */

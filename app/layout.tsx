@@ -22,9 +22,10 @@ const roboto = Roboto({
 // same 53px x-height (Schibsted Grotesk, used previously, was 478 and 45).
 const display = Be_Vietnam_Pro({
   subsets: ["latin"],
-  // No "200": the only thing that used ExtraLight was `type-giant`, and it
-  // moved to 300 on 2026-09-17. Listing a weight here downloads its file.
-  weight: ["300", "400", "500", "600", "700"],
+  // "200" is for the home page's section headings (SectionHeading), which
+  // set their light words in ExtraLight against a 700 accent word. Listing a
+  // weight here downloads its file, so drop it again if those go.
+  weight: ["200", "300", "400", "500", "600", "700"],
   variable: "--font-display-face",
   display: "swap",
 });

@@ -213,9 +213,10 @@ export const ABOUT_CTA = {
 /** The condensed vision/mission band on the homepage. */
 export const VISION_MISSION_BAND = {
   eyebrow: "VISION & MISSION",
-  // Sits behind the copy at 60% under a carbon scrim. Set to null to render no
-  // image at all — no 404, no empty frame, the band just goes flat carbon.
-  image: `${IMG}/vision-mission-target.webp` as string | null,
+  // No photograph since 2026-09-29: the home page's Vision & mission section is
+  // a night ground with dots and glows (SectionHeading's backdrop). The
+  // dartboard photo it used, /assets/img/vision-mission-target.webp, is kept
+  // in the repo in case it is wanted back.
 
   cta: { label: "Read our objectives and values", href: "/about" },
 };

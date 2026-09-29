@@ -20,6 +20,22 @@
   --color-flame: #ff462d;          /* the logo red, used for eyebrow rules     */
   --color-flame-2: #fb512f;        /* the coral used for big headings + numerals */
 
+  /* The logo's gradient, sampled from the wordmark files (2026-09-29).
+     Light ground (vamscore-2026.webp): its indigo and magenta, then a pink —
+     the light wordmark has no pink of its own, so that stop is the section-
+     heading spec's. Dark ground (vamscore-2026-ondark.webp): all three stops
+     are the logo's, the same ink the footer shows. */
+  --color-brand-indigo: #4919db;
+  --color-brand-magenta: #b438dd;
+  --color-brand-pink: #f0398c;
+  --color-brand-violet-bright: #745aff;
+  --color-brand-orchid-bright: #a45fff;
+  --color-brand-pink-bright: #ff5ceb;
+
+  /* Home-page section surfaces behind the stacked section headings */
+  --color-night: #0e0f14;          /* Vision & mission                        */
+  --color-sand: #f0eeea;           /* Our track record                        */
+
   /* Type. TWK Everett is licensed, so Be Vietnam Pro stands in for it — it is
      the closest free match by advance width and x-height. Drop a licensed
      Everett into public/fonts and it takes over automatically. */
@@ -225,6 +241,235 @@
   padding-block: clamp(0.75rem, 1rem + 1.4vw, 2rem);
   -webkit-text-stroke: 1px color-mix(in srgb, var(--color-flame-2) 80%, transparent);
   -webkit-text-fill-color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   Section headings — components/sections/SectionHeading.tsx (home page)
+   --------------------------------------------------------------------------- */
+
+:root {
+  --gradient-brand: linear-gradient(
+    95deg,
+    var(--color-brand-indigo),
+    var(--color-brand-magenta) 55%,
+    var(--color-brand-pink)
+  );
+  --gradient-brand-bright: linear-gradient(
+    95deg,
+    var(--color-brand-violet-bright),
+    var(--color-brand-orchid-bright) 50%,
+    var(--color-brand-pink-bright)
+  );
+}
+
+.brand-gradient {
+  background-image: var(--gradient-brand);
+}
+
+/* Theme: ink, accent gradient, its solid fallback, and the label colour.
+   Labels: stone is 5.5:1 on white and 4.7:1 on sand; #a3a4b5 is 7.6:1 on
+   night. All three accent gradients stay above the 3:1 large-text floor on
+   their own ground at every stop. */
+.sh {
+  --sh-ink: var(--color-carbon);
+  --sh-gradient: var(--gradient-brand);
+  --sh-solid: var(--color-brand-indigo);
+  --sh-label: var(--color-stone);
+}
+.sh--dark {
+  --sh-ink: #f4f4f8;
+  --sh-gradient: var(--gradient-brand-bright);
+  --sh-solid: var(--color-brand-violet-bright);
+  --sh-label: #a3a4b5;
+}
+
+/* Heading on the left, `aside` on the right and bottom-aligned; the aside
+   drops beneath the heading as soon as the pair would not fit side by side. */
+.sh-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  column-gap: 48px;
+  row-gap: 28px;
+}
+.sh-aside {
+  flex: 1 1 320px;
+  max-width: 500px;
+}
+
+.sh-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sh-label);
+}
+.sh-label::before {
+  content: "";
+  flex: none;
+  width: 36px;
+  height: 2px;
+  background: var(--color-flame);
+}
+
+.sh-heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(56px, 10vw, 144px);
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-transform: lowercase;
+  color: var(--sh-ink);
+}
+
+/* Each word rises out of its own mask. The mask is a clip-path with negative
+   insets, so its window reaches 0.26em below the line box — the descender of
+   the "y" in "story" sits inside it rather than being cut at line-height 1.
+   The word is padded by the same amounts (and pulled back with negative
+   margins, so layout does not change): that makes its box, and so its
+   gradient, cover the descender too, and makes translateY(100%) carry the
+   whole word clear of the window. */
+.sh-mask {
+  display: inline-block;
+  clip-path: inset(-0.12em -0.1em -0.26em -0.04em);
+}
+.sh-word {
+  display: inline-block;
+  padding: 0.12em 0.06em 0.26em 0;
+  margin: -0.12em -0.06em -0.26em 0;
+  transform: translate3d(0, 100%, 0);
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--i, 0) * 80ms);
+}
+.sh-light { font-weight: 200; }
+.sh-amp { font-weight: 200; color: var(--color-flame); }
+.sh-accent {
+  font-weight: 700;
+  color: var(--sh-solid);
+}
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  .sh-accent {
+    background-image: var(--sh-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* The full stop: an inline-block with no content has its baseline at its
+   bottom edge, so it sits on the text baseline like a real period. The ring
+   is the spec's 10px at 144px and scales down with the type below that. */
+.sh-dot {
+  display: inline-block;
+  width: 0.18em;
+  height: 0.18em;
+  margin-left: 0.06em;
+  border-radius: 9999px;
+  background: var(--color-flame);
+  box-shadow: 0 0 0 min(10px, 0.07em) color-mix(in srgb, var(--color-flame) 16%, transparent);
+  transform: scale(0);
+  transition: transform 560ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--dot-delay, 0ms);
+}
+
+.sh-fade {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 600ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--fade-delay, 0ms),
+    transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--fade-delay, 0ms);
+}
+
+.sh[data-shown] .sh-word,
+.sh[data-shown] .sh-dot,
+.sh[data-shown] .sh-fade {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sh-word,
+  .sh-dot,
+  .sh-fade {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* The layer behind a section: a dot grid fading out downward, and soft glows.
+   Sizes are in vw with px caps so the composition holds from phone to wide
+   desktop; the section's overflow-clip trims whatever overhangs. */
+.sh-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.sh-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--sh-dot) 1.25px, transparent 1.75px);
+  background-size: 30px 30px;
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent var(--sh-dot-fade, 65%));
+  mask-image: linear-gradient(to bottom, #000, transparent var(--sh-dot-fade, 65%));
+}
+.sh-glow {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, var(--sh-glow), transparent);
+}
+
+.sh-backdrop--story {
+  --sh-dot: color-mix(in srgb, var(--color-brand-indigo) 22%, transparent);
+  --sh-dot-fade: 55%;
+}
+.sh-backdrop--story .sh-glow-1 {
+  --sh-glow: color-mix(in srgb, var(--color-brand-pink) 22%, transparent);
+  width: min(1000px, 85vw);
+  top: calc(min(1000px, 85vw) * -0.42);
+  right: calc(min(1000px, 85vw) * -0.3);
+}
+
+.sh-backdrop--vision {
+  --sh-dot: rgb(255 255 255 / 0.1);
+  --sh-dot-fade: 70%;
+}
+.sh-backdrop--vision .sh-glow-1 {
+  --sh-glow: color-mix(in srgb, var(--color-brand-indigo) 45%, transparent);
+  width: min(1100px, 95vw);
+  bottom: calc(min(1100px, 95vw) * -0.5);
+  left: calc(min(1100px, 95vw) * -0.32);
+}
+/* Low on the right, behind the mission copy rather than the heading, so the
+   accent gradient keeps its contrast on plain night. */
+.sh-backdrop--vision .sh-glow-2 {
+  --sh-glow: color-mix(in srgb, var(--color-flame) 28%, transparent);
+  width: min(900px, 80vw);
+  bottom: calc(min(900px, 80vw) * -0.3);
+  right: calc(min(900px, 80vw) * -0.42);
+}
+
+.sh-backdrop--record {
+  --sh-dot: rgb(22 22 22 / 0.09);
+  --sh-dot-fade: 40%;
+}
+/* Centred just past the top-right corner, so only its soft edge reaches in.
+   The gradient's pink end is only 3.2:1 on bare sand; measured against the
+   rendered heading, a glow centred inside the corner still took the tip of
+   "record" down to 3.00:1 at 768 and 1024. Out here it never reaches it. */
+.sh-backdrop--record .sh-glow-1 {
+  --sh-glow: color-mix(in srgb, var(--color-brand-indigo) 12%, transparent);
+  width: min(900px, 80vw);
+  top: calc(min(900px, 80vw) * -0.75);
+  right: calc(min(900px, 80vw) * -0.55);
 }
 
 /* Infinite partner-logo marquee */

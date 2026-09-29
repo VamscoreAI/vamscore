@@ -1,5 +1,3 @@
-import { CUSTOMER_STORIES, WHO_WE_ARE } from "@/content/home";
-import { VISION_MISSION_BAND } from "@/content/about";
 import AiNativeBand from "@/components/sections/AiNativeBand";
 import Connect from "@/components/sections/Connect";
 import CustomerStories from "@/components/sections/CustomerStories";
@@ -9,7 +7,6 @@ import Hero from "@/components/sections/Hero";
 import InternshipBand from "@/components/sections/InternshipBand";
 import PartnerMarquee from "@/components/sections/PartnerMarquee";
 import SectionNav from "@/components/sections/SectionNav";
-import SectionWatermark from "@/components/sections/SectionWatermark";
 import WhoWeAre from "@/components/sections/WhoWeAre";
 import VisionMission from "@/components/sections/VisionMission";
 import VisitorCounter from "@/components/sections/VisitorCounter";
@@ -79,11 +76,10 @@ export default function HomePage() {
       />
       <Hero />
       <SectionNav />
-      <SectionWatermark>{WHO_WE_ARE.eyebrow}</SectionWatermark>
+      {/* Three stacked sections: each opens on a SectionHeading, and the next
+          rises 48px over the one before on a rounded top (z-index 1, 2, 3). */}
       <WhoWeAre />
-      <SectionWatermark>{VISION_MISSION_BAND.eyebrow}</SectionWatermark>
       <VisionMission />
-      <SectionWatermark>{CUSTOMER_STORIES.eyebrow}</SectionWatermark>
       <CustomerStories />
       <AiNativeBand />
       <PartnerMarquee />
