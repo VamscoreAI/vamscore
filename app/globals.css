@@ -394,6 +394,17 @@
   transform: none;
 }
 
+/* The shared reveal rule clips every revealed element to its own box
+   (`[data-reveal][data-shown] { clip-path: inset(0 0 0 0) }`, which the wipe
+   variant needs). This heading's Reveal wrapper ends at the bottom of a
+   line-height-1 line, so that clip cut the tail of the "y" in "story" off
+   flat — 9px of it at 144px. The word masks already do all the clipping this
+   heading needs, so the wrapper opts out. Scoped to `.sh`: the about page also
+   uses the `none` trigger and is left exactly as it was. */
+.sh[data-reveal][data-shown] {
+  clip-path: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sh-word,
   .sh-dot,
