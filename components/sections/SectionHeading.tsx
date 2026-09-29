@@ -1,4 +1,4 @@
-import { Fragment, type CSSProperties, type ReactNode } from "react";
+import { Fragment, type CSSProperties } from "react";
 import { cx } from "@/components/ui";
 import Reveal from "@/components/ui/Reveal";
 import { lightGroups, splitHeading } from "@/lib/sectionHeading";
@@ -16,8 +16,8 @@ import { lightGroups, splitHeading } from "@/lib/sectionHeading";
  * **Motion** (styles in globals.css, "Section headings"). `Reveal` in its
  * `none` mode is the trigger: one IntersectionObserver, fires once, and hands
  * `data-shown` to this block. Each word then rises out of its own mask, 80ms
- * apart; the dot pops in last with a small overshoot; the label and `aside`
- * fade up after. Under reduced motion all of it is simply there.
+ * apart; the dot pops in last with a small overshoot; the label fades up
+ * after. Under reduced motion all of it is simply there.
  *
  * **Masks and descenders.** A word mask is a clip-path, not `overflow:hidden`:
  * clip-path can reach past the box (so the "y" of "story" is not cut at the
@@ -37,7 +37,6 @@ export default function SectionHeading({
   label,
   text,
   theme = "light",
-  aside,
   className,
 }: {
   /** "01", "02", … */
@@ -47,8 +46,6 @@ export default function SectionHeading({
   /** The heading phrase; its last word becomes the accent. */
   text: string;
   theme?: "light" | "dark";
-  /** Sits beside the heading on wide screens, bottom-aligned; below it on narrow. */
-  aside?: ReactNode;
   className?: string;
 }) {
   const { light, accent } = splitHeading(text);
@@ -57,7 +54,7 @@ export default function SectionHeading({
   let n = 0;
   const groups = lightGroups(light).map((group) => group.map((word) => ({ word, i: n++ })));
   const accentIndex = n;
-  // The dot lands as the accent word settles; label and aside follow.
+  // The dot lands as the accent word settles; the label follows.
   const settle = accentIndex * STAGGER;
   const vars = (v: Record<string, string | number>) => v as CSSProperties;
 
@@ -71,42 +68,32 @@ export default function SectionHeading({
 
   return (
     <Reveal variant="none" className={cx("sh", theme === "dark" && "sh--dark", className)}>
-      <div className="sh-row">
-        <div className="min-w-0">
-          <p aria-hidden className="sh-label sh-fade" style={vars({ "--fade-delay": `${settle + 240}ms` })}>
-            {index} / {label}
-          </p>
+      <p aria-hidden className="sh-label sh-fade" style={vars({ "--fade-delay": `${settle + 240}ms` })}>
+        {index} / {label}
+      </p>
 
-          <h2 className="sh-heading">
-            <span className="sr-only">{[...light, accent].join(" ")}</span>
-            <span aria-hidden>
-              {groups.map((group, g) => (
-                <Fragment key={g}>
-                  <span className="whitespace-nowrap">
-                    {group.map(({ word: w, i }, k) => (
-                      <Fragment key={i}>
-                        {k > 0 && " "}
-                        {word(w, i, w === "&" ? "amp" : "light")}
-                      </Fragment>
-                    ))}
-                  </span>{" "}
-                </Fragment>
-              ))}
-              {/* The accent and the dot never part company across a line break. */}
+      <h2 className="sh-heading">
+        <span className="sr-only">{[...light, accent].join(" ")}</span>
+        <span aria-hidden>
+          {groups.map((group, g) => (
+            <Fragment key={g}>
               <span className="whitespace-nowrap">
-                {word(accent, accentIndex, "accent")}
-                <span className="sh-dot" style={vars({ "--dot-delay": `${settle + 420}ms` })} />
-              </span>
-            </span>
-          </h2>
-        </div>
-
-        {aside && (
-          <div className="sh-aside sh-fade" style={vars({ "--fade-delay": `${settle + 360}ms` })}>
-            {aside}
-          </div>
-        )}
-      </div>
+                {group.map(({ word: w, i }, k) => (
+                  <Fragment key={i}>
+                    {k > 0 && " "}
+                    {word(w, i, w === "&" ? "amp" : "light")}
+                  </Fragment>
+                ))}
+              </span>{" "}
+            </Fragment>
+          ))}
+          {/* The accent and the dot never part company across a line break. */}
+          <span className="whitespace-nowrap">
+            {word(accent, accentIndex, "accent")}
+            <span className="sh-dot" style={vars({ "--dot-delay": `${settle + 420}ms` })} />
+          </span>
+        </span>
+      </h2>
     </Reveal>
   );
 }

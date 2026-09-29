@@ -283,21 +283,6 @@
   --sh-label: #a3a4b5;
 }
 
-/* Heading on the left, `aside` on the right and bottom-aligned; the aside
-   drops beneath the heading as soon as the pair would not fit side by side. */
-.sh-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  column-gap: 48px;
-  row-gap: 28px;
-}
-.sh-aside {
-  flex: 1 1 320px;
-  max-width: 500px;
-}
-
 .sh-label {
   display: flex;
   align-items: center;
