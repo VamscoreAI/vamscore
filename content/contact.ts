@@ -1,13 +1,18 @@
 /**
  * The contact page — where "Let's talk" and every Contact link now land.
  *
- * Phone (supplied 2026-09-10) and email (2026-09-11) are real. The office is
- * still `[bracketed]`: Vamscore has not supplied it. It is left visibly
- * unfilled rather than invented, which is the same convention as everywhere
- * else in `content/` — but on this page in particular, **do not publish while
- * it is still bracketed**. A contact page showing `[city, state]` is worse than
- * one showing nothing.
+ * Phone (supplied 2026-09-10), email (2026-09-11) and the office address
+ * (2026-10-22) are all real, supplied by Vamscore.
  */
+
+/** The office, as Vamscore supplied it (2026-10-22). */
+export const OFFICE = {
+  line: "Cunningham Road, No. 37, Cunningham Cross Road, Bangalore, KA 560052",
+  street: "No. 37, Cunningham Cross Road, Cunningham Road",
+  city: "Bangalore",
+  region: "KA",
+  postalCode: "560052",
+};
 
 export type ContactField = {
   name: string;
@@ -144,7 +149,12 @@ export const CONTACT = {
       // E.164 so the link dials correctly from outside India too — without the
       // country code a tel: link only works for callers already in India.
       { label: "Phone", value: "+91 94907 29484", href: "tel:+919490729484" },
-      { label: "Office", value: "[city, state]" },
+      // Opens the address in Google Maps, in a new tab.
+      {
+        label: "Office",
+        value: OFFICE.line,
+        href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(OFFICE.line)}`,
+      },
     ],
     careersNote: {
       text: "Looking for a job rather than a supplier?",

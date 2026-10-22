@@ -415,7 +415,7 @@ export const CONNECT = {
   // Kept in step so this cannot mislead, but it is a candidate for deletion.
   email: "info@vamscore.com",
   phone: "+91 94907 29484",
-  address: "[city, state]",
+  address: "Cunningham Road, No. 37, Cunningham Cross Road, Bangalore, KA 560052",
 };
 
 /* -------------------------------------------------------------------------- */

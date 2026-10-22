@@ -11,7 +11,7 @@ import WhoWeAre from "@/components/sections/WhoWeAre";
 import VisionMission from "@/components/sections/VisionMission";
 import VisitorCounter from "@/components/sections/VisitorCounter";
 import type { Metadata } from "next";
-import { EMAIL } from "@/content/contact";
+import { EMAIL, OFFICE } from "@/content/contact";
 import { COMPANY, FOOTER_SOCIAL, SITE_DESCRIPTION } from "@/content/nav";
 import { SITE_URL } from "@/lib/site";
 
@@ -49,6 +49,14 @@ const STRUCTURED_DATA = {
       email: EMAIL.primary,
       // The same line as the contact page's Phone row, in E.164.
       telephone: "+919490729484",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: OFFICE.street,
+        addressLocality: OFFICE.city,
+        addressRegion: OFFICE.region,
+        postalCode: OFFICE.postalCode,
+        addressCountry: "IN",
+      },
       areaServed: "IN",
       sameAs: FOOTER_SOCIAL.map((s) => s.href),
     },
