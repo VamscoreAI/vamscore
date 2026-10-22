@@ -47,7 +47,7 @@ export const SERVICES: Service[] = [
     points: [
       "Back-office processing",
       "Customer-facing operations",
-      "[Add the specific processes Vamscore runs — this is the question prospects ask first.]",
+      "Sales, distribution, onboarding and KYC, and customer servicing",
     ],
     topic: "Business process operations",
   },
@@ -58,7 +58,7 @@ export const SERVICES: Service[] = [
     points: [
       "Workflow automation on processes we already run",
       "Robotics built on operational experience, not theory",
-      "[Describe the robotics work and the kind of problem it is applied to.]",
+      "STEM robotics for education, alongside software that automates paper-heavy work",
     ],
     topic: "Robotics and automation",
   },
@@ -80,7 +80,7 @@ export const SERVICES: Service[] = [
     points: [
       "Authorised Tata channel partner",
       "Sales, distribution and service",
-      "[Add which Tata company and which product lines.]",
+      "Tata Docomo: prepaid, postpaid and enterprise connections",
     ],
     topic: "Channel partnership",
   },

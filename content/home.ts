@@ -332,11 +332,11 @@ export const FAQ = {
       items: [
         {
           q: "What kind of processes does Vamscore take on?",
-          a: "[List the specific back-office and customer-facing processes Vamscore runs — this is the question prospects ask first.]",
+          a: "Back-office and customer-facing operations that have to run every day at volume: sales and customer acquisition, distribution and retail channel management, field-team operations, customer onboarding and KYC verification, and customer servicing — the work we have run for Jio, Tata Docomo and Greycells 18 Media.",
         },
         {
           q: "What does Vamscore's robotics work involve?",
-          a: "[Describe the robotics and automation Vamscore builds, and the kind of problem it is applied to.]",
+          a: "Two kinds. Process automation and software that take repetitive, paper-heavy work off people's hands — such as Instant Gold Loan, a platform that replaced a gold-loan desk's paper forms, calculator and ledger. And STEM robotics for education, bringing hands-on, technology-led learning to students.",
         },
       ],
     },
@@ -345,7 +345,7 @@ export const FAQ = {
       items: [
         {
           q: "What does being a Tata channel partner mean?",
-          a: "It means Vamscore is authorised to take Tata solutions to market and support them for clients. [Add which Tata company and which product lines.]",
+          a: "It means Vamscore is authorised to take Tata solutions to market and support them for clients. As a channel partner for Tata Docomo (Tata Teleservices), that covered prepaid, postpaid and enterprise connections, recharge vouchers and SIM distribution, KYC-verified customer onboarding, and customer servicing.",
         },
         {
           q: "Can Vamscore act as a territory partner for our organisation?",
@@ -358,11 +358,7 @@ export const FAQ = {
       items: [
         {
           q: "How do engagements usually start?",
-          a: "[Describe the first step — a scoping call, a pilot, a site visit.]",
-        },
-        {
-          q: "How is Vamscore's work priced?",
-          a: "[Outline the commercial models Vamscore offers, e.g. per-seat, per-transaction, or fixed-scope.]",
+          a: "With a conversation. Tell us what you need run, automated or built — by the contact form, WhatsApp or a call — and we will talk it through, scope the work with you, and tell you honestly whether we are the right people for it before anything is agreed.",
         },
       ],
     },
