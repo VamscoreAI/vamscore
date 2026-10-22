@@ -38,6 +38,7 @@ export const NAV_ITEMS: NavItem[] = [
           },
           { label: "Tata channel partnership", href: "/services#channel" },
           { label: "Software and web development", href: "/services#software" },
+          { label: "Digital marketing", href: "/services#digital-marketing" },
         ],
       },
       {
@@ -127,6 +128,7 @@ export const FOOTER_COLUMNS: NavGroup[] = [
       },
       { label: "Tata channel partnership", href: "/services#channel" },
       { label: "Software and web development", href: "/services#software" },
+      { label: "Digital marketing", href: "/services#digital-marketing" },
       // Scrolls to the internship band on the home page (its section has
       // id="internships"); the band's own button is what opens WhatsApp. The
       // band renders nothing if the WhatsApp number is removed, so this link

@@ -108,6 +108,23 @@ export default function ServicesPage() {
                 ))}
               </ul>
 
+              {service.gallery && service.gallery.length > 0 && (
+                <ul className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-4">
+                  {service.gallery.map((pic, j) => (
+                    <Reveal key={pic.src} as="li" delay={260 + j * 80}>
+                      <Image
+                        src={pic.src}
+                        alt={pic.alt}
+                        width={600}
+                        height={600}
+                        sizes="(min-width: 1024px) 220px, 45vw"
+                        className="aspect-square w-full rounded-2xl object-cover"
+                      />
+                    </Reveal>
+                  ))}
+                </ul>
+              )}
+
               <Reveal delay={500}>
                 {/* Lands on the contact form with this line already chosen, so
                     the form does not ask a question the reader just answered by

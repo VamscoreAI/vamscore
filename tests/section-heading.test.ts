@@ -44,8 +44,8 @@ describe("track-record stat cards", () => {
     expect(WHO_WE_ARE.title).toContain("fourteen years");
 
     expect(lines.value).toBe(SERVICES.length);
-    expect(SERVICES_HERO.standfirst).toMatch(/^Five lines of work/);
-    expect(lines.value).toBe(5);
+    expect(SERVICES_HERO.standfirst).toMatch(/^Six lines of work/);
+    expect(lines.value).toBe(6);
 
     expect(brands.value).toBe(PARTNERS.logos.length);
     expect(PARTNERS.title).toBe("Who we work with");

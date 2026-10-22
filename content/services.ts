@@ -23,13 +23,16 @@ export type Service = {
    *  must match an option in `content/contact.ts` exactly, or the form falls
    *  back to "Please choose…". */
   topic: string;
+  /** Pictures shown under the points, in a grid. Optional; renders nothing
+   *  when absent or empty. Each file needs a `.gitignore` negation. */
+  gallery?: { src: string; alt: string }[];
 };
 
 export const SERVICES_HERO = {
   eyebrow: "WHAT WE DO",
   title: "Operations, automation and delivery at scale",
   standfirst:
-    "Five lines of work, built in the order Vamscore learned them: run the process first, automate it second, take it to market with partners who need reach — and build the software a business runs on.",
+    "Six lines of work, built in the order Vamscore learned them: run the process first, automate it second, take it to market with partners who need reach — and build the software a business runs on, and the marketing that gets it seen.",
   // Vamscore-supplied. Replaced a Kyndryl photograph of two identifiable women,
   // which this page shared with the homepage automation band until that band
   // was swapped. A silhouette, so there is no identifiable face in it either.
@@ -93,6 +96,21 @@ export const SERVICES: Service[] = [
       "Instant Gold Loan, a gold loan management platform — see the story",
     ],
     topic: "Software or website development",
+  },
+  {
+    // Added 2026-10-22 at Vamscore's request. Pictures to follow: add them to
+    // `gallery` when supplied.
+    id: "digital-marketing",
+    title: "Digital marketing",
+    body: "We keep a business visible where its customers already spend their time — planning and running its social media, and putting out the right creative for every occasion that matters to its audience.",
+    points: [
+      "Social media handling — content calendars, posting and replies",
+      "Festival and special-occasion posters, ready on the day",
+      "Account boosting — growing reach and followers with organic and paid promotion",
+      "Brand creatives for posts and campaigns, in your own look",
+    ],
+    topic: "Digital marketing",
+    gallery: [],
   },
 ];
 
